@@ -4,6 +4,18 @@ public class Hashtag {
     private int id;
     private String hashtag;
 
+    public Hashtag() {
+    }
+
+    public Hashtag(String hashtag) {
+        this.hashtag = hashtag;
+    }
+
+    public Hashtag(int id, String hashtag) {
+        this(hashtag);
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

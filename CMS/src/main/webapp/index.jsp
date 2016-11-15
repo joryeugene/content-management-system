@@ -25,7 +25,7 @@
             </div>
             <h2>Home Page</h2>
             
-            YO YO YOYOYYOYOY O
+            no
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-3.0.0.min.js"></script>

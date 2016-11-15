@@ -1,5 +1,5 @@
 
-package com.teamexcalibur;
+package com.teamexcalibur.validation;
 
 /**
  * 

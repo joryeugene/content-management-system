@@ -15,5 +15,8 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"> 
 
     <!-- Bean definitions go here -->
+    <bean id="pageDao"
+          class="com.teamexcalibur.dao.PageDaoInMemImpl">
+    </bean>
     
 </beans>

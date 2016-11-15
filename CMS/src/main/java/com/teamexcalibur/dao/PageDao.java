@@ -8,7 +8,7 @@ public interface PageDao {
     
     Page addPage(Page page);
     void deletePage(int id);
-    void updatePage(int id);
+    void updatePage(Page page);
     Page getPageById(int id);
     List<Page> getAllPages();
     List<Nav> getAllNavs();

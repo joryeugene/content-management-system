@@ -2,9 +2,25 @@ package com.teamexcalibur.dto;
 
 public class Page {
     private int id;
-    private User author;
+    private User user;
     private String title;
     private String content;
+
+    public Page() {
+    }
+
+    public Page(User user, String title, String content) {
+        this.user = user;
+        this.title = title;
+        this.content = content;
+    }
+
+    public Page(int id, User user, String title, String content) {
+        this.id = id;
+        this.user = user;
+        this.title = title;
+        this.content = content;
+    }
 
     public int getId() {
         return id;
@@ -14,12 +30,12 @@ public class Page {
         this.id = id;
     }
 
-    public User getAuthor() {
-        return author;
+    public User getUser() {
+        return user;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getTitle() {

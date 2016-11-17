@@ -1,14 +1,11 @@
 package com.teamexcalibur.dao;
 
 import com.teamexcalibur.dto.Category;
-import com.teamexcalibur.dto.Hashtag;
 import com.teamexcalibur.dto.Post;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.transaction.annotation.Propagation;
@@ -42,8 +39,8 @@ public class PostDaoDbImpl implements PostDao {
             = "select * from Post where PostId = ?";
     private static final String SQL_SELECT_POSTS_BY_CATEGORY_ID
             = "select * from Post where CategoryId = ?";
-    private static final String SQL_SELECT_POSTS_BY_HASHTAG_ID
-            = "select * from Post where PostId = PostHashtag.PostId and PostHashtag.HashtagId = ?";
+    private static final String SQL_SELECT_POSTS_BY_HASHTAG
+            = "select * from Post join PostHashtag on PostId where Hashtag = ?";
     private static final String SQL_SELECT_ALL_POSTS
             = "select * from Post";
 
@@ -52,11 +49,11 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_DELETE_CATEGORY
             = "delete from Category where CategoryId = ?";
     private static final String SQL_UPDATE_CATEGORY
-            = "update Category set CategoryName = ? where PostId = ?";
+            = "update Category set CategoryName = ? where CategoryId = ?";
     private static final String SQL_SELECT_CATEGORY_BYID
             = "select * from Category where CategoryId = ?";
     private static final String SQL_SELECT_USED_CATEGORIES
-            = "select distinct * from Category where CategoryId = Post.CategoryId;";
+            = "select distinct CategoryId, CategoryName from Post join Category on CategoryId;";
     private static final String SQL_SELECT_ALL_CATEGORIES
             = "select * from Category";
 
@@ -79,7 +76,7 @@ public class PostDaoDbImpl implements PostDao {
     }
 
     public PostDaoDbImpl() {
-//        this.uDao = new UserDaoDbImpl();
+        this.uDao = new UserDaoDbImpl();
     }
 
     public PostDaoDbImpl(UserDao uDao) {
@@ -95,12 +92,16 @@ public class PostDaoDbImpl implements PostDao {
                 post.getCategory().getId(), post.isQueued());
         post.setId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
-        // deal with hashtags
+        for (String tag : post.getHashtags()) {
+            jdbcTemplate.update(SQL_INSERT_HASHTAG, post.getId(), tag);
+        }
         return post;
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void deletePost(int id) {
+        jdbcTemplate.update(SQL_DELETE_HASHTAG_BY_POSTID, id);
         jdbcTemplate.update(SQL_DELETE_POST, id);
     }
 
@@ -115,20 +116,37 @@ public class PostDaoDbImpl implements PostDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void updatePost(Post post) {
         jdbcTemplate.update(SQL_UPDATE_POST, post.getAuthor().getId(), post.getTitle(),
                 post.getContent(), post.getNumViews(), post.getStartDate(), post.getEndDate(),
                 post.getCategory().getId(), post.isQueued(), post.getId());
+        jdbcTemplate.update(SQL_DELETE_HASHTAG_BY_POSTID, post.getId());
+        for (String tag : post.getHashtags()) {
+            jdbcTemplate.update(SQL_INSERT_HASHTAG, post.getId(), tag);
+        }
     }
 
     @Override
     public Post getPostById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Post post = jdbcTemplate.queryForObject(SQL_SELECT_POST_BYID,
+                    new PostMapper(), id);
+            List<String> tags = getHashtagsByPostId(id);
+            post.setHashtags(tags);
+            return post;
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
     public List<Post> getAllPosts() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_ALL_POSTS, new PostMapper());
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
     }
 
     @Override
@@ -141,22 +159,28 @@ public class PostDaoDbImpl implements PostDao {
 
     @Override
     public void deleteCategory(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_DELETE_CATEGORY, id);
     }
 
     @Override
     public void updateCategory(Category category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_UPDATE_CATEGORY, category.getName(), category.getId());
     }
 
     @Override
     public Category getCategoryById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Category category = jdbcTemplate.queryForObject(SQL_SELECT_CATEGORY_BYID,
+                    new CategoryMapper(), id);
+            return category;
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
     public List<Category> getAllCategories() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return jdbcTemplate.query(SQL_SELECT_ALL_CATEGORIES, new CategoryMapper());
     }
 
     @Override
@@ -179,23 +203,31 @@ public class PostDaoDbImpl implements PostDao {
 
     @Override
     public List<Post> getPostsByCategoryId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Post> getPostsByHashtagId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_CATEGORY_ID, new PostMapper());
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
     }
 
     @Override
     public String addHashtag(int postId, String hashtag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        jdbcTemplate.update(SQL_INSERT_HASHTAG, postId, hashtag);
+        return hashtag;
     }
 
     @Override
-    public List<String> getHashtagsById(int postId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Post> getPostsByHashtag(String hashtag) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_HASHTAG, new PostMapper());
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<String> getHashtagsByPostId(int postId) {
+        return jdbcTemplate.query(SQL_SELECT_HASHTAG_BY_POSTID, new StringMapper(), postId);
     }
 
     private final class PostMapper implements RowMapper<Post> {
@@ -210,8 +242,7 @@ public class PostDaoDbImpl implements PostDao {
             post.setNumViews(rs.getInt("NumOfViews"));
             post.setStringStartDate(rs.getString("StartDate"));
             post.setStringEndDate(rs.getString("EndDate"));
-//            post.setCategory((rs.getInt("CategoryId"))
-//            );
+            post.setCategory(getCategoryById(rs.getInt("CategoryId")));
             post.setQueued(rs.getBoolean("Queued"));
             return post;
         }

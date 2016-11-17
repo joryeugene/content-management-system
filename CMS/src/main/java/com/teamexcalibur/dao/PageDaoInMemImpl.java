@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PageDaoInMemoryImpl implements PageDao {
+public class PageDaoInMemImpl implements PageDao {
 
     private final Map<Integer, Page> pageMap = new HashMap<>();
     private static int idCounter = 0;
 
-    public PageDaoInMemoryImpl() {
+    public PageDaoInMemImpl() {
         addPage(new Page(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png", "password"),
                 "About Us", "Content of the about me page here"));
        addPage(new Page(new User("user2@example.com", "User2", "ROLE_WRITER", "/img/avatar.png", "password"),

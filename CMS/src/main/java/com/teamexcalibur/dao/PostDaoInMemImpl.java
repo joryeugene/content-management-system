@@ -35,7 +35,7 @@ public class PostDaoInMemImpl implements PostDao {
     }
 
     private void populate() {
-        UserDao users = new UserDaoMemoryImpl();
+        UserDao users = new UserDaoInMemImpl();
         List<String> oneTag = new ArrayList<>();
         oneTag.add("#YoMama");
         List<String> twoTags = new ArrayList<>();
@@ -171,17 +171,26 @@ public class PostDaoInMemImpl implements PostDao {
     }
 
     @Override
-    public List<Post> getPostsByHashtagId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Post> getPostsByHashtag(String hashtag) {
+        List<Post> result = new ArrayList<>();
+        for (Post post : postMap.values()) {
+            for (String str : post.getHashtags())
+                if (str.equals(hashtag))
+                    result.add(post);
+        }
+        return result;
     }
 
     @Override
     public String addHashtag(int postId, String hashtag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Post post = postMap.get(postId);
+        List <String> tags = post.getHashtags();
+        tags.add(hashtag);
+        return(hashtag);
     }
 
     @Override
-    public List<String> getHashtagsById(int postId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<String> getHashtagsByPostId(int postId) {
+        return postMap.get(postId).getHashtags();
     }
 }

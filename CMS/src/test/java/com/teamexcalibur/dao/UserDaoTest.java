@@ -31,7 +31,7 @@ public class UserDaoTest {
     
     public UserDaoTest() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        dao = ctx.getBean("userDao", UserDaoMemoryImpl.class);
+        dao = ctx.getBean("userDao", UserDaoInMemImpl.class);
     }
     
     @BeforeClass

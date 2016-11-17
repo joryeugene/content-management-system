@@ -12,7 +12,7 @@ public interface PostDao {
     void updatePost(Post post);
     Post getPostById(int id);
     List<Post> getPostsByCategoryId(int id);
-    List<Post> getPostsByHashtagId(int id);
+    List<Post> getPostsByHashtag(String hashtag);
     List<Post> getAllPosts();
     
     Category addCategory(Category category);
@@ -23,7 +23,7 @@ public interface PostDao {
     List<Category> getAllCategories();
     
     String addHashtag(int postId, String hashtag);
-    List<String> getHashtagsById(int postId);
+    List<String> getHashtagsByPostId(int postId);
     List<String> getUsedHashtags();
     List<String> getAllHashtags();
 

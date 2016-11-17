@@ -11,12 +11,12 @@ import java.util.Map;
  *
  * @author
  */
-public class UserDaoMemoryImpl implements UserDao {
+public class UserDaoInMemImpl implements UserDao {
 
     Map<Integer, User> userMap = new HashMap<>();
     public static int userIdCounter = 0;
 
-    public UserDaoMemoryImpl() {
+    public UserDaoInMemImpl() {
         addUser(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png","password"));
         addUser(new User("user2@example.com", "User2", "ROLE_USER", "/img/avatar.png","password"));
     }

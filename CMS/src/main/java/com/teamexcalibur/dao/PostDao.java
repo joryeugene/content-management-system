@@ -11,18 +11,22 @@ public interface PostDao {
     void deletePost(int id);
     void updatePost(Post post);
     Post getPostById(int id);
+    List<Post> getPostsByCategoryId(int id);
+    List<Post> getPostsByHashtagId(int id);
     List<Post> getAllPosts();
     
     Category addCategory(Category category);
     void deleteCategory(int id);
     void updateCategory(Category category);
     Category getCategoryById(int id);
+    List<Category> getUsedCategories();
     List<Category> getAllCategories();
     
     Hashtag addHashtag(Hashtag hashtag);
     void deleteHashtag(int id);
     void updateHashtag(Hashtag hashtag);
     Hashtag getHashtagById(int id);
+    List<Hashtag> getUsedHashtags();
     List<Hashtag> getAllHashtags();
 
 }

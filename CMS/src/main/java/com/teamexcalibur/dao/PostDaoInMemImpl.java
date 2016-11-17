@@ -39,6 +39,33 @@ public class PostDaoInMemImpl implements PostDao {
     }
 
     private void populate() {
+        UserDao users = new UserDaoMemoryImpl();
+        
+        this.addHashtag(new Hashtag("#YoMama"));
+        this.addHashtag(new Hashtag("#YoPapa"));
+        this.addHashtag(new Hashtag("#YoJory"));
+        List<Hashtag> oneTag = new ArrayList<>();
+        oneTag.add(this.getHashtagById(0));
+        List<Hashtag> twoTags = new ArrayList<>();
+        twoTags.add(this.getHashtagById(1));
+        twoTags.add(this.getHashtagById(2));
+        
+        this.addCategory(new Category("Monday"));
+        this.addCategory(new Category("Tuesday"));
+        this.addCategory(new Category("Wednesday"));
+        this.addCategory(new Category("Thursday"));
+        this.addCategory(new Category("Friday"));
+        
+        this.addPost(new Post(users.getUserById(0), "Title 0", "Content 0", 0,
+                null, null, this.getCategoryById(0), oneTag, false));
+        this.addPost(new Post(users.getUserById(1), "Title 1", "Content 1", 0,
+                null, null, this.getCategoryById(1), twoTags, false));
+        this.addPost(new Post(users.getUserById(0), "Title 2", "Content 2", 0,
+                null, null, this.getCategoryById(2), oneTag, false));
+        this.addPost(new Post(users.getUserById(1), "Title 3", "Content 3", 0,
+                null, null, this.getCategoryById(1), twoTags, false));
+        this.addPost(new Post(users.getUserById(0), "Title 4", "Content 4", 0,
+                null, null, this.getCategoryById(2), oneTag, false));
     }
 
     @Override
@@ -125,4 +152,57 @@ public class PostDaoInMemImpl implements PostDao {
         return new ArrayList(c);
     }
 
+    @Override
+    public List<Post> getPostsByCategoryId(int id) {
+        List<Post> result = new ArrayList<>();
+        for (Post post : postMap.values())
+            if (post.getCategory().getId() == id)
+                result.add(post);
+        
+        return result;
+    }
+
+    @Override
+    public List<Post> getPostsByHashtagId(int id) {
+        List<Post> result = new ArrayList<>();
+        for (Post post : postMap.values())
+            for (Hashtag tag : post.getHashtags())
+                if (tag.getId() == id)
+                    result.add(post);
+        
+        return result;
+    }
+
+    @Override
+    public List<Category> getUsedCategories() {
+        List<Category> result = new ArrayList<>();
+        for (Category cat : this.getAllCategories()) {
+            for (Post post : this.getAllPosts())
+                if (post.getCategory().getId() == cat.getId()) {
+                    result.add(cat);
+                    break;
+                }
+        }
+        return result;
+    }
+
+    @Override
+    public List<Hashtag> getUsedHashtags() {
+        List<Hashtag> result = new ArrayList<>();
+        for (Hashtag tag : this.getAllHashtags()) {
+            for (Post post : this.getAllPosts())
+                if (hashtagInPost(tag, post)) {
+                    result.add(tag);
+                    break;
+                }
+        }
+        return result;
+    }
+
+    private boolean hashtagInPost(Hashtag tag, Post post) {
+        for (Hashtag entry : post.getHashtags())
+            if (entry.getId() ==  tag.getId())
+                return true;
+        return false;
+    }
 }

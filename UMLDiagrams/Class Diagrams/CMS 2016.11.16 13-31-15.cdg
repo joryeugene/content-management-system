@@ -2,71 +2,7 @@
 
 <ClassDiagram name="CMS">
   <ClassDiagramComponents>
-    <Class name="ValidationErrorContainer" package="com.teamexcalibur.validation" visibility="public" xPosition="20.0" yPosition="20.0">
-      <Fields>
-        <Field name="validationErrors" type="List&lt;ValidationError&gt;" visibility="private"/>
-      </Fields>
-      <Constructors/>
-      <Methods>
-        <Method name="addValidationError" returnType="void" visibility="public">
-          <Argument type="String" name="field"/>
-          <Argument type="String" name="message"/>
-        </Method>
-        <Method name="getFieldErrors" returnType="List&lt;ValidationError&gt;" visibility="public"/>
-      </Methods>
-    </Class>
-    <Class name="RestValidationHandler" package="com.teamexcalibur.validation" visibility="public" xPosition="320.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods>
-        <Method name="processValidationErrors" returnType="ValidationErrorContainer" visibility="public">
-          <Argument type="MethodArgumentNotValidException" name="e"/>
-        </Method>
-      </Methods>
-    </Class>
-    <Class name="ValidationError" package="com.teamexcalibur.validation" visibility="public" xPosition="620.0" yPosition="20.0">
-      <Fields>
-        <Field name="fieldName" type="String" visibility="public"/>
-        <Field name="message" type="String" visibility="public"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public">
-          <Argument type="String" name="fieldName"/>
-          <Argument type="String" name="message"/>
-        </Constructor>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="getFieldName" returnType="String" visibility="public"/>
-        <Method name="getMessage" returnType="String" visibility="public"/>
-      </Methods>
-    </Class>
-    <Class name="BlogController" package="com.teamexcalibur.controller" visibility="public" xPosition="920.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="WriterController" package="com.teamexcalibur.controller" visibility="public" xPosition="1220.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="UserController" package="com.teamexcalibur.controller" visibility="public" xPosition="1520.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="AdminController" package="com.teamexcalibur.controller" visibility="public" xPosition="1820.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="LoginController" package="com.teamexcalibur.controller" visibility="public" xPosition="2120.0" yPosition="20.0">
-      <Fields/>
-      <Constructors/>
-      <Methods/>
-    </Class>
-    <Class name="Nav" package="com.teamexcalibur.dto" visibility="public" xPosition="20.0" yPosition="420.0">
+    <Class name="Nav" package="com.teamexcalibur.dto" visibility="public" xPosition="20.0" yPosition="20.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="pageId" type="int" visibility="private"/>
@@ -185,7 +121,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="User" package="com.teamexcalibur.dto" visibility="public" xPosition="1220.0" yPosition="420.0">
+    <Class name="User" package="com.teamexcalibur.dto" visibility="public" xPosition="1510.0" yPosition="35.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="email" type="String" visibility="private"/>
@@ -232,7 +168,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Post" package="com.teamexcalibur.dto" visibility="public" xPosition="1520.0" yPosition="420.0">
+    <Class name="Post" package="com.teamexcalibur.dto" visibility="public" xPosition="320.0" yPosition="20.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="author" type="User" visibility="private"/>
@@ -324,56 +260,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="PageDaoInMemoryImpl" package="com.teamexcalibur.dao" visibility="public" xPosition="1820.0" yPosition="420.0">
-      <Fields>
-        <Field name="pageMap" type="Map&lt;Integer, Page&gt;" visibility="private" isFinal="true"/>
-        <Field name="idCounter" type="int" visibility="private" isStatic="true"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="addPage" returnType="Page" visibility="public">
-          <Argument type="Page" name="page"/>
-        </Method>
-        <Method name="deletePage" returnType="void" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="updatePage" returnType="void" visibility="public">
-          <Argument type="Page" name="page"/>
-        </Method>
-        <Method name="getPageById" returnType="Page" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="getAllPages" returnType="List&lt;Page&gt;" visibility="public"/>
-        <Method name="getAllNavs" returnType="List&lt;Nav&gt;" visibility="public"/>
-      </Methods>
-    </Class>
-    <Class name="UserDaoMemoryImpl" package="com.teamexcalibur.dao" visibility="public" xPosition="2120.0" yPosition="420.0">
-      <Fields>
-        <Field name="userMap" type="Map&lt;Integer, User&gt;" visibility="package"/>
-        <Field name="userIdCounter" type="int" visibility="public" isStatic="true"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="addUser" returnType="User" visibility="public">
-          <Argument type="User" name="user"/>
-        </Method>
-        <Method name="deleteUser" returnType="void" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="updateUser" returnType="void" visibility="public">
-          <Argument type="User" name="user"/>
-        </Method>
-        <Method name="getUserById" returnType="User" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="getAllUsers" returnType="List&lt;User&gt;" visibility="public"/>
-      </Methods>
-    </Class>
-    <Interface name="PageDao" package="com.teamexcalibur.dao" visibility="public" xPosition="20.0" yPosition="820.0">
+    <Interface name="PageDao" package="com.teamexcalibur.dao" visibility="public" xPosition="20.0" yPosition="324.0">
       <Methods>
         <Method name="addPage" returnType="Page" visibility="package">
           <Argument type="Page" name="page"/>
@@ -391,62 +278,7 @@
         <Method name="getAllNavs" returnType="List&lt;Nav&gt;" visibility="package"/>
       </Methods>
     </Interface>
-    <Class name="PostDaoInMemImpl" package="com.teamexcalibur.dao" visibility="public" xPosition="320.0" yPosition="820.0">
-      <Fields>
-        <Field name="postMap" type="Map&lt;Integer, Post&gt;" visibility="private"/>
-        <Field name="categoryMap" type="Map&lt;Integer, Category&gt;" visibility="private"/>
-        <Field name="hashtagMap" type="Map&lt;Integer, Hashtag&gt;" visibility="private"/>
-        <Field name="nextPostId" type="int" visibility="private" isStatic="true"/>
-        <Field name="nextCategoryId" type="int" visibility="private" isStatic="true"/>
-        <Field name="nextHashtagId" type="int" visibility="private" isStatic="true"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="populate" returnType="void" visibility="private"/>
-        <Method name="addPost" returnType="Post" visibility="public">
-          <Argument type="Post" name="post"/>
-        </Method>
-        <Method name="deletePost" returnType="void" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="updatePost" returnType="void" visibility="public">
-          <Argument type="Post" name="post"/>
-        </Method>
-        <Method name="getPostById" returnType="Post" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="getAllPosts" returnType="List&lt;Post&gt;" visibility="public"/>
-        <Method name="addCategory" returnType="Category" visibility="public">
-          <Argument type="Category" name="category"/>
-        </Method>
-        <Method name="deleteCategory" returnType="void" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="updateCategory" returnType="void" visibility="public">
-          <Argument type="Category" name="category"/>
-        </Method>
-        <Method name="getCategoryById" returnType="Category" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="getAllCategories" returnType="List&lt;Category&gt;" visibility="public"/>
-        <Method name="addHashtag" returnType="Hashtag" visibility="public">
-          <Argument type="Hashtag" name="hashtag"/>
-        </Method>
-        <Method name="deleteHashtag" returnType="void" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="updateHashtag" returnType="void" visibility="public">
-          <Argument type="Hashtag" name="hashtag"/>
-        </Method>
-        <Method name="getHashtagById" returnType="Hashtag" visibility="public">
-          <Argument type="int" name="id"/>
-        </Method>
-        <Method name="getAllHashtags" returnType="List&lt;Hashtag&gt;" visibility="public"/>
-      </Methods>
-    </Class>
-    <Interface name="UserDao" package="com.teamexcalibur.dao" visibility="public" xPosition="620.0" yPosition="820.0">
+    <Interface name="UserDao" package="com.teamexcalibur.dao" visibility="public" xPosition="30.0" yPosition="511.0">
       <Methods>
         <Method name="addUser" returnType="User" visibility="package">
           <Argument type="User" name="user"/>
@@ -463,7 +295,7 @@
         <Method name="getAllUsers" returnType="List&lt;User&gt;" visibility="package"/>
       </Methods>
     </Interface>
-    <Interface name="PostDao" package="com.teamexcalibur.dao" visibility="public" xPosition="920.0" yPosition="820.0">
+    <Interface name="PostDao" package="com.teamexcalibur.dao" visibility="public" xPosition="1510.0" yPosition="480.0">
       <Methods>
         <Method name="addPost" returnType="Post" visibility="package">
           <Argument type="Post" name="post"/>
@@ -508,36 +340,17 @@
     </Interface>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="category" source="com.teamexcalibur.dto.Post" target="com.teamexcalibur.dto.Category" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Category" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dao.UserDaoMemoryImpl" target="com.teamexcalibur.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="validationErrors" source="com.teamexcalibur.validation.ValidationErrorContainer" target="com.teamexcalibur.validation.ValidationError" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;ValidationError&gt;"/>
-    <HasRelation name="pageMap" source="com.teamexcalibur.dao.PageDaoInMemoryImpl" target="com.teamexcalibur.dto.Page" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Page&gt;"/>
-    <UseRelation source="com.teamexcalibur.dao.UserDao" target="com.teamexcalibur.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.validation.ValidationErrorContainer" target="com.teamexcalibur.validation.ValidationError" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dto.Post" target="com.teamexcalibur.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="postMap" source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Post" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Post&gt;"/>
-    <HasRelation name="userMap" source="com.teamexcalibur.dao.UserDaoMemoryImpl" target="com.teamexcalibur.dto.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, User&gt;"/>
-    <UseRelation source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Hashtag" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="user" source="com.teamexcalibur.dto.Page" target="com.teamexcalibur.dto.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dto.Page" target="com.teamexcalibur.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dao.PageDao" target="com.teamexcalibur.dto.Page" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="hashtags" source="com.teamexcalibur.dto.Post" target="com.teamexcalibur.dto.Hashtag" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Hashtag&gt;"/>
-    <UseRelation source="com.teamexcalibur.dao.PageDaoInMemoryImpl" target="com.teamexcalibur.dto.Nav" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dto.Post" target="com.teamexcalibur.dto.Category" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dao.PostDao" target="com.teamexcalibur.dto.Post" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dao.PostDao"/>
-    <HasRelation name="author" source="com.teamexcalibur.dto.Post" target="com.teamexcalibur.dto.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dao.PostDao" target="com.teamexcalibur.dto.Category" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dao.PostDao" target="com.teamexcalibur.dto.Hashtag" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dao.PageDaoInMemoryImpl" target="com.teamexcalibur.dto.Page" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="com.teamexcalibur.dao.PageDaoInMemoryImpl" target="com.teamexcalibur.dao.PageDao"/>
-    <UseRelation source="com.teamexcalibur.validation.RestValidationHandler" target="com.teamexcalibur.validation.ValidationError" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="com.teamexcalibur.dao.PageDao" target="com.teamexcalibur.dto.Nav" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="com.teamexcalibur.dao.UserDaoMemoryImpl" target="com.teamexcalibur.dao.UserDao"/>
-    <UseRelation source="com.teamexcalibur.dto.Post" target="com.teamexcalibur.dto.Hashtag" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="categoryMap" source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Category" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Category&gt;"/>
     <UseRelation source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Post" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="com.teamexcalibur.dao.UserDaoMemoryImpl" target="com.teamexcalibur.dao.UserDao"/>
     <HasRelation name="hashtagMap" source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Hashtag" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Hashtag&gt;"/>
+    <HasRelation name="postMap" source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Post" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Post&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="com.teamexcalibur.dao.PageDaoInMemoryImpl" target="com.teamexcalibur.dao.PageDao"/>
+    <HasRelation name="validationErrors" source="com.teamexcalibur.validation.ValidationErrorContainer" target="com.teamexcalibur.validation.ValidationError" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;ValidationError&gt;"/>
+    <UseRelation source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dto.Hashtag" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.teamexcalibur.dao.UserDaoMemoryImpl" target="com.teamexcalibur.dto.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.teamexcalibur.dao.PageDaoInMemoryImpl" target="com.teamexcalibur.dto.Page" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="pageMap" source="com.teamexcalibur.dao.PageDaoInMemoryImpl" target="com.teamexcalibur.dto.Page" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Page&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="com.teamexcalibur.dao.PostDaoInMemImpl" target="com.teamexcalibur.dao.PostDao"/>
   </ClassDiagramRelations>
 </ClassDiagram>

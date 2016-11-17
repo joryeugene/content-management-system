@@ -6,7 +6,10 @@
 package com.teamexcalibur.dao;
 
 import com.teamexcalibur.dto.User;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,14 +26,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class UserDaoTest {
     
     private UserDao dao;
+    private Map<Integer, User> testUserMap = new HashMap<>();
+    //private List<User> userList = new ArrayList<>();
     
     public UserDaoTest() {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("test-application-context.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         dao = ctx.getBean("userDao", UserDaoMemoryImpl.class);
     }
     
     @BeforeClass
     public static void setUpClass() {
+        
     }
     
     @AfterClass
@@ -39,6 +45,9 @@ public class UserDaoTest {
     
     @Before
     public void setUp() {
+
+
+        
     }
     
     @After
@@ -51,6 +60,18 @@ public class UserDaoTest {
     @Test
     public void testAddUser() {
         System.out.println("addUser");
+      //Create a new user
+      User newUser = new User();
+      newUser.setAuthority("ROLE_ADMIN");
+      newUser.setDisplayName("Test User");
+      newUser.setAvatarUrl("img/avatar.png");
+      newUser.setEmail("hacker@hacker.com");
+      newUser.setPassword("password");
+      
+      dao.addUser(newUser);
+      testUserMap.put(2, newUser);
+      
+      assertEquals(dao.getUserById(2).getDisplayName(),testUserMap.get(2).getDisplayName());
       
     }
 
@@ -60,11 +81,21 @@ public class UserDaoTest {
     @Test
     public void testDeleteUser() {
         System.out.println("deleteUser");
-        int id = 0;
-        UserDao instance = new UserDaoImpl();
-        instance.deleteUser(id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       //Create a new user
+      User newUser = new User();
+      newUser.setId(2);
+      newUser.setAuthority("ROLE_ADMIN");
+      newUser.setDisplayName("Test User");
+      newUser.setAvatarUrl("img/avatar.png");
+      newUser.setEmail("hacker@hacker.com");
+      newUser.setPassword("password");
+      
+      dao.addUser(newUser);
+      testUserMap.put(2, newUser);
+      
+      dao.deleteUser(5);
+      assertNull(dao.getUserById(5));
+      
     }
 
     /**
@@ -73,11 +104,23 @@ public class UserDaoTest {
     @Test
     public void testUpdateUser() {
         System.out.println("updateUser");
-        User user = null;
-        UserDao instance = new UserDaoImpl();
-        instance.updateUser(user);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        User newUser = new User();
+      newUser.setId(7);
+      newUser.setAuthority("ROLE_ADMIN");
+      newUser.setDisplayName("Test User");
+      newUser.setAvatarUrl("img/avatar.png");
+      newUser.setEmail("hacker@hacker.com");
+      newUser.setPassword("password");
+      
+      dao.addUser(newUser);
+      testUserMap.put(7, newUser);
+      
+      newUser.setDisplayName("Updated name");
+      dao.updateUser(newUser);
+      
+      assertTrue(dao.getUserById(7).getDisplayName().equals("Updated name"));
+      
+      
     }
 
     /**
@@ -86,13 +129,9 @@ public class UserDaoTest {
     @Test
     public void testGetUserById() {
         System.out.println("getUserById");
-        int id = 0;
-        UserDao instance = new UserDaoImpl();
-        User expResult = null;
-        User result = instance.getUserById(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        User testUser = dao.getUserById(11);
+        
+        assertTrue(testUser.getDisplayName().equals("User1"));
     }
 
     /**
@@ -101,33 +140,12 @@ public class UserDaoTest {
     @Test
     public void testGetAllUsers() {
         System.out.println("getAllUsers");
-        UserDao instance = new UserDaoImpl();
-        List<User> expResult = null;
-        List<User> result = instance.getAllUsers();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        List<User> getAllTestList = dao.getAllUsers();
+        
+        assertEquals(getAllTestList.size(),2);
+
     }
 
-    public class UserDaoImpl implements UserDao {
-
-        public User addUser(User user) {
-            return null;
-        }
-
-        public void deleteUser(int id) {
-        }
-
-        public void updateUser(User user) {
-        }
-
-        public User getUserById(int id) {
-            return null;
-        }
-
-        public List<User> getAllUsers() {
-            return null;
-        }
-    }
+  
     
 }

@@ -17,15 +17,15 @@ public class UserDaoMemoryImpl implements UserDao {
     public static int userIdCounter = 0;
 
     public UserDaoMemoryImpl() {
-        addUser(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png"));
-        addUser(new User("user2@example.com", "User2", "ROLE_USER", "/img/avatar.png"));
+        addUser(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png","password"));
+        addUser(new User("user2@example.com", "User2", "ROLE_USER", "/img/avatar.png","password"));
     }
 
     @Override
     public User addUser(User user) {
         user.setId(userIdCounter);
-        userIdCounter++;
         userMap.put(userIdCounter, user);
+        userIdCounter++;
         return user;
     }
 

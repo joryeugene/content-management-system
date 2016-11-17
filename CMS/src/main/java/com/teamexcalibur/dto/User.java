@@ -6,25 +6,37 @@ public class User {
     private String displayName;
     private String authority;
     private String avatarUrl;
+    private String password;
 
     public User() {
     }
 
-    public User(String email, String displayName, String authority, String avatarUrl) {
+    public User(String email, String displayName, String authority, String avatarUrl, String password) {
         this.email = email;
         this.displayName = displayName;
         this.authority = authority;
         this.avatarUrl = avatarUrl;
+        this.password = password;
     }
 
-    public User(int id, String email, String displayName, String authority, String avatarUrl) {
+    public User(int id, String email, String displayName, String authority, String avatarUrl, String password) {
         this.id = id;
         this.email = email;
         this.displayName = displayName;
         this.authority = authority;
         this.avatarUrl = avatarUrl;
+        this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
     public int getId() {
         return id;
     }

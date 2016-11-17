@@ -15,13 +15,13 @@ public class Post {
     private String stringStartDate;
     private String stringEndDate;
     private Category category;
-    private List<Hashtag> hashtags;
+    private List<String> hashtags;
     private boolean queued;
 
     public Post() {
     }
 
-    public Post(User author, String title, String content, int numViews, String stringStartDate, String stringEndDate, Category category, List<Hashtag> hashtags, boolean queued) {
+    public Post(User author, String title, String content, int numViews, String stringStartDate, String stringEndDate, Category category, List<String> hashtags, boolean queued) {
         this.author = author;
         this.title = title;
         this.content = content;
@@ -33,7 +33,7 @@ public class Post {
         this.queued = queued;
     }
 
-    public Post(int id, User author, String title, String content, int numViews, String stringStartDate, String stringEndDate, Category category, List<Hashtag> hashtags, boolean queued) {
+    public Post(int id, User author, String title, String content, int numViews, String stringStartDate, String stringEndDate, Category category, List<String> hashtags, boolean queued) {
         this(author,title,content, numViews, stringStartDate, stringEndDate, category, hashtags, queued);
         this.id = id;
     }
@@ -124,11 +124,11 @@ public class Post {
         this.endDate = newDate;
     }
 
-      public List<Hashtag> getHashtags() {
+      public List<String> getHashtags() {
         return hashtags;
     }
 
-    public void setHashtags(List<Hashtag> hashtags) {
+    public void setHashtags(List<String> hashtags) {
         this.hashtags = hashtags;
     }
 

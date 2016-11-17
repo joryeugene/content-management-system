@@ -62,17 +62,6 @@ CREATE TABLE `Category` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Hashtag`
---
-
-CREATE TABLE `Hashtag` (
-  `HashtagId` int(8) NOT NULL,
-  `Hashtag` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `Nav`
 --
 
@@ -121,8 +110,8 @@ CREATE TABLE `Post` (
 --
 
 CREATE TABLE `PostHashtag` (
-  `HashtagId` int(8) NOT NULL,
-  `PostId` int(16) NOT NULL
+  `PostId` int(16) NOT NULL,
+  `Hashtag` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -161,13 +150,6 @@ ALTER TABLE `Category`
   ADD KEY `CategoryId` (`CategoryId`);
 
 --
--- Indexes for table `Hashtag`
---
-ALTER TABLE `Hashtag`
-  ADD PRIMARY KEY (`HashtagId`),
-  ADD KEY `HashtagId` (`HashtagId`);
-
---
 -- Indexes for table `Nav`
 --
 ALTER TABLE `Nav`
@@ -194,7 +176,7 @@ ALTER TABLE `Post`
 -- Indexes for table `PostHashtag`
 --
 ALTER TABLE `PostHashtag`
-  ADD PRIMARY KEY (`HashtagId`,`PostId`),
+  ADD PRIMARY KEY (`PostId`),
   ADD KEY `PostHashtag_ibfk_2` (`PostId`);
 
 --
@@ -212,11 +194,6 @@ ALTER TABLE `User`
 --
 ALTER TABLE `Category`
   MODIFY `CategoryId` int(4) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `Hashtag`
---
-ALTER TABLE `Hashtag`
-  MODIFY `HashtagId` int(8) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `Nav`
 --
@@ -264,8 +241,7 @@ ALTER TABLE `Post`
 -- Constraints for table `PostHashtag`
 --
 ALTER TABLE `PostHashtag`
-  ADD CONSTRAINT `PostHashtag_ibfk_2` FOREIGN KEY (`PostId`) REFERENCES `Post` (`PostId`),
-  ADD CONSTRAINT `PostHashtag_ibfk_3` FOREIGN KEY (`HashtagId`) REFERENCES `Hashtag` (`HashtagId`);
+  ADD CONSTRAINT `PostHashtag_ibfk_2` FOREIGN KEY (`PostId`) REFERENCES `Post` (`PostId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

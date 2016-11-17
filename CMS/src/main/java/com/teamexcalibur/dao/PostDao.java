@@ -22,11 +22,9 @@ public interface PostDao {
     List<Category> getUsedCategories();
     List<Category> getAllCategories();
     
-    Hashtag addHashtag(Hashtag hashtag);
-    void deleteHashtag(int id);
-    void updateHashtag(Hashtag hashtag);
-    Hashtag getHashtagById(int id);
-    List<Hashtag> getUsedHashtags();
-    List<Hashtag> getAllHashtags();
+    String addHashtag(int postId, String hashtag);
+    List<String> getHashtagsById(int postId);
+    List<String> getUsedHashtags();
+    List<String> getAllHashtags();
 
 }

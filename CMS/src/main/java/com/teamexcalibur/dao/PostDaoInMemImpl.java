@@ -6,11 +6,11 @@
 package com.teamexcalibur.dao;
 
 import com.teamexcalibur.dto.Category;
-import com.teamexcalibur.dto.Hashtag;
 import com.teamexcalibur.dto.Post;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -22,33 +22,25 @@ public class PostDaoInMemImpl implements PostDao {
 
     private Map<Integer, Post> postMap;
     private Map<Integer, Category> categoryMap;
-    private Map<Integer, Hashtag> hashtagMap;
     private static int nextPostId;
     private static int nextCategoryId;
-    private static int nextHashtagId;
 
     public PostDaoInMemImpl() {
         postMap = new HashMap<>();
         categoryMap = new HashMap<>();
-        hashtagMap = new HashMap<>();
         nextPostId = 0;
         nextCategoryId = 0;
-        nextHashtagId = 0;
         if (postMap.size() == 0)
             populate();
     }
 
     private void populate() {
         UserDao users = new UserDaoMemoryImpl();
-        
-        this.addHashtag(new Hashtag("#YoMama"));
-        this.addHashtag(new Hashtag("#YoPapa"));
-        this.addHashtag(new Hashtag("#YoJory"));
-        List<Hashtag> oneTag = new ArrayList<>();
-        oneTag.add(this.getHashtagById(0));
-        List<Hashtag> twoTags = new ArrayList<>();
-        twoTags.add(this.getHashtagById(1));
-        twoTags.add(this.getHashtagById(2));
+        List<String> oneTag = new ArrayList<>();
+        oneTag.add("#YoMama");
+        List<String> twoTags = new ArrayList<>();
+        twoTags.add("#YoPapa");
+        twoTags.add("#YoJory");
         
         this.addCategory(new Category("Monday"));
         this.addCategory(new Category("Tuesday"));
@@ -125,31 +117,14 @@ public class PostDaoInMemImpl implements PostDao {
     }
 
     @Override
-    public Hashtag addHashtag(Hashtag hashtag) {
-        hashtag.setId(nextHashtagId++);
-        hashtagMap.put(hashtag.getId(), hashtag);
-        return hashtag;
-    }
-
-    @Override
-    public void deleteHashtag(int id) {
-        hashtagMap.remove(id);
-    }
-
-    @Override
-    public void updateHashtag(Hashtag hashtag) {
-        hashtagMap.put(hashtag.getId(), hashtag);
-    }
-
-    @Override
-    public Hashtag getHashtagById(int id) {
-        return hashtagMap.get(id);
-    }
-
-    @Override
-    public List<Hashtag> getAllHashtags() {
-        Collection<Hashtag> c = hashtagMap.values();
-        return new ArrayList(c);
+    public List<String> getAllHashtags() {
+        HashSet<String> set = new HashSet();
+        postMap.values().stream().forEach((post) -> {
+            post.getHashtags().stream().forEach((str) -> {
+                set.add(str);
+            });
+        });
+        return new ArrayList(set);
     }
 
     @Override
@@ -158,17 +133,6 @@ public class PostDaoInMemImpl implements PostDao {
         for (Post post : postMap.values())
             if (post.getCategory().getId() == id)
                 result.add(post);
-        
-        return result;
-    }
-
-    @Override
-    public List<Post> getPostsByHashtagId(int id) {
-        List<Post> result = new ArrayList<>();
-        for (Post post : postMap.values())
-            for (Hashtag tag : post.getHashtags())
-                if (tag.getId() == id)
-                    result.add(post);
         
         return result;
     }
@@ -187,9 +151,9 @@ public class PostDaoInMemImpl implements PostDao {
     }
 
     @Override
-    public List<Hashtag> getUsedHashtags() {
-        List<Hashtag> result = new ArrayList<>();
-        for (Hashtag tag : this.getAllHashtags()) {
+    public List<String> getUsedHashtags() {
+        List<String> result = new ArrayList<>();
+        for (String tag : this.getAllHashtags()) {
             for (Post post : this.getAllPosts())
                 if (hashtagInPost(tag, post)) {
                     result.add(tag);
@@ -199,10 +163,25 @@ public class PostDaoInMemImpl implements PostDao {
         return result;
     }
 
-    private boolean hashtagInPost(Hashtag tag, Post post) {
-        for (Hashtag entry : post.getHashtags())
-            if (entry.getId() ==  tag.getId())
+    private boolean hashtagInPost(String tag, Post post) {
+        for (String entry : post.getHashtags())
+            if (entry.equals(tag))
                 return true;
         return false;
+    }
+
+    @Override
+    public List<Post> getPostsByHashtagId(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String addHashtag(int postId, String hashtag) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> getHashtagsById(int postId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

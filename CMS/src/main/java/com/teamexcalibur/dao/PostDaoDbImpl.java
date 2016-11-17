@@ -5,6 +5,7 @@ import com.teamexcalibur.dto.Hashtag;
 import com.teamexcalibur.dto.Post;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,15 +61,15 @@ public class PostDaoDbImpl implements PostDao {
             = "select * from Category";
 
     private static final String SQL_INSERT_HASHTAG
-            = "insert into Hashtag (Hashtag) values (?)";
-    private static final String SQL_DELETE_HASHTAG
-            = "delete from Hashtag where HashtagId = ?";
-    private static final String SQL_UPDATE_HASHTAG
-            = "update Hashtag set Hashtag = ? where HashtagId = ?";
+            = "insert into PostHashtag (PostId, Hashtag) values (?, ?)";
+    private static final String SQL_DELETE_HASHTAG_BY_POSTID
+            = "delete from PostHashtag where PostId = ?";
+    private static final String SQL_SELECT_HASHTAG_BY_POSTID
+            = "select Hashtag from PostHashtag where PostId = ?";
     private static final String SQL_SELECT_USED_HASHTAGS
-            = "select distinct * from Hashtag where HashtagId = PostHashtag.HashtagId";
+            = "select distinct Hashtag from PostHashtag";
     private static final String SQL_SELECT_ALL_HASHTAGS
-            = "select * from Hashtag";
+            = "select distinct Hashtag from PostHashtag";
 
     // #2a - Declare JdbcTemplate reference - the instance will be handed to us by Spring
     private JdbcTemplate jdbcTemplate;
@@ -94,6 +95,7 @@ public class PostDaoDbImpl implements PostDao {
                 post.getCategory().getId(), post.isQueued());
         post.setId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
+        // deal with hashtags
         return post;
     }
 
@@ -158,38 +160,21 @@ public class PostDaoDbImpl implements PostDao {
     }
 
     @Override
-    public Hashtag addHashtag(Hashtag hashtag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteHashtag(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateHashtag(Hashtag hashtag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Hashtag getHashtagById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Hashtag> getAllHashtags() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<String> getAllHashtags() {
+        List<String> result = jdbcTemplate.query(SQL_SELECT_ALL_HASHTAGS, new StringMapper());
+        return result;
     }
 
     @Override
     public List<Category> getUsedCategories() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Category> result = jdbcTemplate.query(SQL_SELECT_USED_CATEGORIES, new CategoryMapper());
+        return result;
     }
 
     @Override
-    public List<Hashtag> getUsedHashtags() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<String> getUsedHashtags() {
+        List<String> result = jdbcTemplate.query(SQL_SELECT_USED_HASHTAGS, new StringMapper());
+        return result;
     }
 
     @Override
@@ -201,6 +186,16 @@ public class PostDaoDbImpl implements PostDao {
     public List<Post> getPostsByHashtagId(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
+    }
+
+    @Override
+    public String addHashtag(int postId, String hashtag) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> getHashtagsById(int postId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private final class PostMapper implements RowMapper<Post> {
@@ -215,7 +210,7 @@ public class PostDaoDbImpl implements PostDao {
             post.setNumViews(rs.getInt("NumOfViews"));
             post.setStringStartDate(rs.getString("StartDate"));
             post.setStringEndDate(rs.getString("EndDate"));
-//            post.setCategory(.getCategoryById(rs.getInt("CategoryId"))
+//            post.setCategory((rs.getInt("CategoryId"))
 //            );
             post.setQueued(rs.getBoolean("Queued"));
             return post;
@@ -233,14 +228,11 @@ public class PostDaoDbImpl implements PostDao {
         }
     }
 
-    private static final class HashtagMapper implements RowMapper<Hashtag> {
+    private static final class StringMapper implements RowMapper<String> {
 
         @Override
-        public Hashtag mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Hashtag tag = new Hashtag();
-            tag.setId(rs.getInt("HashtagId"));
-            tag.setHashtag(rs.getString("Hashtag"));
-            return tag;
+        public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return rs.getString("Hashtag");
         }
     }
 }

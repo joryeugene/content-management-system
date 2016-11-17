@@ -16,7 +16,7 @@
 
     <!-- Bean definitions go here -->
     <bean id="pageDao"
-          class="com.teamexcalibur.dao.PageDaoInMemImpl">
+          class="com.teamexcalibur.dao.PageDaoInMemoryImpl">
     </bean>
     
 </beans>

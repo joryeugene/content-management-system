@@ -15,11 +15,10 @@ public class PageDaoInMemoryImpl implements PageDao {
     private static int idCounter = 0;
 
     public PageDaoInMemoryImpl() {
-//        addPage(new Page(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png, "password
-//        "),
-//                "About Us", "Content of the about me page here"));
-//       addPage(new Page(new User("user2@example.com", "User2", "ROLE_WRITER", "/img/avatar.png", "password"),
-//                "About Us", "Content of the about me page here"));
+        addPage(new Page(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png", "password"),
+                "About Us", "Content of the about me page here"));
+       addPage(new Page(new User("user2@example.com", "User2", "ROLE_WRITER", "/img/avatar.png", "password"),
+                "About Us", "Content of the about me page here"));
     }
 
     @Override

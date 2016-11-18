@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +51,13 @@ public class BlogController {
         }
 
         return mostRecent;
+    }
+
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
+    public String displayBlogPost(@PathVariable("id") int id, Model model) {
+        Post post = postDao.getPostById(id);
+        model.addAttribute("post", post);
+        return "post";
     }
 
 }

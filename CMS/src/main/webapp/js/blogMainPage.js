@@ -7,6 +7,7 @@ function loadMainPagePosts() {
         type: 'GET',
         url: "/CMS/posts/recent"
     }).success(function (data, status) {
+        console.log(data); // TESTING
         populateMainPagePost(data);
     });
 }

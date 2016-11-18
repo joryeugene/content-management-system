@@ -1,7 +1,6 @@
 package com.teamexcalibur.dao;
 
 import com.teamexcalibur.dto.Category;
-import com.teamexcalibur.dto.Hashtag;
 import com.teamexcalibur.dto.Post;
 import java.util.List;
 

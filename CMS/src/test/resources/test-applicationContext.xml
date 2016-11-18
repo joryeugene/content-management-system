@@ -41,9 +41,11 @@
     </bean>
     
     <!-- Bean definitions go here -->
-    <bean id="userDao" class="com.teamexcalibur.dao.UserDaoInMemImpl"></bean>   
-    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
+    <bean id="userDao" class="com.teamexcalibur.dao.UserDaoDbImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>   
+    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean> 
   
 </beans>

@@ -88,7 +88,7 @@ public class PostDaoDbImpl implements PostDao {
     public Post addPost(Post post) {
         jdbcTemplate.update(SQL_INSERT_POST,
                 post.getAuthor().getId(), post.getTitle(), post.getContent(),
-                post.getNumViews(), post.getStartDate(), post.getEndDate(),
+                post.getNumViews(), post.getStringStartDate(), post.getStringEndDate(),
                 post.getCategory().getId(), post.isQueued());
         post.setId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
@@ -109,7 +109,7 @@ public class PostDaoDbImpl implements PostDao {
     public Post archivePost(Post post) {
         jdbcTemplate.update(SQL_INSERT_ARCHIVE_POST,
                 post.getId(), post.getAuthor().getId(), post.getTitle(), post.getContent(),
-                post.getNumViews(), post.getStartDate(), post.getEndDate(),
+                post.getNumViews(), post.getStringStartDate(), post.getStringEndDate(),
                 post.getCategory().getId(), post.isQueued());
         jdbcTemplate.update(SQL_DELETE_POST, post.getId());
         return post;
@@ -119,7 +119,7 @@ public class PostDaoDbImpl implements PostDao {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void updatePost(Post post) {
         jdbcTemplate.update(SQL_UPDATE_POST, post.getAuthor().getId(), post.getTitle(),
-                post.getContent(), post.getNumViews(), post.getStartDate(), post.getEndDate(),
+                post.getContent(), post.getNumViews(), post.getStringStartDate(), post.getStringEndDate(),
                 post.getCategory().getId(), post.isQueued(), post.getId());
         jdbcTemplate.update(SQL_DELETE_HASHTAG_BY_POSTID, post.getId());
         for (String tag : post.getHashtags()) {

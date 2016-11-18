@@ -35,13 +35,16 @@ public class PostDaoTest {
 
     private PostDao dao;
     private UserDao udao;
-    private 
+    private User u1;
+    private User u2;
 
     public PostDaoTest() {
         ApplicationContext ctx
                 = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         dao = ctx.getBean("postDao", PostDao.class);
         udao = ctx.getBean("userDao", UserDao.class);
+        u1 = udao.addUser(new User(0, "x@u.com", "UserX", "admin", "https://pic0", "userPw1"));
+        u2 = udao.addUser(new User(1, "y@u.com", "UserY", "admin", "https://pic1", "userPw2"));
     }
 
     @BeforeClass
@@ -61,8 +64,6 @@ public class PostDaoTest {
         jdbcTemplate.update("Delete from `PostHashtag`");
         jdbcTemplate.update("Delete from `Category`");
         jdbcTemplate.update("Delete from `Post`");
-        udao.addUser(new User(0, "x@u.com", "UserX", "admin", "https://pic0", "userPw1"));
-        udao.addUser(new User(1, "y@u.com", "UserY", "admin", "https://pic1", "userPw2"));
     }
 
     @After
@@ -73,27 +74,11 @@ public class PostDaoTest {
     public void addGetDeletes() {
         List<String> oneTag = new ArrayList<>();
         oneTag.add("#YoMama");
-//        List<String> twoTags = new ArrayList<>();
-//        twoTags.add("#YoPapa");
-//        twoTags.add("#YoJory");
+        Category cat = dao.addCategory(new Category("Monday"));
 
-        dao.addCategory(new Category("Monday"));
-//        dao.addCategory(new Category("Tuesday"));
-//        dao.addCategory(new Category("Wednesday"));
-//        dao.addCategory(new Category("Thursday"));
-//        dao.addCategory(new Category("Friday"));
-
-        Post nc = new Post(udao.getUserById(0), "Title 0", "Content 0", 0,
-                null, null, dao.getCategoryById(0), oneTag, false);
+        Post nc = new Post(u1, "Title 0", "Content 0", 0,
+                null, null, cat, oneTag, false);
         dao.addPost(nc);
-//        dao.addPost(new Post(udao.getUserById(1), "Title 1", "Content 1", 0,
-//                null, null, dao.getCategoryById(1), twoTags, false));
-//        dao.addPost(new Post(udao.getUserById(0), "Title 2", "Content 2", 0,
-//                null, null, dao.getCategoryById(2), oneTag, false));
-//        dao.addPost(new Post(udao.getUserById(1), "Title 3", "Content 3", 0,
-//                null, null, dao.getCategoryById(1), twoTags, false));
-//        dao.addPost(new Post(udao.getUserById(0), "Title 4", "Content 4", 0,
-//                null, null, dao.getCategoryById(2), oneTag, false));
         Post fromDb = dao.getPostById(nc.getId());
         assertEquals(fromDb, nc);
         dao.deletePost(nc.getId());
@@ -104,10 +89,10 @@ public class PostDaoTest {
     public void addUpdatePost() {
         List<String> oneTag = new ArrayList<>();
         oneTag.add("#YoMama");
-        dao.addCategory(new Category("Monday"));
+        Category cat = dao.addCategory(new Category("Monday"));
 
-        Post nc = new Post(udao.getUserById(0), "Title 0", "Content 0", 0,
-                null, null, dao.getCategoryById(0), oneTag, false);
+        Post nc = new Post(u1, "Title 0", "Content 0", 0,
+                null, null, cat, oneTag, false);
         dao.addPost(nc);
         nc.setContent("Joan Wiggums");
         dao.updatePost(nc);
@@ -123,23 +108,23 @@ public class PostDaoTest {
         twoTags.add("#YoPapa");
         twoTags.add("#YoJory");
 
-        dao.addCategory(new Category("Monday"));
-        dao.addCategory(new Category("Tuesday"));
-        dao.addCategory(new Category("Wednesday"));
+        Category c1 = dao.addCategory(new Category("Monday"));
+        Category c2 = dao.addCategory(new Category("Tuesday"));
+        Category c3 = dao.addCategory(new Category("Wednesday"));
         dao.addCategory(new Category("Thursday"));
         dao.addCategory(new Category("Friday"));
 
-        Post nc = new Post(udao.getUserById(0), "Title 0", "Content 0", 0,
-                null, null, dao.getCategoryById(0), oneTag, false);
+        Post nc = new Post(u1, "Title 0", "Content 0", 0,
+                null, null, c1, oneTag, false);
         dao.addPost(nc);
-        dao.addPost(new Post(udao.getUserById(1), "Title 1", "Content 1", 0,
-                null, null, dao.getCategoryById(1), twoTags, false));
-        dao.addPost(new Post(udao.getUserById(0), "Title 2", "Content 2", 0,
-                null, null, dao.getCategoryById(2), oneTag, false));
-        dao.addPost(new Post(udao.getUserById(1), "Title 3", "Content 3", 0,
-                null, null, dao.getCategoryById(1), twoTags, false));
-        dao.addPost(new Post(udao.getUserById(0), "Title 4", "Content 4", 0,
-                null, null, dao.getCategoryById(2), oneTag, false));
+        dao.addPost(new Post(u2, "Title 1", "Content 1", 0,
+                null, null, c2, twoTags, false));
+        dao.addPost(new Post(u1, "Title 2", "Content 2", 0,
+                null, null, c3, oneTag, false));
+        dao.addPost(new Post(u2, "Title 3", "Content 3", 0,
+                null, null, c2, twoTags, false));
+        dao.addPost(new Post(u1, "Title 4", "Content 4", 0,
+                null, null, c3, oneTag, false));
         List<Category> cList = dao.getAllCategories();
         assertEquals(cList.size(), 5);
         List<String> hList = dao.getAllHashtags();

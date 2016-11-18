@@ -1,5 +1,7 @@
 package com.teamexcalibur.dto;
 
+import java.util.Objects;
+
 public class User {
     private int id;
     private String email;
@@ -26,6 +28,45 @@ public class User {
         this.authority = authority;
         this.avatarUrl = avatarUrl;
         this.password = password;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.displayName, other.displayName)) {
+            return false;
+        }
+        if (!Objects.equals(this.authority, other.authority)) {
+            return false;
+        }
+        if (!Objects.equals(this.avatarUrl, other.avatarUrl)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        return true;
     }
 
     public String getPassword() {

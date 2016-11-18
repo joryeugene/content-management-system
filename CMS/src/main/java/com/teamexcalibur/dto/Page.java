@@ -1,5 +1,7 @@
 package com.teamexcalibur.dto;
 
+import java.util.Objects;
+
 public class Page {
     private int id;
     private User user;
@@ -20,6 +22,39 @@ public class Page {
         this.user = user;
         this.title = title;
         this.content = content;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Page other = (Page) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.content, other.content)) {
+            return false;
+        }
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        return true;
     }
 
     public int getId() {

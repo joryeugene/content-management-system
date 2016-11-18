@@ -18,6 +18,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
@@ -30,8 +31,9 @@ public class UserDaoTest {
     //private List<User> userList = new ArrayList<>();
     
     public UserDaoTest() {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        dao = ctx.getBean("userDao", UserDaoInMemImpl.class);
+        ApplicationContext ctx
+                = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        dao = ctx.getBean("userDao", UserDao.class);
     }
     
     @BeforeClass
@@ -45,9 +47,11 @@ public class UserDaoTest {
     
     @Before
     public void setUp() {
-
-
-        
+        ApplicationContext ctx
+                = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        JdbcTemplate jdbcTemplate
+                = ctx.getBean("jdbcTemplate", org.springframework.jdbc.core.JdbcTemplate.class);
+        jdbcTemplate.update("Delete from `User`");
     }
     
     @After
@@ -68,10 +72,8 @@ public class UserDaoTest {
       newUser.setEmail("hacker@hacker.com");
       newUser.setPassword("password");
       
-      dao.addUser(newUser);
-      testUserMap.put(2, newUser);
-      
-      assertEquals(dao.getUserById(2).getDisplayName(),testUserMap.get(2).getDisplayName());
+      newUser = dao.addUser(newUser);
+      assertEquals(dao.getUserById(newUser.getId()).getDisplayName(),newUser.getDisplayName());
       
     }
 

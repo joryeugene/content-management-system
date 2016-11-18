@@ -15,12 +15,12 @@ function loadMainPagePosts() {
 function populateMainPagePost(data) {
     var mainPagePostsDiv = $('#main-page-posts');
     mainPagePostsDiv.empty();
-
+    
     $.each(data, function (index, post) {
-        if (post.content.length > 231) {
-            content = post.content.substring(0, 231) + '...';
-        } else {
-            content = post.content
+        var content = stripHtmlTags(post.content);
+        
+        if (content.length > 231) {
+            content = content.substring(0, 231) + '...';
         }
 
         mainPagePostsDiv.append($('<div>')
@@ -47,4 +47,8 @@ function populateMainPagePost(data) {
             mainPagePostsDiv.append($('<div class="clearfix visible-xs-block visible-sm-block visible-md-block"></div>'));
         }
     });
+}
+
+var stripHtmlTags = function(string) {
+    return string.replace(/(<([^>]+)>)/ig,"")
 }

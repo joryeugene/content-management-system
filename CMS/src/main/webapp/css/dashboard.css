@@ -103,3 +103,9 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+/*Custom Styles*/
+
+.btn-stacked {
+    margin: .3rem;
+}

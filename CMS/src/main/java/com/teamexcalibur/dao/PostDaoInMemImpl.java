@@ -7,6 +7,7 @@ package com.teamexcalibur.dao;
 
 import com.teamexcalibur.dto.Category;
 import com.teamexcalibur.dto.Post;
+import com.teamexcalibur.dto.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,12 +31,15 @@ public class PostDaoInMemImpl implements PostDao {
         categoryMap = new HashMap<>();
         nextPostId = 0;
         nextCategoryId = 0;
-        if (postMap.size() == 0)
+        if (postMap.size() < 1)
             populate();
     }
 
     private void populate() {
         UserDao users = new UserDaoInMemImpl();
+        users.addUser(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png","password"));
+        users.addUser(new User("user2@example.com", "User2", "ROLE_USER", "/img/avatar.png","password"));
+        
         List<String> oneTag = new ArrayList<>();
         oneTag.add("#YoMama");
         List<String> twoTags = new ArrayList<>();
@@ -58,6 +62,10 @@ public class PostDaoInMemImpl implements PostDao {
                 null, null, this.getCategoryById(1), twoTags, false));
         this.addPost(new Post(users.getUserById(0), "Title 4", "Content 4", 0,
                 null, null, this.getCategoryById(2), oneTag, false));
+        this.addPost(new Post(users.getUserById(1), "Title 5", "Content 5", 0,
+                null, null, this.getCategoryById(1), twoTags, false));
+        this.addPost(new Post(users.getUserById(1), "Title 6", "Content 6", 0,
+                null, null, this.getCategoryById(1), twoTags, false));
     }
 
     @Override

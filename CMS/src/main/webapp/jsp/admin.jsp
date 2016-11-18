@@ -16,204 +16,169 @@
 
     <body>
 
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Project name</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Help</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search...">
-                    </form>
-                </div>
-            </div>
-        </nav>
+        <%@include file="fragment/topbar.jsp" %>
 
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
+
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Reports</a></li>
-                        <li><a href="#">Analytics</a></li>
-                        <li><a href="#">Export</a></li>
+                        <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Posts</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">All Posts</a></li>
+                                <li><a href="">Add Post</a></li>
+                        </li>
                     </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item</a></li>
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                        <li><a href="">More navigation</a></li>
+
+                    <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Pages</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="">All Pages</a></li>
+                            <li><a href="">Add Page</a></li>
+                    </li>
                     </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
+                    <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Users</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="">All Users</a></li>
+                            <li><a href="">Add User</a></li>
+                    </li>
                     </ul>
+                    </ul>
+
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Dashboard</h1>
 
-                    <div class="row placeholders">
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
+                    <div class="row badges">
+                        <div class="col-xs-6 col-sm-4 badges panel">
+                            
+                            <div class="panel-body">
+                                <span class="glyphicon glyphicon-file"></span> Posts Needing Approval  <span class="badge">16</span>
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
+                        <div class="col-xs-6 col-sm-4 badges panel">
+                            <h3 class="panel-title">Recent Posts</h3>
+                            <div class="panel-body">
+                                <button class="btn btn-default btn-stacked"><span class="glyphicon glyphicon-th"></span> Working Out is Great  <span class="badge">700</span></button> 
+                                <button class="btn btn-default btn-stacked"><span class="glyphicon glyphicon-th"></span> Nail Your Double-Unders  <span class="badge">208</span></button> 
+                                <button class="btn btn-default btn-stacked"><span class="glyphicon glyphicon-th"></span> How are you preparing for the open?  <span class="badge">15</span></button> 
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
+                        <div class="col-xs-6 col-sm-4 badges panel">
+                            <h3 class="panel-title">Most Viewed Posts</h3>
+                            <div class="panel-body">
+                                <button class="btn btn-default btn-stacked"><span class="glyphicon glyphicon-th"></span> Working Out is Great  <span class="badge">700</span></button> 
+                                <button class="btn btn-default btn-stacked"><span class="glyphicon glyphicon-th"></span> Nail Your Double-Unders  <span class="badge">208</span></button> 
+                                <button class="btn btn-default btn-stacked"><span class="glyphicon glyphicon-th"></span> How are you preparing for the open?  <span class="badge">15</span></button> 
+                            </div>
+
                         </div>
-                        <div class="col-xs-6 col-sm-3 placeholder">
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                            <h4>Label</h4>
-                            <span class="text-muted">Something else</span>
-                        </div>
+
                     </div>
 
-                    <h2 class="sub-header">Section title</h2>
+                    <h2 class="sub-header">All Pages</h2>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Header</th>
-                                    <th>Header</th>
-                                    <th>Header</th>
-                                    <th>Header</th>
+                                    <th>Page ID</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Approve</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1,001</td>
+                                    <td><a href="#">1,001</a></td>
                                     <td>Lorem</td>
                                     <td>ipsum</td>
                                     <td>dolor</td>
                                     <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,002</td>
-                                    <td>amet</td>
-                                    <td>consectetur</td>
-                                    <td>adipiscing</td>
-                                    <td>elit</td>
-                                </tr>
-                                <tr>
-                                    <td>1,003</td>
-                                    <td>Integer</td>
-                                    <td>nec</td>
-                                    <td>odio</td>
-                                    <td>Praesent</td>
-                                </tr>
-                                <tr>
-                                    <td>1,003</td>
-                                    <td>libero</td>
-                                    <td>Sed</td>
-                                    <td>cursus</td>
-                                    <td>ante</td>
-                                </tr>
-                                <tr>
-                                    <td>1,004</td>
-                                    <td>dapibus</td>
-                                    <td>diam</td>
-                                    <td>Sed</td>
-                                    <td>nisi</td>
-                                </tr>
-                                <tr>
-                                    <td>1,005</td>
-                                    <td>Nulla</td>
-                                    <td>quis</td>
-                                    <td>sem</td>
-                                    <td>at</td>
-                                </tr>
-                                <tr>
-                                    <td>1,006</td>
-                                    <td>nibh</td>
-                                    <td>elementum</td>
-                                    <td>imperdiet</td>
-                                    <td>Duis</td>
-                                </tr>
-                                <tr>
-                                    <td>1,007</td>
-                                    <td>sagittis</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
                                     <td>ipsum</td>
-                                    <td>Praesent</td>
-                                    <td>mauris</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,008</td>
-                                    <td>Fusce</td>
-                                    <td>nec</td>
-                                    <td>tellus</td>
-                                    <td>sed</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,009</td>
-                                    <td>augue</td>
-                                    <td>semper</td>
-                                    <td>porta</td>
-                                    <td>Mauris</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,010</td>
-                                    <td>massa</td>
-                                    <td>Vestibulum</td>
-                                    <td>lacinia</td>
-                                    <td>arcu</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,011</td>
-                                    <td>eget</td>
-                                    <td>nulla</td>
-                                    <td>Class</td>
-                                    <td>aptent</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,012</td>
-                                    <td>taciti</td>
-                                    <td>sociosqu</td>
-                                    <td>ad</td>
-                                    <td>litora</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,013</td>
-                                    <td>torquent</td>
-                                    <td>per</td>
-                                    <td>conubia</td>
-                                    <td>nostra</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,014</td>
-                                    <td>per</td>
-                                    <td>inceptos</td>
-                                    <td>himenaeos</td>
-                                    <td>Curabitur</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
+
                                 </tr>
                                 <tr>
-                                    <td>1,015</td>
-                                    <td>sodales</td>
-                                    <td>ligula</td>
-                                    <td>in</td>
-                                    <td>libero</td>
+                                    <td><a href="#">1,001</a></td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                    <td><button class="btn btn-primary">Approve</button> </td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>

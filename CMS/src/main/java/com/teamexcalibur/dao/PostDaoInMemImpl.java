@@ -52,19 +52,19 @@ public class PostDaoInMemImpl implements PostDao {
         this.addCategory(new Category("Thursday"));
         this.addCategory(new Category("Friday"));
         
-        this.addPost(new Post(users.getUserById(0), "Title 0", "Content 0", 0,
+        this.addPost(new Post(users.getUserById(0), "Title 0", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(0), oneTag, false));
-        this.addPost(new Post(users.getUserById(1), "Title 1", "Content 1", 0,
+        this.addPost(new Post(users.getUserById(1), "Title 1", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(1), twoTags, false));
-        this.addPost(new Post(users.getUserById(0), "Title 2", "Content 2", 0,
+        this.addPost(new Post(users.getUserById(0), "Title 2", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(2), oneTag, false));
-        this.addPost(new Post(users.getUserById(1), "Title 3", "Content 3", 0,
+        this.addPost(new Post(users.getUserById(1), "Title 3", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(1), twoTags, false));
-        this.addPost(new Post(users.getUserById(0), "Title 4", "Content 4", 0,
+        this.addPost(new Post(users.getUserById(0), "Title 4", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(2), oneTag, false));
-        this.addPost(new Post(users.getUserById(1), "Title 5", "Content 5", 0,
+        this.addPost(new Post(users.getUserById(1), "Title 5", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(1), twoTags, false));
-        this.addPost(new Post(users.getUserById(1), "Title 6", "Content 6", 0,
+        this.addPost(new Post(users.getUserById(1), "Title 6", "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(1), twoTags, false));
     }
 

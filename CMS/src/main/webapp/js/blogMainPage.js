@@ -38,7 +38,7 @@ function populateMainPagePost(data) {
                             'class': 'btn btn-default',
                             'href': '/CMS/post/' + post.id,
                             'role': 'button'
-                        }).text('View More')
+                        }).text('More')
                         ) // ends the <a>
                 ) // ends the 2nd <p>
                 ); // ends the <div> 

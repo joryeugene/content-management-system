@@ -26,12 +26,11 @@
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
                     <div class="row">
-                        <h1>Post Title</h1>
-                        <p>Post details</p>
+                        <h1>${page.title}</h1>
+                        <p></p>
                     </div>
                     <div class="row">
-                        <p>Nunc malesuada mauris erat, non interdum ex suscipit a. Nulla interdum laoreet elit. Integer auctor vehicula elit, id volutpat lectus ullamcorper sed. Vivamus vitae aliquet sem. Pellentesque vitae mauris libero. Pellentesque lacus dolor, posuere vel ex vitae, tincidunt facilisis urna. Mauris nec feugiat mauris. Mauris eleifend lorem sem, nec sagittis tortor sollicitudin ut. Suspendisse vestibulum diam sit amet dui mollis tincidunt. Proin nec purus lorem. Sed sit amet lectus ut sapien sollicitudin porttitor. In tincidunt libero mauris, non venenatis elit aliquet vel. Sed euismod sapien id sem pellentesque, at eleifend massa varius.</p>
-                        <p>In sed neque consequat, maximus nulla vitae, iaculis justo. Quisque euismod enim vel feugiat pretium. Integer metus magna, finibus ac suscipit a, fermentum lobortis nunc. Ut at metus vitae elit egestas ultricies non in elit. Fusce tempus sollicitudin suscipit. Integer blandit consequat mollis. Nam maximus justo at tellus aliquet interdum. Nullam tempor ac sapien sit amet sagittis. Suspendisse magna purus, congue sed nibh non, feugiat tempus diam. Aliquam erat volutpat. Nam viverra commodo iaculis.</p>
+                        ${page.content}
                     </div><!--/row-->
                 </div><!--/.col-xs-12.col-sm-9-->
             </div><!--/row-->

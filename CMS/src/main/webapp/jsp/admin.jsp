@@ -25,15 +25,15 @@
                     <ul class="nav nav-sidebar">
                         <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Posts</a>
                             <ul class="dropdown-menu">
-                                <li><a href="">All Posts</a></li>
-                                <li><a href="">Add Post</a></li>
+                                <li><a href="${pageContext.request.contextPath}/blog">All Posts</a></li>
+                                <li><a href="${pageContext.request.contextPath}/">Add Post</a></li>
                         </li>
                     </ul>
 
                     <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Pages</a>
                         <ul class="dropdown-menu">
-                            <li><a href="">All Pages</a></li>
-                            <li><a href="">Add Page</a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin">All Pages</a></li>
+                            <li><a href="${pageContext.request.contextPath}/addPage">Add Page</a></li>
                     </li>
                     </ul>
                     <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Users</a>
@@ -76,111 +76,8 @@
                     </div>
 
                     <h2 class="sub-header">All Pages</h2>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Page ID</th>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Approve</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-
-                                </tr>
-                                <tr>
-                                    <td><a href="#">1,001</a></td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                    <td><button class="btn btn-primary">Approve</button> </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
+                    <div id="pages-table" class="table-responsive">
+                        
                     </div>
                 </div>
             </div>
@@ -188,5 +85,6 @@
 
         <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/loadPages.js"></script>
     </body>
 </html>

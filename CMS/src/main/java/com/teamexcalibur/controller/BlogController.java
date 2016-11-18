@@ -1,5 +1,6 @@
 package com.teamexcalibur.controller;
 
+import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
 import com.teamexcalibur.dto.Post;
 import java.util.ArrayList;
@@ -16,14 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BlogController {
 
     private final PostDao postDao;
+    private final PageDao pageDao;
 
     @Inject
-    public BlogController(PostDao postDao) {
+    public BlogController(PostDao postDao, PageDao pageDao) {
         this.postDao = postDao;
+        this.pageDao = pageDao;
     }
 
     @RequestMapping(value = {"/", "/blog"}, method = RequestMethod.GET)
-    public String displayMainBlogPage() {
+    public String displayMainBlogPage(Model model) {
+        model.addAttribute("navs", pageDao.getAllNavs());
         return "blog";
     }
 
@@ -57,6 +61,7 @@ public class BlogController {
     public String displayBlogPost(@PathVariable("id") int id, Model model) {
         Post post = postDao.getPostById(id);
         model.addAttribute("post", post);
+        model.addAttribute("navs", pageDao.getAllNavs());
         return "post";
     }
 

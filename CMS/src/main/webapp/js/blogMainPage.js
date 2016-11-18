@@ -5,7 +5,7 @@ $(document).ready(function () {
 function loadMainPagePosts() {
     $.ajax({
         type: 'GET',
-        url: "/CMS/posts"
+        url: "/CMS/posts/recent"
     }).success(function (data, status) {
         console.log(data);
         populateMainPagePost(data);
@@ -20,13 +20,17 @@ function populateMainPagePost(data) {
     // need to reverse order and limit to 6 and add a button at bottom of page for MORE posts
 
     $.each(data, function (index, post) {
+        if (post.content.length > 231) {
+            content = post.content.substring(0, 231) + '...';
+        } else {
+            content = post.content
+        }
 
         mainPagePostsDiv.append($('<div>')
                 .attr({
                     'class': 'col-xs-6 col-lg-4'
                 }).append($('<h2>').text(post.title)
-
-                ).append($('<p>').text(post.content)
+                ).append($('<p>').text(content)
 
                 ).append($('<p>')
                 .append($('<a>')

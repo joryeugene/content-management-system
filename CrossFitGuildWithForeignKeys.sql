@@ -9,12 +9,12 @@
 
 DROP TABLE IF EXISTS `Hashtag`;
 DROP TABLE IF EXISTS `PostHashtag`;
-DROP TABLE IF EXISTS `Nav`;
-DROP TABLE IF EXISTS `User`;
-DROP TABLE IF EXISTS `Category`;
-DROP TABLE IF EXISTS `Post`;
 DROP TABLE IF EXISTS `ArchivedPost`;
+DROP TABLE IF EXISTS `Post`;
+DROP TABLE IF EXISTS `Nav`;
 DROP TABLE IF EXISTS `Page`;
+DROP TABLE IF EXISTS `Category`;
+DROP TABLE IF EXISTS `User`;
 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -176,7 +176,7 @@ ALTER TABLE `Post`
 -- Indexes for table `PostHashtag`
 --
 ALTER TABLE `PostHashtag`
-  ADD PRIMARY KEY (`PostId`),
+  ADD PRIMARY KEY (`PostId`, `Hashtag`),
   ADD KEY `PostHashtag_ibfk_2` (`PostId`);
 
 --

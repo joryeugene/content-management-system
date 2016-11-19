@@ -4,6 +4,7 @@ import com.teamexcalibur.dto.Category;
 import com.teamexcalibur.dto.Post;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,7 +41,7 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_SELECT_POSTS_BY_CATEGORY_ID
             = "select * from Post where CategoryId = ?";
     private static final String SQL_SELECT_POSTS_BY_HASHTAG
-            = "select * from Post join PostHashtag on PostId where Hashtag = ?";
+            = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ?";
     private static final String SQL_SELECT_ALL_POSTS
             = "select * from Post";
 
@@ -53,7 +54,7 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_SELECT_CATEGORY_BYID
             = "select * from Category where CategoryId = ?";
     private static final String SQL_SELECT_USED_CATEGORIES
-            = "select distinct CategoryId, CategoryName from Post join Category on CategoryId;";
+            = "select distinct Post.CategoryId, Category.CategoryName from Post join Category on Post.CategoryId=Category.CategoryId;";
     private static final String SQL_SELECT_ALL_CATEGORIES
             = "select * from Category";
 
@@ -92,7 +93,8 @@ public class PostDaoDbImpl implements PostDao {
                 post.getCategory().getId(), post.isQueued());
         post.setId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
-        for (String tag : post.getHashtags()) {
+        
+        for (String tag : new HashSet<String>(post.getHashtags())) {
             jdbcTemplate.update(SQL_INSERT_HASHTAG, post.getId(), tag);
         }
         return post;
@@ -122,7 +124,7 @@ public class PostDaoDbImpl implements PostDao {
                 post.getContent(), post.getNumViews(), post.getStringStartDate(), post.getStringEndDate(),
                 post.getCategory().getId(), post.isQueued(), post.getId());
         jdbcTemplate.update(SQL_DELETE_HASHTAG_BY_POSTID, post.getId());
-        for (String tag : post.getHashtags()) {
+        for (String tag : new HashSet<String>(post.getHashtags())) {
             jdbcTemplate.update(SQL_INSERT_HASHTAG, post.getId(), tag);
         }
     }
@@ -203,7 +205,7 @@ public class PostDaoDbImpl implements PostDao {
 
     @Override
     public List<Post> getPostsByCategoryId(int id) {
-        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_CATEGORY_ID, new PostMapper());
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_CATEGORY_ID, new PostMapper(), id);
         for (Post post : result) {
             post.setHashtags(getHashtagsByPostId(post.getId()));
         }
@@ -218,7 +220,7 @@ public class PostDaoDbImpl implements PostDao {
 
     @Override
     public List<Post> getPostsByHashtag(String hashtag) {
-        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_HASHTAG, new PostMapper());
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_HASHTAG, new PostMapper(), hashtag);
         for (Post post : result) {
             post.setHashtags(getHashtagsByPostId(post.getId()));
         }
@@ -254,7 +256,7 @@ public class PostDaoDbImpl implements PostDao {
         public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
             Category cat = new Category();
             cat.setId(rs.getInt("CategoryId"));
-            cat.setName(rs.getString("Name"));
+            cat.setName(rs.getString("CategoryName"));
             return cat;
         }
     }

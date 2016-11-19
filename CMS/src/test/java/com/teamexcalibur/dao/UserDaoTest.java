@@ -25,26 +25,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class UserDaoTest {
-    
+
     private UserDao dao;
     private Map<Integer, User> testUserMap = new HashMap<>();
     //private List<User> userList = new ArrayList<>();
-    
+
     public UserDaoTest() {
         ApplicationContext ctx
                 = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         dao = ctx.getBean("userDao", UserDao.class);
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
-        
+
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         ApplicationContext ctx
@@ -53,7 +53,7 @@ public class UserDaoTest {
                 = ctx.getBean("jdbcTemplate", org.springframework.jdbc.core.JdbcTemplate.class);
         jdbcTemplate.update("Delete from `User`");
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -64,17 +64,17 @@ public class UserDaoTest {
     @Test
     public void testAddUser() {
         System.out.println("addUser");
-      //Create a new user
-      User newUser = new User();
-      newUser.setAuthority("ROLE_ADMIN");
-      newUser.setDisplayName("Test User");
-      newUser.setAvatarUrl("img/avatar.png");
-      newUser.setEmail("hacker@hacker.com");
-      newUser.setPassword("password");
-      
-      newUser = dao.addUser(newUser);
-      assertEquals(dao.getUserById(newUser.getId()).getDisplayName(),newUser.getDisplayName());
-      
+        //Create a new user
+        User newUser = new User();
+        newUser.setAuthority("ROLE_ADMIN");
+        newUser.setDisplayName("Test User");
+        newUser.setAvatarUrl("img/avatar.png");
+        newUser.setEmail("hacker@hacker.com");
+        newUser.setPassword("password");
+
+        newUser = dao.addUser(newUser);
+        assertEquals(newUser, dao.getUserById(newUser.getId()));
+
     }
 
     /**
@@ -83,21 +83,21 @@ public class UserDaoTest {
     @Test
     public void testDeleteUser() {
         System.out.println("deleteUser");
-       //Create a new user
-      User newUser = new User();
-      newUser.setId(2);
-      newUser.setAuthority("ROLE_ADMIN");
-      newUser.setDisplayName("Test User");
-      newUser.setAvatarUrl("img/avatar.png");
-      newUser.setEmail("hacker@hacker.com");
-      newUser.setPassword("password");
-      
-      dao.addUser(newUser);
-      testUserMap.put(2, newUser);
-      
-      dao.deleteUser(5);
-      assertNull(dao.getUserById(5));
-      
+        //Create a new user
+        User newUser = new User();
+        newUser.setId(2);
+        newUser.setAuthority("ROLE_ADMIN");
+        newUser.setDisplayName("Test User");
+        newUser.setAvatarUrl("img/avatar.png");
+        newUser.setEmail("hacker@hacker.com");
+        newUser.setPassword("password");
+
+        newUser = dao.addUser(newUser);
+        // make sure it gets into the dao
+        assertEquals(newUser, dao.getUserById(newUser.getId()));
+
+        dao.deleteUser(newUser.getId());
+        assertNull(dao.getUserById(newUser.getId()));
     }
 
     /**
@@ -107,22 +107,19 @@ public class UserDaoTest {
     public void testUpdateUser() {
         System.out.println("updateUser");
         User newUser = new User();
-      newUser.setId(7);
-      newUser.setAuthority("ROLE_ADMIN");
-      newUser.setDisplayName("Test User");
-      newUser.setAvatarUrl("img/avatar.png");
-      newUser.setEmail("hacker@hacker.com");
-      newUser.setPassword("password");
-      
-      dao.addUser(newUser);
-      testUserMap.put(7, newUser);
-      
-      newUser.setDisplayName("Updated name");
-      dao.updateUser(newUser);
-      
-      assertTrue(dao.getUserById(7).getDisplayName().equals("Updated name"));
-      
-      
+        newUser.setId(7);
+        newUser.setAuthority("ROLE_ADMIN");
+        newUser.setDisplayName("Test User");
+        newUser.setAvatarUrl("img/avatar.png");
+        newUser.setEmail("hacker@hacker.com");
+        newUser.setPassword("password");
+
+        newUser = dao.addUser(newUser);
+        newUser.setDisplayName("Updated name");
+        dao.updateUser(newUser);
+
+        assertTrue(dao.getUserById(newUser.getId()).getDisplayName().equals("Updated name"));
+
     }
 
     /**
@@ -131,9 +128,17 @@ public class UserDaoTest {
     @Test
     public void testGetUserById() {
         System.out.println("getUserById");
-        User testUser = dao.getUserById(11);
-        
-        assertTrue(testUser.getDisplayName().equals("User1"));
+        User newUser = new User();
+        newUser.setId(7);
+        newUser.setAuthority("ROLE_ADMIN");
+        newUser.setDisplayName("Test User");
+        newUser.setAvatarUrl("img/avatar.png");
+        newUser.setEmail("hacker@hacker.com");
+        newUser.setPassword("password");
+        newUser = dao.addUser(newUser);
+        User testUser = dao.getUserById(newUser.getId());
+
+        assertTrue(testUser.getDisplayName().equals("Test User"));
     }
 
     /**
@@ -142,12 +147,36 @@ public class UserDaoTest {
     @Test
     public void testGetAllUsers() {
         System.out.println("getAllUsers");
+        User newUser = new User();
+        newUser.setId(2);
+        newUser.setAuthority("ROLE_ADMIN");
+        newUser.setDisplayName("Test User");
+        newUser.setAvatarUrl("img/avatar.png");
+        newUser.setEmail("hacker@hacker.com");
+        newUser.setPassword("password");
+        dao.addUser(newUser);
+        newUser = new User();
+        newUser.setId(2);
+        newUser.setAuthority("ROLE_ADMIN");
+        newUser.setDisplayName("Test User1");
+        newUser.setAvatarUrl("img/avatar.png");
+        newUser.setEmail("hacker@hacker.com");
+        newUser.setPassword("password");
+        dao.addUser(newUser);
+
+        newUser = new User();
+        newUser.setId(2);
+        newUser.setAuthority("ROLE_ADMIN");
+        newUser.setDisplayName("Test User2");
+        newUser.setAvatarUrl("img/avatar.png");
+        newUser.setEmail("hacker@hacker.com");
+        newUser.setPassword("password");
+        dao.addUser(newUser);
+
         List<User> getAllTestList = dao.getAllUsers();
-        
-        assertEquals(getAllTestList.size(),2);
+
+        assertEquals(3, getAllTestList.size());
 
     }
 
-  
-    
 }

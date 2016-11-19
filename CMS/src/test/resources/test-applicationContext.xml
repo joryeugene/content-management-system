@@ -45,6 +45,7 @@
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>   
     <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
+        <constructor-arg ref="userDao"/>
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean> 
   

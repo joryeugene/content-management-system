@@ -152,7 +152,7 @@ public class Post {
             this.startDate = LocalDate.now();
             return;
         }
-        this.startDate = LocalDate.parse(stringEndDate.replaceAll("/", "-"));
+        this.startDate = LocalDate.parse(stringStartDate.replaceAll("/", "-"));
     }
 
     public String getStringEndDate() {

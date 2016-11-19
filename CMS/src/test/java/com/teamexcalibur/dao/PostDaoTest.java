@@ -42,9 +42,8 @@ public class PostDaoTest {
         ApplicationContext ctx
                 = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         dao = ctx.getBean("postDao", PostDao.class);
+         // this must be db impl if postdao uses db -- foreign key constraints
         udao = ctx.getBean("userDao", UserDao.class);
-        u1 = udao.addUser(new User(0, "x@u.com", "UserX", "admin", "https://pic0", "userPw1"));
-        u2 = udao.addUser(new User(1, "y@u.com", "UserY", "admin", "https://pic1", "userPw2"));
     }
 
     @BeforeClass
@@ -61,9 +60,14 @@ public class PostDaoTest {
                 = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         JdbcTemplate jdbcTemplate
                 = ctx.getBean("jdbcTemplate", org.springframework.jdbc.core.JdbcTemplate.class);
+
         jdbcTemplate.update("Delete from `PostHashtag`");
-        jdbcTemplate.update("Delete from `Category`");
         jdbcTemplate.update("Delete from `Post`");
+        jdbcTemplate.update("Delete from `Category`");
+        jdbcTemplate.update("Delete from `User`");
+        u1 = udao.addUser(new User(0, "x@u.com", "UserX", "admin", "https://pic0", "userPw1"));
+        u2 = udao.addUser(new User(1, "y@u.com", "UserY", "admin", "https://pic1", "userPw2"));
+
     }
 
     @After
@@ -80,7 +84,7 @@ public class PostDaoTest {
                 null, null, cat, oneTag, false);
         dao.addPost(nc);
         Post fromDb = dao.getPostById(nc.getId());
-        assertEquals(fromDb, nc);
+        assertEquals(nc, fromDb);
         dao.deletePost(nc.getId());
         assertNull(dao.getPostById(nc.getId()));
     }
@@ -97,7 +101,7 @@ public class PostDaoTest {
         nc.setContent("Joan Wiggums");
         dao.updatePost(nc);
         Post fromDb = dao.getPostById(nc.getId());
-        assertEquals(fromDb, nc);
+        assertEquals(nc, fromDb);
     }
 
     @Test
@@ -111,7 +115,7 @@ public class PostDaoTest {
         Category c1 = dao.addCategory(new Category("Monday"));
         Category c2 = dao.addCategory(new Category("Tuesday"));
         Category c3 = dao.addCategory(new Category("Wednesday"));
-        dao.addCategory(new Category("Thursday"));
+        Category c4 = dao.addCategory(new Category("Thursday"));
         dao.addCategory(new Category("Friday"));
 
         Post nc = new Post(u1, "Title 0", "Content 0", 0,
@@ -126,22 +130,22 @@ public class PostDaoTest {
         dao.addPost(new Post(u1, "Title 4", "Content 4", 0,
                 null, null, c3, oneTag, false));
         List<Category> cList = dao.getAllCategories();
-        assertEquals(cList.size(), 5);
+        assertEquals(5, cList.size());
         List<String> hList = dao.getAllHashtags();
-        assertEquals(hList.size(), 3);
+        assertEquals(3, hList.size());
         List<Post> pList = dao.getAllPosts();
-        assertEquals(pList.size(), 5);
+        assertEquals(5, pList.size());
         cList = dao.getUsedCategories();
-        assertEquals(cList.size(), 3);
+        assertEquals(3, cList.size());
         hList = dao.getUsedHashtags();
-        assertEquals(hList.size(), 3);
-        pList = dao.getPostsByCategoryId(2);
-        assertEquals(pList.size(), 2);
+        assertEquals(3, hList.size());
+        pList = dao.getPostsByCategoryId(c2.getId());
+        assertEquals(2, pList.size());
         pList = dao.getPostsByHashtag("#YoPaPa");
-        assertEquals(pList.size(), 2);
-        dao.deleteCategory(1);
+        assertEquals(2, pList.size());
+        dao.deleteCategory(c4.getId());
         cList = dao.getAllCategories();
-        assertEquals(cList.size(), 4);
+        assertEquals(4, cList.size());
         
     }
 }

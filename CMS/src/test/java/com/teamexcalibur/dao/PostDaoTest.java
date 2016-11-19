@@ -42,7 +42,7 @@ public class PostDaoTest {
         ApplicationContext ctx
                 = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         dao = ctx.getBean("postDao", PostDao.class);
-         // this must be db impl if postdao uses db -- foreign key constraints
+        // this must be db impl if postdao uses db -- foreign key constraints
         udao = ctx.getBean("userDao", UserDao.class);
     }
 
@@ -60,7 +60,8 @@ public class PostDaoTest {
                 = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         JdbcTemplate jdbcTemplate
                 = ctx.getBean("jdbcTemplate", org.springframework.jdbc.core.JdbcTemplate.class);
-
+        jdbcTemplate.update("Delete from `Nav`");
+        jdbcTemplate.update("Delete from `Page`");
         jdbcTemplate.update("Delete from `PostHashtag`");
         jdbcTemplate.update("Delete from `Post`");
         jdbcTemplate.update("Delete from `Category`");
@@ -76,6 +77,8 @@ public class PostDaoTest {
 
     @Test
     public void addGetDeletes() {
+        System.out.println("addGetDeletes");
+
         List<String> oneTag = new ArrayList<>();
         oneTag.add("#YoMama");
         Category cat = dao.addCategory(new Category("Monday"));
@@ -91,6 +94,8 @@ public class PostDaoTest {
 
     @Test
     public void addUpdatePost() {
+        System.out.println("addUpdatePost");
+
         List<String> oneTag = new ArrayList<>();
         oneTag.add("#YoMama");
         Category cat = dao.addCategory(new Category("Monday"));
@@ -106,6 +111,8 @@ public class PostDaoTest {
 
     @Test
     public void getAllUsed() {
+        System.out.println("getAllUsed");
+
         List<String> oneTag = new ArrayList<>();
         oneTag.add("#YoMama");
         List<String> twoTags = new ArrayList<>();
@@ -146,6 +153,6 @@ public class PostDaoTest {
         dao.deleteCategory(c4.getId());
         cList = dao.getAllCategories();
         assertEquals(4, cList.size());
-        
+
     }
 }

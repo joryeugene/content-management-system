@@ -51,6 +51,10 @@ public class UserDaoTest {
                 = new ClassPathXmlApplicationContext("test-applicationContext.xml");
         JdbcTemplate jdbcTemplate
                 = ctx.getBean("jdbcTemplate", org.springframework.jdbc.core.JdbcTemplate.class);
+        jdbcTemplate.update("Delete from `Nav`");
+        jdbcTemplate.update("Delete from `Page`");
+        jdbcTemplate.update("Delete from `PostHashtag`");
+        jdbcTemplate.update("Delete from `Post`");
         jdbcTemplate.update("Delete from `User`");
     }
 

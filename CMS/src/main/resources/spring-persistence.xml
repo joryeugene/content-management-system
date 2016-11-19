@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-              xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/mvc
@@ -43,9 +43,14 @@
           class="com.teamexcalibur.dao.PageDaoInMemImpl">
     </bean>
     <!-- Bean definitions go here -->
-    <bean id="userDao" class="com.teamexcalibur.dao.UserDaoInMemImpl"></bean>   
-    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoInMemImpl"></bean>  
-<!--    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
+    <bean id="userDao" class="com.teamexcalibur.dao.UserDaoDbImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>   
+    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
+        <constructor-arg ref="userDao"/>
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean> 
+    <!--    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>  -->
 </beans>

@@ -16,7 +16,7 @@
 
     <body>
         <%@include file="fragment/nav.jsp"%>
-        
+
         <div class="container">
 
             <div class="row row-offcanvas row-offcanvas-right">
@@ -25,12 +25,14 @@
                     <p class="pull-right visible-xs">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
-                    <div class="jumbotron">
-                        <h1>Header?</h1>
-                        <p>Possible subtitle</p>
+                    <div class="jumbotron" id="header-img" style="position: relative;">
+                        <div>
+                            <h1 style="visibility: hidden;">Header</h1>
+                            <p style="position: absolute; bottom: 0; left: 20px; color: white; text-shadow: 2px 2px #000;">Most Recent Posts</p>
+                        </div>
                     </div>
                     <div class="row" id="main-page-posts">
-                        
+
                     </div><!--/row-->
                 </div><!--/.col-xs-12.col-sm-9-->
 

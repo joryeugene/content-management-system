@@ -10,7 +10,7 @@ function loadPageToEdit(id) {
 
     $.ajax({
         type: 'GET',
-        url: '../page/'+id
+        url: '/edit/page/' + id
     }).success(function (data, status)
     {
         contentEditArea.append(data.content);

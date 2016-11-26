@@ -50,7 +50,7 @@
 
                     <div class="row badges">
                         <div class="col-xs-6 col-sm-4 badges panel">
-                            
+
                             <div class="panel-body">
                                 <span class="glyphicon glyphicon-file"></span> Posts Needing Approval  <span class="badge">16</span>
                             </div>
@@ -76,8 +76,14 @@
                     </div>
 
                     <h2 class="sub-header">All Pages</h2>
-                    <div id="pages-table" class="table-responsive">
-                        
+                    <div class="table table-responsive">
+                        <table class = "table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Page ID</th><th>Title</th><th>Author</th><th>Approve</th></tr>
+                            </thead>  
+                            <tbody id ="page-list"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>

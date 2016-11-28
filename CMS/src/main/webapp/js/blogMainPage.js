@@ -49,14 +49,15 @@ function populateMainPagePost(data, moreLink) {
     });
 
     if (moreLink) {
-        mainPagePostsDiv.append($('<p style="float:right;">')
-                .append($('<a>')
-                        .attr({
-                            'href': '/CMS/summary'
-                        })
-                        .text('See All Posts...')
-                        )
-                );
+        mainPagePostsDiv.append($('<div style="clear:both;">'))
+                .append($('<p style="float:right;">')
+                        .append($('<a>')
+                                .attr({
+                                    'href': '/CMS/summary'
+                                })
+                                .text('See All Posts...')
+                                )
+                        );
     }
 }
 

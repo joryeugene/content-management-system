@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,9 +35,10 @@
                     </div><!--/row-->
 
                     <p></p>
-                    <p><a href="#">${post.category.name}</a> |
+                    <p><a href="${pageContext.request.contextPath}/category/${post.category.id}">${post.category.name}</a> |
                         <c:forEach var="hashtag" items="${post.hashtags}">
-                            <span> <a href="#">${hashtag}</a></span>
+                            <c:set var="hashtagLink" value="${fn:replace(hashtag, '#', '')}" />
+                            <span> <a href="${pageContext.request.contextPath}/hashtag/${hashtagLink}">${hashtag}</a></span>
                         </c:forEach>
                     </p>
                 </div><!--/.col-xs-12.col-sm-9-->

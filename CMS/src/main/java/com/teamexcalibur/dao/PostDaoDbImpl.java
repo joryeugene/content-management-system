@@ -43,7 +43,11 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_SELECT_POSTS_BY_HASHTAG
             = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ?";
     private static final String SQL_SELECT_ALL_POSTS
-            = "select * from Post order by StartDate";
+            = "select * from Post order by StartDate desc";
+    private static final String SQL_SELECT_CURRENT_POSTS
+            = "select * from Post where StartDate <= CURDATE() and EndDate >= CURDATE() and Queued = false order by StartDate desc";
+    private static final String SQL_SELECT_QUEUED_POSTS
+            = "select * from Post where Queued = true order by StartDate desc";
 
     private static final String SQL_INSERT_CATEGORY
             = "insert into Category (CategoryName) values (?)";
@@ -93,7 +97,7 @@ public class PostDaoDbImpl implements PostDao {
                 post.getCategory().getId(), post.isQueued());
         post.setId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
-        
+
         for (String tag : new HashSet<String>(post.getHashtags())) {
             jdbcTemplate.update(SQL_INSERT_HASHTAG, post.getId(), tag);
         }
@@ -230,6 +234,24 @@ public class PostDaoDbImpl implements PostDao {
     @Override
     public List<String> getHashtagsByPostId(int postId) {
         return jdbcTemplate.query(SQL_SELECT_HASHTAG_BY_POSTID, new StringMapper(), postId);
+    }
+
+    @Override
+    public List<Post> getCurrentPosts() {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_CURRENT_POSTS, new PostMapper());
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getQueuedPosts() {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_QUEUED_POSTS, new PostMapper());
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
     }
 
     private final class PostMapper implements RowMapper<Post> {

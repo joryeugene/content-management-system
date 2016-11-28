@@ -37,6 +37,18 @@ public class BlogController {
     public List<Post> getAllPosts() {
         return postDao.getAllPosts();
     }
+    
+    @RequestMapping(value = "/currentposts", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Post> getCurrentPosts() {
+        return postDao.getCurrentPosts();
+    }
+    
+    @RequestMapping(value = "/queuedposts", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Post> getQueuedPosts() {
+        return postDao.getQueuedPosts();
+    }
 
     @RequestMapping(value = "/posts/recent", method = RequestMethod.GET)
     @ResponseBody

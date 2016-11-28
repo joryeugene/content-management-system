@@ -13,6 +13,8 @@ public interface PostDao {
     List<Post> getPostsByCategoryId(int id);
     List<Post> getPostsByHashtag(String hashtag);
     List<Post> getAllPosts();
+    List<Post> getCurrentPosts();
+    List<Post> getQueuedPosts();
     
     Category addCategory(Category category);
     void deleteCategory(int id);

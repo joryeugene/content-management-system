@@ -8,12 +8,15 @@ package com.teamexcalibur.dao;
 import com.teamexcalibur.dto.Category;
 import com.teamexcalibur.dto.Post;
 import com.teamexcalibur.dto.User;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -53,17 +56,17 @@ public class PostDaoInMemImpl implements PostDao {
         this.addCategory(new Category("Friday"));
         
         this.addPost(new Post(users.getUserById(0), "Title 0", "<div><b>Donec</b> id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</div>", 0,
-                null, null, this.getCategoryById(0), oneTag, false));
+                "2016-09-16", "2016-10-16", this.getCategoryById(0), oneTag, false));
         this.addPost(new Post(users.getUserById(1), "Title 1", "<b>Donec</b> id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(1), twoTags, false));
         this.addPost(new Post(users.getUserById(0), "Title 2", "<b>Donec</b> id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(2), oneTag, false));
         this.addPost(new Post(users.getUserById(1), "Title 3", "<b>Donec</b> id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
-                null, null, this.getCategoryById(1), twoTags, false));
+                "2016-11-12", "2116-11-12", this.getCategoryById(1), twoTags, true));
         this.addPost(new Post(users.getUserById(0), "Title 4", "<b>Donec</b> id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(2), oneTag, false));
         this.addPost(new Post(users.getUserById(1), "Title 5", "<b>Donec</b> id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
-                null, null, this.getCategoryById(1), twoTags, false));
+                null, null, this.getCategoryById(1), twoTags, true));
         this.addPost(new Post(users.getUserById(1), "Title 6", "<b>Donec</b> id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.", 0,
                 null, null, this.getCategoryById(1), twoTags, false));
     }
@@ -200,5 +203,24 @@ public class PostDaoInMemImpl implements PostDao {
     @Override
     public List<String> getHashtagsByPostId(int postId) {
         return postMap.get(postId).getHashtags();
+    }
+
+    @Override
+    public List<Post> getCurrentPosts() {
+        Predicate<Post> postFilter = x ->
+                (x.getStartDate().isBefore(LocalDate.now().plusDays(1))
+                        && x.getEndDate().isAfter(LocalDate.now())
+                        && !x.isQueued());
+        List<Post> c = postMap.values().stream()
+                .filter(postFilter).collect(Collectors.toList());
+        return c;
+    }
+
+    @Override
+    public List<Post> getQueuedPosts() {
+        Predicate<Post> postFilter = x -> x.isQueued();
+        List<Post> c = postMap.values().stream()
+                .filter(postFilter).collect(Collectors.toList());
+        return c;
     }
 }

@@ -79,6 +79,7 @@ public class BlogController {
         Post post = postDao.getPostById(id);
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("categories", postDao.getAllCategories());
         return "post";
     }
     

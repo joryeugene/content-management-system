@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,74 +47,39 @@
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Edit Page</h1>
+                    <h2 class="small"><a href="${pageContext.request.contextPath}/page/${page.id}">Visit Page</a></h2>
 
                     <div class="row page-edit">
                         <div class="col-xs-12 col-sm-8">
-                            <div>
+                            
                                 <h3>Page Title</h3>
-                                <form>
+                                <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/edit/page/${page.id}" method="POST">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" />
+                                        <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
+                                        </div>
+                                    <div class="form-group">
+                                    <sf:textarea id="edit-content" class="form-control" path="content"></sf:textarea>
                                     </div>
-                                </form>
-
-                            </div>
-                            <div>  <form method="post">
-                                    <textarea id="contentEditArea">Page Content Here</textarea>
-                                </form></div>
+                                    <sf:button name="publishPage" id="publish-page" class="btn btn-primary">Publish Page</sf:button>
+                            </sf:form>
                         </div>
-                        <div class="col-xs-12 col-sm-4">
-                            <div class="publish-box">
-                                <h3>Publish</h3>
-                                <form>
-                                    <!--TODO Date Picker-->
-                                    <input type="text" id="starting-date" /> <label>Starting Date</label>
-                                    <input type="text" id="starting-date" /> <label>Ending Date</label>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Publish post forever
-                                        </label>
-                                    </div>
-                                    <button type="submit">Publish</button>
-                                </form>
-                            </div> 
-                            <div class="categories-box">
-                                <form>
-                                <input type="text" class="form-control" name="createCategory" id="createCategory"/>
-                                <button class="btn btn-default" type="submit">Create Category</button>
-                                </form>
-                                <form>
-                                    <div class="form-group">   
-                                <select class="form-control">
-                                    <option>Choose Category</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                                    </div>
-                                    <div class="form-group">
-                                    <button class="btn btn-default" type="submit">Add Category to Page</button>
-                                    </div>
-                                </form>
 
-                            </div>
-                        </div> 
+                    </div> 
 
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
 <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/editPage.js"></script>
+<!--<script src="${pageContext.request.contextPath}/js/editPage.js"></script>-->
 <!--Initialize TinyMCE-->
 <script>
     tinymce.init({
-        selector: '#contentEditArea'
+        selector: "#edit-content"
     });
 </script>
 </body>

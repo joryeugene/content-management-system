@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,20 +26,23 @@
                     <p class="pull-right visible-xs">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
-                    <div class="row">
-                        <h1>${post.title}</h1>
-                        <p>${post.startDate.month} ${post.startDate.dayOfMonth}, ${post.startDate.year} | ${post.author.displayName}</p>
-                    </div>
-                    <div class="row">
-                        ${post.content}
-                    </div><!--/row-->
+                    <div class="main-margin">
+                        <div class="row">
+                            <h1>${post.title}</h1>
+                            <p>${post.startDate.month} ${post.startDate.dayOfMonth}, ${post.startDate.year} | ${post.author.displayName}</p>
+                        </div>
+                        <div class="row">
+                            ${post.content}
+                        </div><!--/row-->
 
-                    <p></p>
-                    <p><a href="#">${post.category.name}</a> |
-                        <c:forEach var="hashtag" items="${post.hashtags}">
-                            <span> <a href="#">${hashtag}</a></span>
-                        </c:forEach>
-                    </p>
+                        <p></p>
+                        <p><a href="${pageContext.request.contextPath}/category/${post.category.id}">${post.category.name}</a> |
+                            <c:forEach var="hashtag" items="${post.hashtags}">
+                                <c:set var="hashtagLink" value="${fn:replace(hashtag, '#', '')}" />
+                                <span> <a href="${pageContext.request.contextPath}/hashtag/${hashtagLink}">${hashtag}</a></span>
+                                </c:forEach>
+                        </p>
+                    </div>
                 </div><!--/.col-xs-12.col-sm-9-->
 
                 <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">

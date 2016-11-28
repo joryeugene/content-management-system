@@ -7,20 +7,20 @@ function loadMainPagePosts() {
         type: 'GET',
         url: "/CMS/posts/recent"
     }).success(function (data, status) {
-        console.log(data); // TESTING
-        populateMainPagePost(data);
+        var moreLink = true;
+        populateMainPagePost(data, moreLink);
     });
 }
 
-function populateMainPagePost(data) {
+function populateMainPagePost(data, moreLink) {
     var mainPagePostsDiv = $('#main-page-posts');
     mainPagePostsDiv.empty();
 
     $.each(data, function (index, post) {
-        if (post.content.length > 231) {
-            content = post.content.substring(0, 231) + '...';
-        } else {
-            content = post.content
+        var content = stripHtmlTags(post.content);
+
+        if (content.length > 231) {
+            content = content.substring(0, 231) + '...';
         }
 
         mainPagePostsDiv.append($('<div>')
@@ -47,4 +47,32 @@ function populateMainPagePost(data) {
             mainPagePostsDiv.append($('<div class="clearfix visible-xs-block visible-sm-block visible-md-block"></div>'));
         }
     });
+
+//    if (moreLink) {
+//        mainPagePostsDiv.append($('<p style="float:right;">')
+//                .append($('<span style="cursor: pointer">')
+//                        .attr({
+//                            'id': 'get-more-posts'
+//                        })
+//                        .text('More...')
+//                        )
+//                );
+//    }
 }
+
+//
+//$('#get-more-posts').click(function (event) {
+//    console.log("1");
+//    $.ajax({
+//        type: 'GET',
+//        url: "/CMS/posts"
+//    }).success(function (data, status) {
+//        var moreLink = false;
+//        populateMainPagePost(data, moreLink);
+//    });
+//});
+
+var stripHtmlTags = function (string) {
+    return string.replace(/(<([^>]+)>)/ig, "")
+}
+

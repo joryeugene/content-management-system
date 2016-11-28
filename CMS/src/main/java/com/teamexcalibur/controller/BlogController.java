@@ -2,6 +2,7 @@ package com.teamexcalibur.controller;
 
 import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
+import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,14 @@ public class BlogController {
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
         return "post";
+    }
+    
+    @RequestMapping(value = "/page/{id}", method = RequestMethod.GET)
+    public String displayStaticPage(@PathVariable("id") int id, Model model) {
+        Page page = pageDao.getPageById(id);
+        model.addAttribute("page", page);
+        model.addAttribute("navs", pageDao.getAllNavs());
+        return "page";
     }
 
 }

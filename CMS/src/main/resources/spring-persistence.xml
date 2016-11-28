@@ -50,5 +50,11 @@
         <constructor-arg ref="userDao"/>
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean> 
+    
+    <!-- In memory DAOs
+    <bean id="pageDao" class="com.teamexcalibur.dao.PageDaoInMemImpl"></bean>
+    <bean id="userDao" class="com.teamexcalibur.dao.UserDaoInMemImpl"></bean>   
+    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoInMemImpl"></bean> 
+    -->
   
 </beans>

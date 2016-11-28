@@ -43,7 +43,7 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_SELECT_POSTS_BY_HASHTAG
             = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ?";
     private static final String SQL_SELECT_ALL_POSTS
-            = "select * from Post";
+            = "select * from Post order by StartDate";
 
     private static final String SQL_INSERT_CATEGORY
             = "insert into Category (CategoryName) values (?)";

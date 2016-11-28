@@ -176,8 +176,8 @@ ALTER TABLE `Post`
 -- Indexes for table `PostHashtag`
 --
 ALTER TABLE `PostHashtag`
-  ADD PRIMARY KEY (`PostId`, `Hashtag`),
-  ADD KEY `PostHashtag_ibfk_2` (`PostId`);
+  ADD PRIMARY KEY (`PostId`, `Hashtag`);
+-- don't do this one  ADD KEY `PostHashtag_ibfk_2` (`PostId`);
 
 --
 -- Indexes for table `User`

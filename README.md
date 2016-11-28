@@ -7,3 +7,10 @@
 * CJ
 * Jory
 * Sarita
+
+** To create and populate data for the database,
+run sql's in the following order:
+
+CrossFitGuildWithForeignKeys.sql
+populateUserCategoryData.sql
+populateData.sql

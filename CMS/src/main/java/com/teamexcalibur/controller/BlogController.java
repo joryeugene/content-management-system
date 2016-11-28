@@ -29,6 +29,7 @@ public class BlogController {
     @RequestMapping(value = {"/", "/blog"}, method = RequestMethod.GET)
     public String displayMainBlogPage(Model model) {
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("categories", postDao.getAllCategories());
         return "blog";
     }
 
@@ -71,6 +72,14 @@ public class BlogController {
         model.addAttribute("categories", postDao.getAllCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getPostsByCategoryId(id)); // rev order??
+        return "posts";
+    }
+    
+    @RequestMapping(value = "/hashtag/{hashtagLink}", method = RequestMethod.GET)
+    public String displayHashtagPosts(@PathVariable("hashtagLink") String hashtag, Model model) {
+        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("posts", postDao.getPostsByHashtag("#" + hashtag));
         return "posts";
     }
 

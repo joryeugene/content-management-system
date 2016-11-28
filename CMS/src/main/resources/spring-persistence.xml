@@ -20,7 +20,7 @@
           class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
-                  value="jdbc:mysql://localhost:8889/CrossFitGuild" /> <!-- 3306 regularly // 8889 for mac -->
+                  value="jdbc:mysql://localhost:3306/CrossFitGuild" />
         <property name="username" value="root" />
         <property name="password" value="root" />
         <property name="initialSize" value="5" />
@@ -38,7 +38,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
     
-    <!-- Bean definitions go here 
+    <!-- Bean definitions go here -->
     <bean id="userDao" class="com.teamexcalibur.dao.UserDaoDbImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>   
@@ -51,9 +51,10 @@
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean> 
     
-    -->
+    <!-- 
     <bean id="pageDao" class="com.teamexcalibur.dao.PageDaoInMemImpl"></bean>
     <bean id="userDao" class="com.teamexcalibur.dao.UserDaoInMemImpl"></bean>   
     <bean id="postDao" class="com.teamexcalibur.dao.PostDaoInMemImpl"></bean>
+    -->
   
 </beans>

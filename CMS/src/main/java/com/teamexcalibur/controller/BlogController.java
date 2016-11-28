@@ -57,12 +57,29 @@ public class BlogController {
 
         return mostRecent;
     }
+    
+    @RequestMapping(value = {"/summary"}, method = RequestMethod.GET)
+    public String displayAllPosts(Model model) {
+        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("posts", postDao.getAllPosts()); // rev the order - get most recent first
+        return "posts";
+    }
+    
+    @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
+    public String displayCategoryPosts(@PathVariable("id") int id, Model model) {
+        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("posts", postDao.getPostsByCategoryId(id)); // rev order??
+        return "posts";
+    }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String displayBlogPost(@PathVariable("id") int id, Model model) {
         Post post = postDao.getPostById(id);
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("categories", postDao.getAllCategories());
         return "post";
     }
     

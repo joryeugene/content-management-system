@@ -60,8 +60,17 @@ public class BlogController {
     
     @RequestMapping(value = {"/summary"}, method = RequestMethod.GET)
     public String displayAllPosts(Model model) {
-        model.addAttribute("navs", pageDao.getAllNavs()); // rev the order - get most recent first
-        model.addAttribute("posts", postDao.getAllPosts());
+        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("posts", postDao.getAllPosts()); // rev the order - get most recent first
+        return "posts";
+    }
+    
+    @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
+    public String displayCategoryPosts(@PathVariable("id") int id, Model model) {
+        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("posts", postDao.getPostsByCategoryId(id)); // rev order??
         return "posts";
     }
 

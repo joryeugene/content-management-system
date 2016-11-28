@@ -1,12 +1,5 @@
 <div class="list-group">
-    <a href="#" class="list-group-item active">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
-    <a href="#" class="list-group-item">Link</a>
+    <c:forEach var="category" items="${categories}">
+        <a class="list-group-item" href="${pageContext.request.contextPath}/category/${category.id}">${category.name}</a>
+    </c:forEach>
 </div>

@@ -26,14 +26,14 @@
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
                     
-                    
+                    <div class="main-margin">
                         <c:forEach var="post" items="${posts}">
                             <div class="row">
                                 <h4><a href="${pageContext.request.contextPath}/post/${post.id}">${post.title}</a></h4>
                             <p>${post.startDate.month} ${post.startDate.dayOfMonth}, ${post.startDate.year} | ${post.author.displayName} | <a href="${pageContext.request.contextPath}/category/${post.category.id}">${post.category.name}</a></p>
                              </div>
                         </c:forEach>
-                   
+                   </div>
                 </div><!--/.col-xs-12.col-sm-9-->
 
                 <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">

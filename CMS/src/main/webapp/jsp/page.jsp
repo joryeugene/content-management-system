@@ -25,20 +25,23 @@
                     <p class="pull-right visible-xs">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
-                    <div class="row">
-                        <h1>${page.title}</h1>
-                        <p></p>
+                    
+                    <div class="main-margin">
+                        <div class="row">
+                            <h1>${page.title}</h1>
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            ${page.content}
+                        </div><!--/row-->
                     </div>
-                    <div class="row">
-                        ${page.content}
-                    </div><!--/row-->
                 </div><!--/.col-xs-12.col-sm-9-->
             </div><!--/row-->
 
             <hr>
 
         </div>
-        
+
         <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/offcanvas.js"></script>

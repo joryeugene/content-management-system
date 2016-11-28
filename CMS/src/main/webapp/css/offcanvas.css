@@ -68,3 +68,7 @@ footer {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.main-margin {
+    margin: 20px;
+}

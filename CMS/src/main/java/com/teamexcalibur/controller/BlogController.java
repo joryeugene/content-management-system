@@ -30,6 +30,7 @@ public class BlogController {
     public String displayMainBlogPage(Model model) {
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("hashtags", postDao.getAllHashtags());
         return "blog";
     }
 
@@ -64,6 +65,7 @@ public class BlogController {
         model.addAttribute("categories", postDao.getAllCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getAllPosts()); // rev the order - get most recent first
+        model.addAttribute("hashtags", postDao.getAllHashtags());
         return "posts";
     }
     
@@ -72,6 +74,7 @@ public class BlogController {
         model.addAttribute("categories", postDao.getAllCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getPostsByCategoryId(id)); // rev order??
+        model.addAttribute("hashtags", postDao.getAllHashtags());
         return "posts";
     }
     
@@ -80,6 +83,7 @@ public class BlogController {
         model.addAttribute("categories", postDao.getAllCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getPostsByHashtag("#" + hashtag));
+        model.addAttribute("hashtags", postDao.getAllHashtags());
         return "posts";
     }
 
@@ -89,6 +93,7 @@ public class BlogController {
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("hashtags", postDao.getAllHashtags());
         return "post";
     }
     

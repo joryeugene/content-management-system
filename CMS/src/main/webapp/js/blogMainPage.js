@@ -48,29 +48,17 @@ function populateMainPagePost(data, moreLink) {
         }
     });
 
-//    if (moreLink) {
-//        mainPagePostsDiv.append($('<p style="float:right;">')
-//                .append($('<span style="cursor: pointer">')
-//                        .attr({
-//                            'id': 'get-more-posts'
-//                        })
-//                        .text('More...')
-//                        )
-//                );
-//    }
+    if (moreLink) {
+        mainPagePostsDiv.append($('<p style="float:right;">')
+                .append($('<a>')
+                        .attr({
+                            'href': '/CMS/summary'
+                        })
+                        .text('See All Posts...')
+                        )
+                );
+    }
 }
-
-//
-//$('#get-more-posts').click(function (event) {
-//    console.log("1");
-//    $.ajax({
-//        type: 'GET',
-//        url: "/CMS/posts"
-//    }).success(function (data, status) {
-//        var moreLink = false;
-//        populateMainPagePost(data, moreLink);
-//    });
-//});
 
 var stripHtmlTags = function (string) {
     return string.replace(/(<([^>]+)>)/ig, "")

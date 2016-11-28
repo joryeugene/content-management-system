@@ -38,7 +38,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
     
-    <!-- Bean definitions go here -->
+    <!-- Bean definitions go here 
     <bean id="userDao" class="com.teamexcalibur.dao.UserDaoDbImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>   
@@ -51,10 +51,9 @@
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean> 
     
-    <!-- In memory DAOs
+    -->
     <bean id="pageDao" class="com.teamexcalibur.dao.PageDaoInMemImpl"></bean>
     <bean id="userDao" class="com.teamexcalibur.dao.UserDaoInMemImpl"></bean>   
-    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoInMemImpl"></bean> 
-    -->
+    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoInMemImpl"></bean>
   
 </beans>

@@ -57,6 +57,13 @@ public class BlogController {
 
         return mostRecent;
     }
+    
+    @RequestMapping(value = {"/summary"}, method = RequestMethod.GET)
+    public String displayAllPosts(Model model) {
+        model.addAttribute("navs", pageDao.getAllNavs()); // rev the order - get most recent first
+        model.addAttribute("posts", postDao.getAllPosts());
+        return "posts";
+    }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String displayBlogPost(@PathVariable("id") int id, Model model) {

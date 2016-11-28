@@ -13,21 +13,20 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"> 
+
     <tx:annotation-driven />
 
-    <!-- Bean definitions go here -->
     <bean id="dataSource"
           class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
-                  value="jdbc:mysql://localhost:3306/CrossFitGuild" />
-        <!-- test-applicationContext.xml should point to contact_list_test -->
-        <!-- value="jdbc:mysql://localhost:3306/contact_list_test" /> -->
+                  value="jdbc:mysql://localhost:8889/CrossFitGuild" /> <!-- 3306 regularly // 8889 for mac -->
         <property name="username" value="root" />
         <property name="password" value="root" />
         <property name="initialSize" value="5" />
         <property name="maxTotal" value="10" />
     </bean>
+    
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
@@ -39,9 +38,6 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
     
-    <bean id="pageDao"
-          class="com.teamexcalibur.dao.PageDaoInMemImpl">
-    </bean>
     <!-- Bean definitions go here -->
     <bean id="userDao" class="com.teamexcalibur.dao.UserDaoDbImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
@@ -49,8 +45,10 @@
     <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
         <constructor-arg ref="userDao"/>
         <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean> 
-    <!--    <bean id="postDao" class="com.teamexcalibur.dao.PostDaoDbImpl">
+    </bean>    
+    <bean id="pageDao" class="com.teamexcalibur.dao.PageDaoDbImpl">
+        <constructor-arg ref="userDao"/>
         <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean>  -->
+    </bean> 
+  
 </beans>

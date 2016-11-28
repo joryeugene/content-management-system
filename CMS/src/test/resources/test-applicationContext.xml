@@ -20,9 +20,7 @@
           class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
-                  value="jdbc:mysql://localhost:3306/CrossFitGuild_test" />
-        <!-- test-applicationContext.xml should point to contact_list_test -->
-        <!-- value="jdbc:mysql://localhost:3306/contact_list_test" /> -->
+                  value="jdbc:mysql://localhost:8889/CrossFitGuild_test" /> <!-- 3306 regularly // 8889 for mac -->
         <property name="username" value="root" />
         <property name="password" value="root" />
         <property name="initialSize" value="5" />

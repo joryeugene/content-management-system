@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<!-- #1 - Make security the default namespace -->
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+ http://www.springframework.org/schema/security
+ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+    
+    <beans:bean id="webexpressionHandler"
+                class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+    <beans:bean id="encoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 
+
+
+    <!-- #2 - Make sure we don’t need authorization to get to the login or home page -->
+    <http pattern="/login" security="none" />
+    <http pattern="/css/**" security="none" />
+    <http pattern="/js/**" security="none" />
+    <http pattern="/img/**" security="none" />
+    <!-- #3 - Authentication/login form and protected endpoint configuration -->
+    <http auto-config="true" use-expressions="true">
+        <!-- #3a - Login via html form, use Spring to do the security check -->
+        <!-- #3b - Use the login page at this endpoint -->
+        <!-- #3c - Redirect here if login fails -->
+        <form-login login-processing-url="/j_spring_security_check"
+                    login-page="/login"
+                    authentication-failure-url="/login?login_error=1"/>
+        <!-- #3d - Go back to home page when user logs out -->
+        <logout logout-success-url="/home" />
+        <!-- #3e - Access to these endpoints require admin role -->
+        
+        <intercept-url pattern="/admin" access="hasRole('admin')" />
+        <intercept-url pattern="/edit/page/*" access="hasRole('admin')" />
+        <intercept-url pattern="/edit/post/*" access="hasAnyRole('admin', 'writer')" />
+    </http>
+    <!-- #4 - Authentication Manager config -->
+    <authentication-manager>
+        <!-- #4a - Authentication Provider - we’re using the JDBC service -->
+        <authentication-provider>
+            <!-- AUTHENTICATION-PROVIDER CHANGES START -->
+            <password-encoder ref="encoder"/>
+            <!-- AUTHENTICATION-PROVIDER CHANGES END --> 
+            <!-- #4b - Tells Spring Security where to look for user information -->
+            <!-- We use the dataSource defined in spring-persistence.xml -->
+            <!-- and we give Spring Security the query to use to lookup -->
+            <!-- the user’s credentials (get the password from the users -->
+            <!-- tables and get the roles from the authorities table) -->
+            <jdbc-user-service id="userService"
+                               data-source-ref="dataSource"
+                               users-by-username-query=
+ "select Email, Password, 1 from User where Email=?"
+                               authorities-by-username-query=
+ "select Email, Authority from User where Email=?" />
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

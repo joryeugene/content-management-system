@@ -11,7 +11,8 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Admin Name Here Logout</a></li>
+                        <li><a href="#">Admin Name Here</a></li>
+                        <li><a href="${pageContext.request.contextPath}/j_spring_security_logout">Logout</a></li>
                     </ul>
                     <!--Maybe add back in in later version-->
                     <!--                    <form class="navbar-form navbar-right">

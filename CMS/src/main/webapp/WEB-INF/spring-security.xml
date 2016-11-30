@@ -35,10 +35,14 @@ and open the template in the editor.
                     login-page="/login"
                     authentication-failure-url="/login?login_error=1"/>
         <!-- #3d - Go back to home page when user logs out -->
-        <logout logout-success-url="/home" />
+        <logout logout-success-url="/" />
         <!-- #3e - Access to these endpoints require admin role -->
         
         <intercept-url pattern="/admin" access="hasRole('admin')" />
+        <intercept-url pattern="/jsp/admin.jsp" access="hasRole('admin')" />
+        <intercept-url pattern="/jsp/editPost.jsp" access="hasRole('admin')" />
+        <intercept-url pattern="/jsp/editPage.jsp" access="hasRole('admin')" />
+        <intercept-url pattern="/jsp/postTable.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/edit/page/*" access="hasRole('admin')" />
         <intercept-url pattern="/edit/post/*" access="hasAnyRole('admin', 'writer')" />
     </http>

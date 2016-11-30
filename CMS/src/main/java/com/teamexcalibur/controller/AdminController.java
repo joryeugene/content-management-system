@@ -5,6 +5,7 @@ import com.teamexcalibur.dao.PostDao;
 import com.teamexcalibur.dto.Category;
 import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,13 @@ public class AdminController {
         return "admin";
     }
 
+    @RequestMapping(value = {"/admin/allPosts"}, method = RequestMethod.GET)
+    public String displayAdminPostTable(Model model) {
+        List<Post> allPosts = postDao.getAllPosts();
+        model.addAttribute("allPosts", allPosts);
+        return "postTable";
+    }
+
     @RequestMapping(value = {"/pages"}, method = RequestMethod.GET)
     @ResponseBody
     public List<Page> getAllPages() {
@@ -63,13 +71,32 @@ public class AdminController {
         List<Category> allCategories = postDao.getAllCategories();
         model.addAttribute("allCategories", allCategories);
         return "editPost";
-
     }
 
     @RequestMapping(value = {"/edit/post/{id}"}, method = RequestMethod.POST)
     public String submitEditPost(@ModelAttribute("post") Post post, BindingResult result) {
         postDao.updatePost(post);
         return "redirect:admin";
+    }
+
+    @RequestMapping(value = "/pages/recent", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Page> getSixMostRecentPages() {
+        List<Page> allPages = dao.getAllPages();
+        int numOfPages = allPages.size();
+
+        List<Page> mostRecent = new ArrayList<>();
+
+        int count = 0;
+
+        for (int i = 0; i < numOfPages; i++) {
+            if (count < 6) {
+                mostRecent.add(allPages.get(numOfPages - (i + 1)));
+                count++;
+            }
+        }
+
+        return mostRecent;
     }
 
 }

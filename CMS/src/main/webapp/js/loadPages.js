@@ -11,69 +11,88 @@ function loadPages() {
         url: 'pages'
     }).success(function (data, status)
     {
-        $.each(data, function(index, page){
+        $.each(data, function (index, page) {
 
-                       pagesTable.append($('<tr>')
-                                .append($('<td>')
-                                        .append($('<a>')
-                                                .attr({'href': 'edit/page/' + page.id})
-                                                .text(page.id)
-                                                )
+            pagesTable.append($('<tr>')
+                    .append($('<td>')
+                            .append($('<a>')
+                                    .attr({'href': 'edit/page/' + page.id})
+                                    .text(page.id)
+                                    )
 
-                                        )
-                                .append($('<td>')
-                                        .text(page.title)
-                                        )
-                                .append($('<td>')
-                                        .text(page.user.displayName)
-                                        )
-                                .append($('<td>')
-                                        .append($('<button>')
-                                                .attr({'class':'btn btn-primary'})
-                                                .text('Approve'))
-                                        )
-                                );
-        });   
+                            )
+                    .append($('<td>')
+                            .text(page.title)
+                            )
+                    .append($('<td>')
+                            .text(page.user.displayName)
+                            )
+                    .append($('<td>')
+                            .append($('<button>')
+                                
+                                    .attr({'class': 'btn btn-primary'})
+                                    .text('Approve'))
+                            )
+                    );
+        });
     });
 }
 
 //load posts
 function loadPosts() {
     clearPosts();
+    
     $.ajax({
         type: 'GET',
-        url: 'posts'
+        url: 'posts/recent'
     }).success(function (data, status)
     {
-        $.each(data, function(index, post){
+        $.each(data, function (index, post) {
+            var queued;
+             if(post.queued === false){
+                 queued = "disabled";
+             } else {
+                 queued = "";
+             }
+            
 
-                       postTable.append($('<tr>')
-                                .append($('<td>')
-                                        .append($('<a>')
-                                                .attr({'href': 'edit/post/' + post.id})
-                                                .text(post.id)
-                                                )
+            postTable.append($('<tr>')
+                    .append($('<td>')
+                            .append($('<a>')
+                                    .attr({'href': 'edit/post/' + post.id})
+                                    .text(post.id)
+                                    )
 
-                                        )
-                                .append($('<td>')
-                                        .text(post.title)
-                                        )
-                                .append($('<td>')
-                                        .text(post.user.displayName)
-                                        )
-                                .append($('<td>')
-                                        .append($('<button>')
-                                                .attr({'class':'btn btn-primary'})
-                                                .text('Approve'))
-                                        )
-                                );
-        });   
+                            )
+                    .append($('<td>')
+                            .text(post.title)
+                            )
+                    .append($('<td>')
+                            .text(post.author.displayName)
+                            )
+                    .append($('<td>')
+                            .text(post.category.name)
+                            )
+                    .append($('<td>')
+                            .text(post.stringStartDate)
+                            )
+                    .append($('<td>')
+                            .text(post.stringEndDate)
+                            )
+                    .append($('<td>')
+                            .append($('<button>')
+                                    .attr({'class': 'btn btn-primary ' + queued})
+                                    .text('Approve'))
+                            )
+                    );
+
+        });
     });
 }
 
 function clearPages() {
-    $('#pages-table').empty();
+    $('#pages-list').empty();
 }
 function clearPosts() {
-    $('#posts-table').empty();
+    $('#posts-list').empty();
 }

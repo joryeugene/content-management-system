@@ -1,6 +1,7 @@
 package com.teamexcalibur.dto;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 public class Post {
@@ -38,6 +39,15 @@ public class Post {
         this.id = id;
     }
 
+    public static Comparator<Post> PostViewsComparator
+                          = new Comparator<Post>() {
+
+	    public int compare(Post post1, Post post2) {
+	      //ascending order
+	      return post1.numViews - post2.numViews;
+	    }
+    };
+            
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

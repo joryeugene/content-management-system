@@ -44,6 +44,8 @@ public class PostDaoDbImpl implements PostDao {
             = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ?";
     private static final String SQL_SELECT_ALL_POSTS
             = "select * from Post order by StartDate desc";
+    private static final String SQL_SELECT_MOST_VIEWED_POSTS
+            = "select * from Post order by NumOfViews desc limit ?";
     private static final String SQL_SELECT_CURRENT_POSTS
             = "select * from Post where StartDate <= CURDATE() and EndDate >= CURDATE() and Queued = false order by StartDate desc";
     private static final String SQL_SELECT_QUEUED_POSTS
@@ -248,6 +250,15 @@ public class PostDaoDbImpl implements PostDao {
     @Override
     public List<Post> getQueuedPosts() {
         List<Post> result = jdbcTemplate.query(SQL_SELECT_QUEUED_POSTS, new PostMapper());
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getMostViewedPosts(int max) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_MOST_VIEWED_POSTS, new PostMapper(), max);
         for (Post post : result) {
             post.setHashtags(getHashtagsByPostId(post.getId()));
         }

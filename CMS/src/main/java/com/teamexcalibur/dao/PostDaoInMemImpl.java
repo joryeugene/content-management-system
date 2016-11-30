@@ -37,7 +37,7 @@ public class PostDaoInMemImpl implements PostDao {
         if (postMap.size() < 1)
             populate();
     }
-
+    
     private void populate() {
         UserDao users = new UserDaoInMemImpl();
         users.addUser(new User("user1@example.com", "User1", "ROLE_ADMIN", "/img/avatar.png","password"));
@@ -222,5 +222,19 @@ public class PostDaoInMemImpl implements PostDao {
         List<Post> c = postMap.values().stream()
                 .filter(postFilter).collect(Collectors.toList());
         return c;
+    }
+
+    @Override
+    public List<Post> getMostViewedPosts(int max) {
+        Predicate<Post> postFilter = x -> x.isQueued();
+        List<Post> c = postMap.values().stream()
+                .filter(postFilter)
+                .sorted(Post.PostViewsComparator)
+                .collect(Collectors.toList());
+        List<Post> result = new ArrayList<>();
+        int count = (result.size()<max)?result.size():max;
+        for (int i=0; i < count; i++)
+            result.add(c.get(i));
+        return result;
     }
 }

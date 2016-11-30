@@ -49,11 +49,15 @@ function loadPosts() {
     {
         $.each(data, function (index, post) {
             var queued;
+            var category;
              if(post.queued === false){
                  queued = "disabled";
              } else {
                  queued = "";
              }
+             if (post.category === null)
+                 category = "";
+             else category = post.category.name;
             
 
             postTable.append($('<tr>')
@@ -71,7 +75,7 @@ function loadPosts() {
                             .text(post.author.displayName)
                             )
                     .append($('<td>')
-                            .text(post.category.name)
+                            .text(category)
                             )
                     .append($('<td>')
                             .text(post.stringStartDate)

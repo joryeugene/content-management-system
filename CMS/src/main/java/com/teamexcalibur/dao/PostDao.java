@@ -14,6 +14,7 @@ public interface PostDao {
     List<Post> getPostsByHashtag(String hashtag);
     List<Post> getAllPosts();
     List<Post> getCurrentPosts();
+    List<Post> getMostViewedPosts(int max);
     List<Post> getQueuedPosts();
     
     Category addCategory(Category category);

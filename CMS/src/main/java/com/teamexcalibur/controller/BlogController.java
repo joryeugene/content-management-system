@@ -26,14 +26,6 @@ public class BlogController {
         this.pageDao = pageDao;
     }
 
-    @RequestMapping(value = {"/", "/blog"}, method = RequestMethod.GET)
-    public String displayMainBlogPage(Model model) {
-        model.addAttribute("navs", pageDao.getAllNavs());
-        model.addAttribute("categories", postDao.getAllCategories());
-        model.addAttribute("hashtags", postDao.getAllHashtags());
-        return "blog";
-    }
-
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
     @ResponseBody
     public List<Post> getAllPosts() {
@@ -55,7 +47,7 @@ public class BlogController {
     @RequestMapping(value = "/posts/recent", method = RequestMethod.GET)
     @ResponseBody
     public List<Post> getSixMostRecentPosts() {
-        List<Post> allPosts = postDao.getAllPosts();
+        List<Post> allPosts = postDao.getCurrentPosts();
         int numOfPosts = allPosts.size();
 
         List<Post> mostRecent = new ArrayList<>();
@@ -64,7 +56,7 @@ public class BlogController {
 
         for (int i = 0; i < numOfPosts; i++) {
             if (count < 6) {
-                mostRecent.add(allPosts.get(numOfPosts - (i + 1)));
+                mostRecent.add(allPosts.get(i));
                 count++;
             }
         }
@@ -72,12 +64,20 @@ public class BlogController {
         return mostRecent;
     }
     
+    @RequestMapping(value = {"/", "/blog"}, method = RequestMethod.GET)
+    public String displayMainBlogPage(Model model) {
+        model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("hashtags", postDao.getUsedHashtags());
+        return "blog";
+    }
+    
     @RequestMapping(value = {"/summary"}, method = RequestMethod.GET)
     public String displayAllPosts(Model model) {
         model.addAttribute("categories", postDao.getAllCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
-        model.addAttribute("posts", postDao.getAllPosts()); // rev the order - get most recent first
-        model.addAttribute("hashtags", postDao.getAllHashtags());
+        model.addAttribute("posts", postDao.getCurrentPosts());
+        model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "posts";
     }
     
@@ -86,7 +86,7 @@ public class BlogController {
         model.addAttribute("categories", postDao.getAllCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getPostsByCategoryId(id)); // rev order??
-        model.addAttribute("hashtags", postDao.getAllHashtags());
+        model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "posts";
     }
     
@@ -95,18 +95,18 @@ public class BlogController {
         model.addAttribute("categories", postDao.getAllCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getPostsByHashtag("#" + hashtag));
-        model.addAttribute("hashtags", postDao.getAllHashtags());
+        model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "posts";
     }
 
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String displayBlogPost(@PathVariable("id") int id, Model model) {
         Post post = postDao.getPostById(id);
-        post.setNumViews(post.getNumViews() + 1);
+        postDao.addPostView(post);
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("categories", postDao.getAllCategories());
-        model.addAttribute("hashtags", postDao.getAllHashtags());
+        model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "post";
     }
     

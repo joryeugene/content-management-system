@@ -35,13 +35,15 @@ public class PostDaoDbImpl implements PostDao {
             + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_POST
             = "update Post set UserId = ?, Title = ?, Content = ?, NumOfViews = ?,"
-            + " StartDate = ?, EndDate = ?, CategoryId = ?, Queued = ?  where PostId = ?";
+            + " StartDate = ?, EndDate = ?, CategoryId = ?, Queued = ? where PostId = ?";
+    private static final String SQL_UPDATE_POST_VIEWS
+            = "update Post set NumOfViews = ? where PostId = ?";
     private static final String SQL_SELECT_POST_BYID
             = "select * from Post where PostId = ?";
     private static final String SQL_SELECT_POSTS_BY_CATEGORY_ID
-            = "select * from Post where CategoryId = ?";
+            = "select * from Post where CategoryId = ? and Queued = false order by StartDate desc";
     private static final String SQL_SELECT_POSTS_BY_HASHTAG
-            = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ?";
+            = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ? and Queued = false order by StartDate desc";
     private static final String SQL_SELECT_ALL_POSTS
             = "select * from Post order by StartDate desc";
     private static final String SQL_SELECT_MOST_VIEWED_POSTS
@@ -71,7 +73,7 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_SELECT_HASHTAG_BY_POSTID
             = "select Hashtag from PostHashtag where PostId = ?";
     private static final String SQL_SELECT_USED_HASHTAGS
-            = "select distinct Hashtag from PostHashtag";
+            = "select distinct Hashtag from PostHashtag INNER JOIN Post ON PostHashtag.PostId = Post.PostId WHERE Queued = 0"; // from posts that are not queued
     private static final String SQL_SELECT_ALL_HASHTAGS
             = "select distinct Hashtag from PostHashtag";
 
@@ -263,6 +265,11 @@ public class PostDaoDbImpl implements PostDao {
             post.setHashtags(getHashtagsByPostId(post.getId()));
         }
         return result;
+    }
+
+    @Override
+    public void addPostView(Post post) {
+        jdbcTemplate.update(SQL_UPDATE_POST_VIEWS, post.getNumViews() + 1, post.getId());
     }
 
     private final class PostMapper implements RowMapper<Post> {

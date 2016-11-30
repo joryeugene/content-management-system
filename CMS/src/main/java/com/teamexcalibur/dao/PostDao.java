@@ -9,6 +9,7 @@ public interface PostDao {
     Post addPost(Post post);
     void deletePost(int id);
     void updatePost(Post post);
+    void addPostView(Post post);
     Post getPostById(int id);
     List<Post> getPostsByCategoryId(int id);
     List<Post> getPostsByHashtag(String hashtag);

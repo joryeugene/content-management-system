@@ -237,4 +237,9 @@ public class PostDaoInMemImpl implements PostDao {
             result.add(c.get(i));
         return result;
     }
+
+    @Override
+    public void addPostView(Post post) {
+        post.setNumViews(post.getNumViews() + 1);
+    }
 }

@@ -27,7 +27,6 @@ public class AdminController {
     public AdminController(PageDao dao, PostDao postDao) {
         this.dao = dao;
         this.postDao = postDao;
-
     }
 
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
@@ -55,17 +54,17 @@ public class AdminController {
         return dao.getAllPages();
     }
 
-    @RequestMapping(value = {"/edit/page/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.GET)
     public String displayEditPage(@PathVariable("id") int id, Model model) {
         Page page = dao.getPageById(id);
         model.addAttribute("page", page);
         return "editPage";
     }
 
-    @RequestMapping(value = {"/edit/page/{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.POST)
     public String submitEditPage(@ModelAttribute("page") Page page, BindingResult result) {
         dao.updatePage(page);
-        return "editPage";
+        return "adminPages";
 
     }
 

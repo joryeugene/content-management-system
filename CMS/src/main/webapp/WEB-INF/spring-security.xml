@@ -39,6 +39,7 @@ and open the template in the editor.
         <!-- #3e - Access to these endpoints require admin role -->
         
         <intercept-url pattern="/admin" access="hasRole('admin')" />
+        <intercept-url pattern="/admin/*" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/admin.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/editPost.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/editPage.jsp" access="hasRole('admin')" />

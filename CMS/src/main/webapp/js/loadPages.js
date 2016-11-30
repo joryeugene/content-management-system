@@ -8,7 +8,7 @@ function loadPages() {
     clearPages();
     $.ajax({
         type: 'GET',
-        url: 'pages'
+        url: '/CMS/pages'
     }).success(function (data, status)
     {
         $.each(data, function (index, page) {
@@ -16,7 +16,7 @@ function loadPages() {
             pagesTable.append($('<tr>')
                     .append($('<td>')
                             .append($('<a>')
-                                    .attr({'href': 'edit/page/' + page.id})
+                                    .attr({'href': '/CMS/admin/page/edit/' + page.id})
                                     .text(page.id)
                                     )
 
@@ -44,7 +44,7 @@ function loadPosts() {
     
     $.ajax({
         type: 'GET',
-        url: 'posts/recent'
+        url: '/CMS/posts/recent'
     }).success(function (data, status)
     {
         $.each(data, function (index, post) {

@@ -36,6 +36,11 @@ public class AdminController {
         model.addAttribute("numPosts", numPosts);
         return "admin";
     }
+    
+    @RequestMapping(value = {"/admin/pages"}, method = RequestMethod.GET)
+    public String displayAdminPages(Model model) {
+        return "adminPages";
+    }
 
     @RequestMapping(value = {"/admin/allPosts"}, method = RequestMethod.GET)
     public String displayAdminPostTable(Model model) {

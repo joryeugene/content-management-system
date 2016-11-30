@@ -27,12 +27,13 @@ function loadPages() {
                     .append($('<td>')
                             .text(page.user.displayName)
                             )
-                    .append($('<td>')
-                            .append($('<button>')
-                                
-                                    .attr({'class': 'btn btn-primary'})
-                                    .text('Approve'))
-                            )
+//                  **POSSIBLE FUTURE FUNCTIONALITY**                            
+//                    .append($('<td>')
+//                            .append($('<button>')
+//                                
+//                                    .attr({'class': 'btn btn-primary'})
+//                                    .text('Approve'))
+//                            )
                     );
         });
     });

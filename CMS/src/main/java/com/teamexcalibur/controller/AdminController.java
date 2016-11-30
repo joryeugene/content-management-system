@@ -62,10 +62,10 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.POST)
-    public String submitEditPage(@ModelAttribute("page") Page page, BindingResult result) {
+    public String submitEditPage(@ModelAttribute("page") Page page) {
+        page.setUser(dao.getPageById(page.getId()).getUser());
         dao.updatePage(page);
         return "adminPages";
-
     }
 
     @RequestMapping(value = {"/edit/post/{id}"}, method = RequestMethod.GET)

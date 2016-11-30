@@ -33,12 +33,13 @@
                             <h3>Page Title</h3>
                             <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/admin/page/edit/${page.id}" method="POST">
                                 <div class="form-group">
+                                    <sf:hidden path="id"/>
                                     <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
                                     </div>
                                     <div class="form-group">
                                     <sf:textarea id="edit-content" class="form-control" path="content"></sf:textarea>
                                     </div>
-                                <sf:button name="publishPage" id="publish-page" class="btn btn-primary">Publish</sf:button>
+                                <button type="submit" id="publish-page" class="btn btn-primary">Publish</button>
                             </sf:form>
                         </div>
 

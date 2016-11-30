@@ -102,7 +102,7 @@ public class BlogController {
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String displayBlogPost(@PathVariable("id") int id, Model model) {
         Post post = postDao.getPostById(id);
-        post.setNumViews(post.getNumViews() + 1);
+        postDao.addPostView(post);
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("categories", postDao.getAllCategories());

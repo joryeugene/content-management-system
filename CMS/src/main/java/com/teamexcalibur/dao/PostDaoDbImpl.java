@@ -35,7 +35,9 @@ public class PostDaoDbImpl implements PostDao {
             + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_POST
             = "update Post set UserId = ?, Title = ?, Content = ?, NumOfViews = ?,"
-            + " StartDate = ?, EndDate = ?, CategoryId = ?, Queued = ?  where PostId = ?";
+            + " StartDate = ?, EndDate = ?, CategoryId = ?, Queued = ? where PostId = ?";
+    private static final String SQL_UPDATE_POST_VIEWS
+            = "update Post set NumOfViews = ? where PostId = ?";
     private static final String SQL_SELECT_POST_BYID
             = "select * from Post where PostId = ?";
     private static final String SQL_SELECT_POSTS_BY_CATEGORY_ID
@@ -263,6 +265,11 @@ public class PostDaoDbImpl implements PostDao {
             post.setHashtags(getHashtagsByPostId(post.getId()));
         }
         return result;
+    }
+
+    @Override
+    public void addPostView(Post post) {
+        jdbcTemplate.update(SQL_UPDATE_POST_VIEWS, post.getNumViews() + 1, post.getId());
     }
 
     private final class PostMapper implements RowMapper<Post> {

@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
-        <title>Admin Dashboard</title>
+        <title>All Posts</title>
     </head>
 
     <body>
@@ -23,22 +23,11 @@
                 <!--sidebar here-->
                 <%@include file="fragment/sidebar.jsp" %>
 
-                <%@include file="fragment/dashboard.jsp" %>
+                <%--<%@include file="fragment/dashboard.jsp" %>--%>
                 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 
-                <h2 class="sub-header">Recent Pages</h2>
-                <div class="table table-responsive">
-                    <table class = "pages-table table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Page ID</th><th>Title</th><th>Author</th><th>Approve</th></tr>
-                        </thead>  
-                        <tbody id ="page-list"></tbody>
-                    </table>
-                </div>
-
-                <h2 class="sub-header">Recent Posts</h2>
+                <h2 class="sub-header">All Posts</h2>
                 <div class="table table-responsive">
                     <table class = "posts-table table table-striped">
                         <thead>
@@ -47,7 +36,33 @@
                             </tr>
                         </thead>  
                         <tbody id ="post-list">
-                            
+                            <c:forEach var="post" items="${allPosts}">
+                                <tr>
+                                    <td>
+                                      ${post.id} 
+                                    </td>
+                                    <td>
+                                      ${post.title} 
+                                    </td>
+                                    <td>
+                                      ${post.author.displayName} 
+                                    </td>
+                                    <td>
+                                      ${post.category.name} 
+                                    </td>
+                                    <td>
+                                      ${post.stringStartDate} 
+                                    </td>
+                                    <td>
+                                      ${post.stringEndDate} 
+                                    </td>
+                                    <td>
+                                        <button href="" class="btn btn-primary <c:if test="${post.queued == false}">disabled</c:if>" >
+                                            Approve
+                                        </button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -56,6 +71,5 @@
 
         <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/loadPages.js"></script>
     </body>
 </html>

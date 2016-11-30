@@ -126,3 +126,18 @@ body {
     
     
 }
+
+/*Hide and Show Menu when sidebar disapear*/
+
+@media (min-width: 768px){
+    .navbar-hide-on-large{
+        display:none;
+    }
+    
+}
+@media (max-width: 767px){
+    .navbar-hide-on-large{
+        display:block;
+    }
+    
+}

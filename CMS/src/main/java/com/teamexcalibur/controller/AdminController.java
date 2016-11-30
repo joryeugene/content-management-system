@@ -32,8 +32,16 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     public String displayAdminPage(Model model) {
+        List<Post> queuedPosts = postDao.getQueuedPosts();
         int numPosts = postDao.getQueuedPosts().size();
+        List<Post> viewsListRecent = postDao.getCurrentPosts();
+        List<Post> viewsListAllTime = postDao.getMostViewedPosts(5);
+        
+        model.addAttribute("queuedPosts", queuedPosts);
         model.addAttribute("numPosts", numPosts);
+        model.addAttribute("viewsListRecent", viewsListRecent);
+        model.addAttribute("viewsListAllTime", viewsListAllTime);
+        
         return "admin";
     }
 

@@ -20,7 +20,10 @@ function loadPages() {
                                             ) // end <a> tag
                                     ) // end <td> tag
                             .append($('<td>')
-                                    .text(page.title)
+                                    .append($('<a>')
+                                            .attr({'href': '/CMS/admin/page/edit/' + page.id})
+                                            .text(page.title)
+                                            ) // end <a> tag
                                     ) // end <td> tag
                             .append($('<td>')
                                     .text(page.nav.menuName)
@@ -53,7 +56,10 @@ function editNavTitle() {
                                             ) // end <a> tag
                                     ) // end <td> tag
                             .append($('<td>')
-                                    .text(page.title)
+                                    .append($('<a>')
+                                            .attr({'href': '/CMS/admin/page/edit/' + page.id})
+                                            .text(page.title)
+                                            ) // end <a> tag
                                     ) // end <td> tag
                             .append($('<td>').append($('<input class="page-title">')
                                     .val(page.nav.menuName)
@@ -77,13 +83,13 @@ function cancelNavTitle() {
 
 function submitNavTitle() {
     var navs = [];
-    
-    $('#page-list tr').each(function() {
-        
+
+    $('#page-list tr').each(function () {
+
         var id = $('.page-id', this).text();
         var pos = $('.page-position', this).text();
         var name = $('.page-title', this).val();
-        
+
         var nav = {
             pageId: id,
             position: pos,
@@ -91,9 +97,9 @@ function submitNavTitle() {
         }
         navs.push(nav);
     });
-    
+
     console.log(navs);
-    
+
     $.ajax({
         type: 'POST',
         url: '/CMS/admin/navs/update',
@@ -104,7 +110,7 @@ function submitNavTitle() {
         },
         'dataType': 'json'
     });
-    
+
     $("#edit-nav-title").replaceWith('<a id="edit-nav-title" onclick="editNavTitle();" class="pointer">EDIT</a>');
     loadPages();
 }

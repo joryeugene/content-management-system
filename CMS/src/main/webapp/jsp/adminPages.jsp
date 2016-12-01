@@ -30,7 +30,7 @@
                     <table class = "pages-table table table-striped">
                         <thead>
                             <tr>
-                                <th width="10%">Page ID</th>
+                                <th width="10%">ID</th>
                                 <th width="25%">Title</th>
                                 <th width="35%">Nav Title - <a id="edit-nav-title" onclick="editNavTitle();" class="pointer">EDIT</a></th>
                                 <th width="15%">Nav Order</th>

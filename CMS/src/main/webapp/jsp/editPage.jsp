@@ -25,7 +25,7 @@
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Edit Page</h1>
-                    <h2 class="small"><a href="${pageContext.request.contextPath}/page/${page.id}">Visit Page</a></h2>
+                    <a href="javascript:history.back()"><- Back</a> | <a href="${pageContext.request.contextPath}/page/${page.id}">Visit Page</a>
 
                     <div class="row page-edit">
                         <div class="col-xs-12 col-sm-8">

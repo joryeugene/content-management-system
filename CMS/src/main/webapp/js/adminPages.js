@@ -41,7 +41,7 @@ function loadPages() {
 
 function editNavTitle() {
     clearPages();
-    $("#edit-nav-title").replaceWith('<span id="edit-nav-title"><a onclick="submitNavTitle();" class="pointer">SUBMIT</a> | <a onclick="cancelNavTitle();" class="pointer">X</a></span>');
+    $("#edit-nav-title").replaceWith('<span id="edit-nav-title"><a onclick="submitNavTitle();" class="pointer">SUBMIT</a> | <a onclick="cancelNavTitle();" class="pointer">Cancel</a></span>');
     $.ajax({
         type: 'GET',
         url: '/CMS/pagenav'
@@ -61,12 +61,15 @@ function editNavTitle() {
                                             .text(page.title)
                                             ) // end <a> tag
                                     ) // end <td> tag
-                            .append($('<td>').append($('<input class="page-title">')
-                                    .val(page.nav.menuName)
-                                    ) // end <input> tag
+                            .append($('<td>')
+                                    .append($('<input class="page-title">')
+                                            .val(page.nav.menuName)
+                                            ) // end <input> tag
                                     ) // end <td> tag
-                            .append($('<td class="page-position">')
-                                    .text(page.nav.position)
+                            .append($('<td>')
+                                    .append($('<input class="page-position" style="width: 40px;">')
+                                            .val(page.nav.position)
+                                            ) // end <input> tag
                                     ) // end <td> tag
                             .append($('<td>')
                                     .text(page.user.displayName)
@@ -77,7 +80,7 @@ function editNavTitle() {
 }
 
 function cancelNavTitle() {
-    $("#edit-nav-title").replaceWith('<a id="edit-nav-title" onclick="editNavTitle();" class="pointer">EDIT</a>');
+    $("#edit-nav-title").replaceWith('<a id="edit-nav-title" onclick="editNavTitle();" class="pointer">Edit Nav Title / Order</a>');
     loadPages();
 }
 
@@ -87,7 +90,7 @@ function submitNavTitle() {
     $('#page-list tr').each(function () {
 
         var id = $('.page-id', this).text();
-        var pos = $('.page-position', this).text();
+        var pos = $('.page-position', this).val();
         var name = $('.page-title', this).val();
 
         var nav = {
@@ -109,10 +112,9 @@ function submitNavTitle() {
             'Content-Type': 'application/json'
         },
         'dataType': 'json'
+    }).success(function() {
+        cancelNavTitle();
     });
-
-    $("#edit-nav-title").replaceWith('<a id="edit-nav-title" onclick="editNavTitle();" class="pointer">EDIT</a>');
-    loadPages();
 }
 
 function clearPages() {

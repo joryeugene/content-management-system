@@ -26,14 +26,17 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 
                 <h2 class="sub-header">Pages</h2>
+                
+                <p class="text-center"><b><a id="edit-nav-title" onclick="editNavTitle();" class="pointer">Edit Nav Title / Order</a></b></p>
+                
                 <div class="table table-responsive">
                     <table class = "pages-table table table-striped">
                         <thead>
                             <tr>
                                 <th width="10%">ID</th>
                                 <th width="25%">Title</th>
-                                <th width="35%">Nav Title - <a id="edit-nav-title" onclick="editNavTitle();" class="pointer">EDIT</a></th>
-                                <th width="15%">Nav Order</th>
+                                <th width="30%">Nav Title</th>
+                                <th width="20%">Order</th>
                                 <th width="15%">Author</th></tr>
                         </thead>  
                         <tbody id ="page-list"></tbody>

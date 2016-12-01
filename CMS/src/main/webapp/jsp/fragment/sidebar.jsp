@@ -3,8 +3,8 @@
                     <ul class="nav nav-sidebar">
                         <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Posts</a>
                             <ul class="dropdown-menu">
-                                <li><a href="${pageContext.request.contextPath}/blog">All Posts</a></li>
-                                <li><a href="${pageContext.request.contextPath}/">Add Post</a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/allPosts">All Posts</a></li>
+                                <li><a href="${pageContext.request.contextPath}/LINKITUP">Add Post</a></li>
                         </li>
                     </ul>
 
@@ -14,11 +14,7 @@
                             <li><a href="${pageContext.request.contextPath}/admin/page/add">Add Page</a></li>
                     </li>
                     </ul>
-                    <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Users</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="">All Users</a></li>
-                            <li><a href="">Add User</a></li>
-                    </li>
+                    <li><a href="${pageContext.request.contextPath}/admin/userTable">Users</a></li>
                     </ul>
                     </ul>
 

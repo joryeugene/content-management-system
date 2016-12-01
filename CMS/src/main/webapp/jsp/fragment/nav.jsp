@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
@@ -18,6 +19,9 @@
                 <c:forEach var="nav" items="${navs}">
                     <li><a href="${pageContext.request.contextPath}/page/${nav.pageId}">${nav.menuName}</a></li>
                 </c:forEach>
+                <sec:authorize access="hasRole('admin')">
+                    <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
+                </sec:authorize>
             </ul>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->

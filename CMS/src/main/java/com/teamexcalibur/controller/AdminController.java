@@ -11,13 +11,9 @@ import com.teamexcalibur.dto.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-<<<<<<< HEAD
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-=======
-import org.springframework.http.HttpStatus;
->>>>>>> pages
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

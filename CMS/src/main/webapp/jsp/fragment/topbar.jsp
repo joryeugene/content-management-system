@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -7,25 +8,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">CrossFit Guild</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/admin">CrossFit Guild</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><sec:authentication property="principal.username" /> Logout</a></li>
+                <li><a href="${pageContext.request.contextPath}/j_spring_security_logout">Logout <sec:authentication property="principal.username" /> </a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right navbar-hide-on-large">
                 <li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Posts</a>
                     <ul class="dropdown-menu">
-                        <li><a href="${pageContext.request.contextPath}/blog">All Posts</a></li>
-                        <li><a href="${pageContext.request.contextPath}/">Add Post</a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/posts">All Posts</a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/post/add">Add Post</a></li>
                 </li>
             </ul>
 
             <li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Pages</a>
                 <ul class="dropdown-menu">
-                    <li><a href="${pageContext.request.contextPath}/admin">All Pages</a></li>
-                    <li><a href="${pageContext.request.contextPath}/addPage">Add Page</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/pages">All Pages</a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin/page/add">Add Page</a></li>
             </li>
             </ul>
             <li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Users</a>
@@ -43,3 +44,4 @@
         </div>
     </div>
 </nav>
+

@@ -44,12 +44,17 @@ public class AdminController {
         
         return "admin";
     }
+    
+    @RequestMapping(value = {"/admin/pages"}, method = RequestMethod.GET)
+    public String displayAdminPages(Model model) {
+        return "adminPages";
+    }
 
-    @RequestMapping(value = {"/admin/allPosts"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/posts"}, method = RequestMethod.GET)
     public String displayAdminPostTable(Model model) {
         List<Post> allPosts = postDao.getAllPosts();
         model.addAttribute("allPosts", allPosts);
-        return "postTable";
+        return "adminPosts";
     }
 
     @RequestMapping(value = {"/pages"}, method = RequestMethod.GET)

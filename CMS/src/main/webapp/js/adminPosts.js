@@ -1,43 +1,8 @@
 $(document).ready(function () {
-    loadPages();
     loadPosts();
 });
-var pagesTable = $('#page-list');
+
 var postTable = $('#post-list');
-function loadPages() {
-    clearPages();
-    $.ajax({
-        type: 'GET',
-        url: '/CMS/pages'
-    }).success(function (data, status)
-    {
-        $.each(data, function (index, page) {
-
-            pagesTable.append($('<tr>')
-                    .append($('<td>')
-                            .append($('<a>')
-                                    .attr({'href': '/CMS/admin/page/edit/' + page.id})
-                                    .text(page.id)
-                                    )
-
-                            )
-                    .append($('<td>')
-                            .text(page.title)
-                            )
-                    .append($('<td>')
-                            .text(page.user.displayName)
-                            )
-//                  **POSSIBLE FUTURE FUNCTIONALITY**                            
-//                    .append($('<td>')
-//                            .append($('<button>')
-//                                
-//                                    .attr({'class': 'btn btn-primary'})
-//                                    .text('Approve'))
-//                            )
-                    );
-        });
-    });
-}
 
 //load posts
 function loadPosts() {
@@ -45,7 +10,7 @@ function loadPosts() {
     
     $.ajax({
         type: 'GET',
-        url: '/CMS/posts/recent'
+        url: '/CMS/posts'
     }).success(function (data, status)
     {
         $.each(data, function (index, post) {
@@ -64,7 +29,7 @@ function loadPosts() {
             postTable.append($('<tr>')
                     .append($('<td>')
                             .append($('<a>')
-                                    .attr({'href': 'edit/post/' + post.id})
+                                    .attr({'href': '/edit/post/' + post.id})
                                     .text(post.id)
                                     )
 
@@ -95,9 +60,6 @@ function loadPosts() {
     });
 }
 
-function clearPages() {
-    $('#pages-list').empty();
-}
 function clearPosts() {
-    $('#posts-list').empty();
+    postTable.empty();
 }

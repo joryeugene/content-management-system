@@ -2,31 +2,42 @@ package com.teamexcalibur.controller;
 
 import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
+import com.teamexcalibur.dao.UserDao;
 import com.teamexcalibur.dto.Category;
 import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
+import com.teamexcalibur.dto.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class AdminController {
 
-    PageDao dao;
-    PostDao postDao;
+    private PageDao dao;
+    private PostDao postDao;
+    private UserDao userDao;
+    private PasswordEncoder encoder;
 
     @Inject
-    public AdminController(PageDao dao, PostDao postDao) {
+    public AdminController(PageDao dao, PostDao postDao, UserDao userDao, PasswordEncoder pwe) {
         this.dao = dao;
         this.postDao = postDao;
+        this.userDao = userDao;
+        this.encoder = pwe;
 
     }
 
@@ -98,18 +109,72 @@ public class AdminController {
 
         return mostRecent;
     }
-    
+
     @RequestMapping(value = "/posts/recent/{max}", method = RequestMethod.GET)
     @ResponseBody
     public List<Post> getMostRecentPosts(@PathVariable("max") int max) {
         List<Post> allPosts = postDao.getCurrentPosts();
         List<Post> mostRecent = new ArrayList<>();
-        int count = (max>allPosts.size())?allPosts.size():max;
+        int count = (max > allPosts.size()) ? allPosts.size() : max;
 
         for (int i = 0; i < count; i++) {
-                mostRecent.add(allPosts.get(i));
+            mostRecent.add(allPosts.get(i));
         }
 
         return mostRecent;
+    }
+
+    @RequestMapping(value = {"/admin/users"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
+    @RequestMapping(value = {"/admin/userTable"}, method = RequestMethod.GET)
+    public String displayUserPage() {
+        return "userTable";
+    }
+
+    @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public User getUser(@PathVariable("id") int id) {
+        // Retrieve the Dvd associated with the given id and return it
+        return userDao.getUserById(id);
+    }
+
+    @RequestMapping(value = "/admin/user", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public User createUser(@Valid @RequestBody User user) {
+        String hashPw = encoder.encode(user.getPassword());
+        user.setPassword(hashPw);
+
+        userDao.addUser(user);
+        return user;
+    }
+
+    @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateUser(@PathVariable("id") int id, @RequestBody User user) {
+        // set the value of the PathVariable id on the incoming Dvd object
+        // to ensure that a) the dvd id is set on the object and b) that
+        // the value of the PathVariable id and the Dvd object id are the
+        // same.
+        String origPw = userDao.getUserById(id).getPassword();
+        if (!origPw.equals(user.getPassword())) { // password changed
+            String hashPw = encoder.encode(user.getPassword());
+            user.setPassword(hashPw);
+        }
+
+        user.setId(id);
+        // update the dvd
+        userDao.updateUser(user);
+    }
+
+    @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable("id") int id) {
+        // remove the Dvd associated with the given id from the data layer
+        userDao.deleteUser(id);
     }
 }

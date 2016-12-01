@@ -27,6 +27,9 @@
                     </p>
                     
                     <div class="main-margin">
+                        
+                        <h2 class="text-center">${title}</h2>
+                        
                         <c:forEach var="post" items="${posts}">
                             <div class="row">
                                 <h4><a href="${pageContext.request.contextPath}/post/${post.id}">${post.title}</a></h4>

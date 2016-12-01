@@ -7,11 +7,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">CrossFit Guild</a>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/admin">CrossFit Guild</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><sec:authentication property="principal.username" /> Logout</a></li>
+                        <li><a href="${pageContext.request.contextPath}/j_spring_security_logout">Logout <sec:authentication property="principal.username" /></a></li>
                     </ul>
                     <!--Maybe add back in in later version-->
                     <!--                    <form class="navbar-form navbar-right">

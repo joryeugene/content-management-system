@@ -26,6 +26,9 @@
                     <p class="pull-right visible-xs">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
+                    
+                    <a href="javascript:history.back()"><- Back</a>
+                    
                     <div class="main-margin">
                         <div class="row">
                             <h1>${post.title}</h1>

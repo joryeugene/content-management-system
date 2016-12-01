@@ -23,6 +23,13 @@ public class Page {
         this.title = title;
         this.content = content;
     }
+    
+    public Page(int id, String title, String content) {
+        this.id = id;
+        this.user = user;
+        this.title = title;
+        this.content = content;
+    }
 
     @Override
     public int hashCode() {

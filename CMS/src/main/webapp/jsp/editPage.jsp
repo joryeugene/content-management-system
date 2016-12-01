@@ -15,53 +15,31 @@
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
         <!--TinyMCE-->
         <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
-        <title>Edit Page </title>
+        <title>Admin - Edit Page</title>
     </head>
     <body>
         <%@include file="fragment/topbar.jsp" %>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
+                <%@include file="fragment/sidebar.jsp" %>
 
-                    <ul class="nav nav-sidebar">
-                        <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Posts</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="">All Posts</a></li>
-                                <li><a href="">Add Post</a></li>
-                        </li>
-                    </ul>
-
-                    <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Pages</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="">All Pages</a></li>
-                            <li><a href="">Add Page</a></li>
-                    </li>
-                    </ul>
-                    <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Users</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="">All Users</a></li>
-                            <li><a href="">Add User</a></li>
-                    </li>
-                    </ul>
-                    </ul>
-
-                </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Edit Page</h1>
                     <h2 class="small"><a href="${pageContext.request.contextPath}/page/${page.id}">Visit Page</a></h2>
 
                     <div class="row page-edit">
                         <div class="col-xs-12 col-sm-8">
-                            
-                                <h3>Page Title</h3>
-                                <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/edit/page/${page.id}" method="POST">
-                                    <div class="form-group">
-                                        <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
-                                        </div>
+
+                            <h3>Page Title</h3>
+                            <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/admin/page/edit/${page.id}" method="POST">
+                                <div class="form-group">
+                                    <sf:hidden path="id"/>
+                                    <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
+                                    </div>
                                     <div class="form-group">
                                     <sf:textarea id="edit-content" class="form-control" path="content"></sf:textarea>
                                     </div>
-                                    <sf:button name="publishPage" id="publish-page" class="btn btn-primary">Publish Page</sf:button>
+                                <button type="submit" id="publish-page" class="btn btn-primary">Publish</button>
                             </sf:form>
                         </div>
 

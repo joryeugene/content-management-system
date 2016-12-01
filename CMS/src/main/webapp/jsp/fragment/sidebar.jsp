@@ -10,8 +10,8 @@
 
                     <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Pages</a>
                         <ul class="dropdown-menu">
-                            <li><a href="${pageContext.request.contextPath}/admin">All Pages</a></li>
-                            <li><a href="${pageContext.request.contextPath}/addPage">Add Page</a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin/pages">All Pages</a></li>
+                            <li><a href="${pageContext.request.contextPath}/admin/page/add">Add Page</a></li>
                     </li>
                     </ul>
                     <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Users</a>

@@ -38,7 +38,6 @@ public class AdminController {
         this.postDao = postDao;
         this.userDao = userDao;
         this.encoder = pwe;
-
     }
 
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
@@ -46,6 +45,11 @@ public class AdminController {
         int numPosts = postDao.getQueuedPosts().size();
         model.addAttribute("numPosts", numPosts);
         return "admin";
+    }
+    
+    @RequestMapping(value = {"/admin/pages"}, method = RequestMethod.GET)
+    public String displayAdminPages(Model model) {
+        return "adminPages";
     }
 
     @RequestMapping(value = {"/admin/allPosts"}, method = RequestMethod.GET)
@@ -61,18 +65,18 @@ public class AdminController {
         return dao.getAllPages();
     }
 
-    @RequestMapping(value = {"/edit/page/{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.GET)
     public String displayEditPage(@PathVariable("id") int id, Model model) {
         Page page = dao.getPageById(id);
         model.addAttribute("page", page);
         return "editPage";
     }
 
-    @RequestMapping(value = {"/edit/page/{id}"}, method = RequestMethod.POST)
-    public String submitEditPage(@ModelAttribute("page") Page page, BindingResult result) {
+    @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.POST)
+    public String submitEditPage(@ModelAttribute("page") Page page) {
+        page.setUser(dao.getPageById(page.getId()).getUser());
         dao.updatePage(page);
-        return "editPage";
-
+        return "adminPages";
     }
 
     @RequestMapping(value = {"/edit/post/{id}"}, method = RequestMethod.GET)

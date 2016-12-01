@@ -5,8 +5,10 @@ import java.util.Objects;
 public class Page {
     private int id;
     private User user;
+    private String email;
     private String title;
     private String content;
+    private Nav nav = null;
 
     public Page() {
     }
@@ -22,6 +24,18 @@ public class Page {
         this.user = user;
         this.title = title;
         this.content = content;
+    }
+    
+    public Page(int id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+    
+    public Page(String title, String content, String email) {
+        this.title = title;
+        this.content = content;
+        this.email = email;
     }
 
     @Override
@@ -87,5 +101,21 @@ public class Page {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Nav getNav() {
+        return nav;
+    }
+
+    public void setNav(Nav nav) {
+        this.nav = nav;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

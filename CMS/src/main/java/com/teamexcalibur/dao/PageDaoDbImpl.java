@@ -36,17 +36,20 @@ public class PageDaoDbImpl implements PageDao {
     private static final String SQL_SELECT_PAGE_BYID
             = "select * from Page where PageId = ?";
     private static final String SQL_SELECT_ALL_PAGES
-            = "select * from Page join Nav on Page.PageId = Nav.NavId order by Nav.Position";
-
+            = "select * from Page inner join Nav on Page.PageId = Nav.PageId order by Nav.Position";
     private static final String SQL_INSERT_NAV
             = "insert into Nav (PageId, Position, MenuName)"
             + " values (?, ?, ?)";
     private static final String SQL_DELETE_NAV
             = "delete from Nav where NavId = ?";
+    private static final String SQL_DELETE_NAV_BY_PAGEID
+            = "delete from Nav where PageId = ?";
     private static final String SQL_UPDATE_NAV
-            = "update Nav set PageId = ?, Position = ?, MenuName = ? where NavId = ?";
+            = "update Nav set Position = ?, MenuName = ? where PageId = ?";
     private static final String SQL_SELECT_NAV_BYID
             = "select * from Nav where NavId = ?";
+    private static final String SQL_SELECT_NAV_BY_PAGEID
+            = "select * from Nav where PageId = ?";
     private static final String SQL_SELECT_ALL_NAVS
             = "select * from Nav order by Position";
 
@@ -69,11 +72,13 @@ public class PageDaoDbImpl implements PageDao {
                 page.getUser().getId(), page.getTitle(), page.getContent());
         page.setId(jdbcTemplate.queryForObject("select LAST_INSERT_ID()",
                 Integer.class));
+        addNav(new Nav(page.getId(), page.getId(), page.getTitle()));
         return page;
     }
 
     @Override
     public void deletePage(int id) {
+        deleteNavByPageId(id);
         jdbcTemplate.update(SQL_DELETE_PAGE, id);
     }
 
@@ -114,17 +119,32 @@ public class PageDaoDbImpl implements PageDao {
     public void deleteNav(int id) {
         jdbcTemplate.update(SQL_DELETE_NAV, id);
     }
+    
+    public void deleteNavByPageId(int id) {
+        jdbcTemplate.update(SQL_DELETE_NAV_BY_PAGEID, id);
+    }
 
     @Override
     public void updateNav(Nav nav) {
-        jdbcTemplate.update(SQL_UPDATE_NAV, nav.getPageId(), nav.getPosition(),
-                nav.getMenuName(), nav.getId());
+        jdbcTemplate.update(SQL_UPDATE_NAV, nav.getPosition(),
+                nav.getMenuName(), nav.getPageId());
     }
 
     @Override
     public Nav getNavById(int id) {
         try {
             Nav nav = jdbcTemplate.queryForObject(SQL_SELECT_NAV_BYID,
+                    new NavMapper(), id);
+            return nav;
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
+    
+    @Override    
+    public Nav getNavByPageId(int id) {
+        try {
+            Nav nav = jdbcTemplate.queryForObject(SQL_SELECT_NAV_BY_PAGEID,
                     new NavMapper(), id);
             return nav;
         } catch (EmptyResultDataAccessException ex) {

@@ -23,6 +23,8 @@ public interface PageDao {
     void updateNav(Nav nav);
 
     Nav getNavById(int id);
+    
+    Nav getNavByPageId(int id);
 
     List<Nav> getAllNavs();
 

@@ -29,6 +29,8 @@ public class UserDaoDbImpl implements UserDao {
             = "update User set Email = ?, DisplayName = ?, Authority = ?, AvatarUrl = ?, Password = ? where UserId = ?";
     private static final String SQL_SELECT_USER_BYID
             = "select * from User where UserId = ?";
+    private static final String SQL_SELECT_USER_BY_EMAIL
+            = "select * from User where Email = ?";
     private static final String SQL_SELECT_ALL_USERS
             = "select * from User";
     private JdbcTemplate jdbcTemplate;
@@ -63,6 +65,17 @@ public class UserDaoDbImpl implements UserDao {
         try {
             User user = jdbcTemplate.queryForObject(SQL_SELECT_USER_BYID,
                     new UserMapper(), id);
+            return user;
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
+    
+    @Override
+    public User getUserByEmail(String email) {
+        try {
+            User user = jdbcTemplate.queryForObject(SQL_SELECT_USER_BY_EMAIL,
+                    new UserMapper(), email);
             return user;
         } catch (EmptyResultDataAccessException ex) {
             return null;

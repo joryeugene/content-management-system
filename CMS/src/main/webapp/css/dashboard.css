@@ -121,11 +121,7 @@ body {
     margin-top: 1.6rem;
 }
 
-.categories-box {
-    
-    
-    
-}
+
 
 /*Hide and Show Menu when sidebar disapear*/
 
@@ -141,3 +137,8 @@ body {
     }
     
 }
+
+.pointer {
+    cursor: pointer;
+}
+

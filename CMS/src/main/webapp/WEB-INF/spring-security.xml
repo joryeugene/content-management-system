@@ -43,8 +43,11 @@ and open the template in the editor.
         <intercept-url pattern="/jsp/admin.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/editPost.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/editPage.jsp" access="hasRole('admin')" />
+        <intercept-url pattern="/jsp/editUser.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/postTable.jsp" access="hasRole('admin')" />
+        <intercept-url pattern="/jsp/userTable.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/edit/page/*" access="hasRole('admin')" />
+        <intercept-url pattern="/edit/user/*" access="hasRole('admin')" />
         <intercept-url pattern="/edit/post/*" access="hasAnyRole('admin', 'writer')" />
     </http>
     <!-- #4 - Authentication Manager config -->

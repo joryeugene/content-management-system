@@ -3,19 +3,23 @@ package com.teamexcalibur.controller;
 import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
 import com.teamexcalibur.dto.Category;
+import com.teamexcalibur.dto.Nav;
 import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class AdminController {
@@ -53,6 +57,19 @@ public class AdminController {
     public List<Page> getAllPages() {
         return dao.getAllPages();
     }
+    
+    @RequestMapping(value = {"/pagenav"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<Page> getAllPagesWithNav() {
+        
+        List<Page> allPages = dao.getAllPages();
+        
+        for (Page page : allPages) {
+            page.setNav(dao.getNavById(page.getId()));
+        }
+        
+        return allPages;
+    }
 
     @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.GET)
     public String displayEditPage(@PathVariable("id") int id, Model model) {
@@ -66,6 +83,14 @@ public class AdminController {
         page.setUser(dao.getPageById(page.getId()).getUser());
         dao.updatePage(page);
         return "adminPages";
+    }
+    
+    @RequestMapping(value = {"/admin/navs/update"}, method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateNavs(@RequestBody List<Nav> navs) {
+        for (Nav nav : navs) {
+            dao.updateNav(nav);
+        }
     }
 
     @RequestMapping(value = {"/edit/post/{id}"}, method = RequestMethod.GET)

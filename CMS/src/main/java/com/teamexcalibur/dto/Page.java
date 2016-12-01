@@ -7,6 +7,7 @@ public class Page {
     private User user;
     private String title;
     private String content;
+    private Nav nav = null;
 
     public Page() {
     }
@@ -94,5 +95,13 @@ public class Page {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Nav getNav() {
+        return nav;
+    }
+
+    public void setNav(Nav nav) {
+        this.nav = nav;
     }
 }

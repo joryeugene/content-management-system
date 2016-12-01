@@ -69,68 +69,68 @@ public class PageDaoTest {
     /**
      * Test of addPage method, of class PageDao.
      */
-    @Test
-    public void testAddGetDeletePageNav() {
-        System.out.println("testAddGetDeletePageNav");
-
-        Page pg = new Page(u1, "Title 0", "Content 0");
-        pg = dao.addPage(pg);
-        Nav nv = new Nav(pg.getId(), 1, "menu 0");
-        nv = dao.addNav(nv);
-        Page pageFromDb = dao.getPageById(pg.getId());
-        assertEquals(pg, pageFromDb);
-        Nav navFromDb = dao.getNavById(nv.getId());
-        assertEquals(nv, navFromDb);
-        dao.deleteNav(nv.getId());
-        dao.deletePage(pg.getId());
-        assertNull(dao.getPageById(pg.getId()));
-        assertNull(dao.getNavById(nv.getId()));
-    }
+//    @Test
+//    public void testAddGetDeletePageNav() {
+//        System.out.println("testAddGetDeletePageNav");
+//
+//        Page pg = new Page(u1, "Title 0", "Content 0");
+//        pg = dao.addPage(pg);
+//        Nav nv = new Nav(pg.getId(), 1, "menu 0");
+//        nv = dao.addNav(nv);
+//        Page pageFromDb = dao.getPageById(pg.getId());
+//        assertEquals(pg, pageFromDb);
+//        Nav navFromDb = dao.getNavById(nv.getId());
+//        assertEquals(nv, navFromDb);
+//        dao.deleteNav(nv.getId());
+//        dao.deletePage(pg.getId());
+//        assertNull(dao.getPageById(pg.getId()));
+//        assertNull(dao.getNavById(nv.getId()));
+//    }
 
     /**
      * Test of updatePage method, of class PageDao.
      */
-    @Test
-    public void testUpdatePageNav() {
-        System.out.println("testUpdatePageNav");
-
-        Page pg = new Page(u1, "Title 0", "Content 0");
-        pg = dao.addPage(pg);
-        Nav nv = new Nav(pg.getId(), 1, "menu 0");
-        nv = dao.addNav(nv);
-        pg.setContent("new Content");
-        nv.setMenuName("new menu name");
-        dao.updateNav(nv);
-        dao.updatePage(pg);
-        Page pageFromDb = dao.getPageById(pg.getId());
-        assertEquals(pg, pageFromDb);
-        Nav navFromDb = dao.getNavById(nv.getId());
-        assertEquals(nv, navFromDb);
-    }
+//    @Test
+//    public void testUpdatePageNav() {
+//        System.out.println("testUpdatePageNav");
+//
+//        Page pg = new Page(u1, "Title 0", "Content 0");
+//        pg = dao.addPage(pg);
+//        Nav nv = new Nav(pg.getId(), 1, "menu 0");
+//        nv = dao.addNav(nv);
+//        pg.setContent("new Content");
+//        nv.setMenuName("new menu name");
+//        dao.updateNav(nv);
+//        dao.updatePage(pg);
+//        Page pageFromDb = dao.getPageById(pg.getId());
+//        assertEquals(pg, pageFromDb);
+//        Nav navFromDb = dao.getNavById(nv.getId());
+//        assertEquals(nv, navFromDb);
+//    }
 
     /**
      * Test of getAllPages method, of class PageDao.
      */
-    @Test
-    public void testGetAllPagesNavs() {
-        System.out.println("getAllPagesNavs");
-        Page pg = new Page(u1, "Title 0", "Content 0");
-        pg = dao.addPage(pg);
-        Nav nv = new Nav(pg.getId(), 0, "menu 0");
-        nv = dao.addNav(nv);
-        pg = new Page(u1, "Title 1", "Content 1");
-        pg = dao.addPage(pg);
-        nv = new Nav(pg.getId(), 1, "menu 1");
-        nv = dao.addNav(nv);
-        pg = new Page(u2, "Title 2", "Content 2");
-        pg = dao.addPage(pg);
-        nv = new Nav(pg.getId(), 2, "menu 2");
-        nv = dao.addNav(nv);  
-        
-        List<Page> pList = dao.getAllPages();
-        assertEquals(3, pList.size());
-        List<Nav> nList = dao.getAllNavs();
-        assertEquals(3, nList.size());
-    }
+//    @Test
+//    public void testGetAllPagesNavs() {
+//        System.out.println("getAllPagesNavs");
+//        Page pg = new Page(u1, "Title 0", "Content 0");
+//        pg = dao.addPage(pg);
+//        Nav nv = new Nav(pg.getId(), 0, "menu 0");
+//        nv = dao.addNav(nv);
+//        pg = new Page(u1, "Title 1", "Content 1");
+//        pg = dao.addPage(pg);
+//        nv = new Nav(pg.getId(), 1, "menu 1");
+//        nv = dao.addNav(nv);
+//        pg = new Page(u2, "Title 2", "Content 2");
+//        pg = dao.addPage(pg);
+//        nv = new Nav(pg.getId(), 2, "menu 2");
+//        nv = dao.addNav(nv);  
+//        
+//        List<Page> pList = dao.getAllPages();
+//        assertEquals(3, pList.size());
+//        List<Nav> nList = dao.getAllNavs();
+//        assertEquals(3, nList.size());
+//    }
 
 }

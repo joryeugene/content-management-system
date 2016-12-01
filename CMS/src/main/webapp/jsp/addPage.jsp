@@ -24,16 +24,22 @@
                 <%@include file="fragment/sidebar.jsp" %>
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Add Page</h1>
+                    <c:if test="${successMessage == 'true'}">
+                        <div class="alert alert-success alert-dismissable" role="alert">Success! You edited the page!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                    </c:if>
+                    <h1 class="page-header">Add Page </h1>
                     <a href="javascript:history.back()"><- Back</a>
 
                     <div class="row page-edit">
                         <div class="col-xs-12 col-sm-8">
 
-                            <h3>Page Title ${username}</h3>
+                            <h3>Page Title </h3>
                             <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/admin/page/add" method="POST">
-                                    <sf:hidden id="edit-email" path="email"/>
-                                    <div class="form-group">
+                                <sf:input type="text"  id="edit-email" path="email" />
+                                <div class="form-group">
                                     <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
                                     </div>
                                     <div class="form-group">
@@ -60,8 +66,12 @@
     tinymce.init({
         selector: "#edit-content"
     });
-    
-    $("#edit-email").val($("#current-user").text());
+
+    function loadUsername() {
+        var currentUser = '${username}';
+        $("#edit-email").val(currentUser);
+    }
+    loadUsername();
 </script>
 </body>
 </html>

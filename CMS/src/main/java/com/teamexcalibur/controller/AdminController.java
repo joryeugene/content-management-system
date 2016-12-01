@@ -2,6 +2,7 @@ package com.teamexcalibur.controller;
 
 import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
+import com.teamexcalibur.dao.UserDao;
 import com.teamexcalibur.dto.Category;
 import com.teamexcalibur.dto.Nav;
 import com.teamexcalibur.dto.Page;
@@ -26,11 +27,13 @@ public class AdminController {
 
     PageDao dao;
     PostDao postDao;
+    UserDao userDao;
 
     @Inject
-    public AdminController(PageDao dao, PostDao postDao) {
+    public AdminController(PageDao dao, PostDao postDao, UserDao userDao) {
         this.dao = dao;
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
@@ -77,11 +80,24 @@ public class AdminController {
         model.addAttribute("page", page);
         return "editPage";
     }
+    
+    @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.GET)
+    public String displayAddPage(Model model) {
+        model.addAttribute("page", new Page("Page Title", "Page Content", ""));
+        return "addPage";
+    }
 
     @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.POST)
     public String submitEditPage(@ModelAttribute("page") Page page) {
         page.setUser(dao.getPageById(page.getId()).getUser());
         dao.updatePage(page);
+        return "adminPages";
+    }
+    
+    @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.POST)
+    public String addPage(@ModelAttribute("page") Page page) {
+        page.setUser(userDao.getUserByEmail(page.getEmail()));
+        dao.addPage(page);
         return "adminPages";
     }
     

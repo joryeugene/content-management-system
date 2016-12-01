@@ -49,4 +49,9 @@ public class UserDaoInMemImpl implements UserDao {
         return new ArrayList(u);
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

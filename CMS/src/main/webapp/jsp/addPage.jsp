@@ -15,7 +15,7 @@
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
         <!--TinyMCE-->
         <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
-        <title>Admin Dashboard - Edit Page</title>
+        <title>Admin Dashboard - Add Page</title>
     </head>
     <body>
         <%@include file="fragment/topbar.jsp" %>
@@ -24,22 +24,22 @@
                 <%@include file="fragment/sidebar.jsp" %>
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Edit Page</h1>
-                    <a href="javascript:history.back()"><- Back</a> | <a href="${pageContext.request.contextPath}/page/${page.id}">Visit Page</a>
+                    <h1 class="page-header">Add Page</h1>
+                    <a href="javascript:history.back()"><- Back</a>
 
                     <div class="row page-edit">
                         <div class="col-xs-12 col-sm-8">
 
-                            <h3>Page Title</h3>
-                            <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/admin/page/edit/${page.id}" method="POST">
-                                <div class="form-group">
-                                    <sf:hidden path="id"/>
+                            <h3>Page Title ${username}</h3>
+                            <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/admin/page/add" method="POST">
+                                    <sf:hidden id="edit-email" path="email"/>
+                                    <div class="form-group">
                                     <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
                                     </div>
                                     <div class="form-group">
                                     <sf:textarea id="edit-content" class="form-control" path="content"></sf:textarea>
                                     </div>
-                                <button type="submit" id="publish-page" class="btn btn-primary">Publish</button>
+                                    <button type="submit" id="publish-page" class="btn btn-primary">Publish</button>
                             </sf:form>
                         </div>
 
@@ -54,11 +54,14 @@
 
 <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+
 <!--Initialize TinyMCE-->
 <script>
     tinymce.init({
         selector: "#edit-content"
     });
+    
+    $("#edit-email").val($("#current-user").text());
 </script>
 </body>
 </html>

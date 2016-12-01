@@ -29,7 +29,7 @@ function loadPosts() {
             postTable.append($('<tr>')
                     .append($('<td>')
                             .append($('<a>')
-                                    .attr({'href': '/edit/post/' + post.id})
+                                    .attr({'href': '/CMS/edit/post/' + post.id})
                                     .text(post.id)
                                     )
 

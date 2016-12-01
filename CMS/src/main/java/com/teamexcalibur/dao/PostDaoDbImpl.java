@@ -38,6 +38,8 @@ public class PostDaoDbImpl implements PostDao {
             + " StartDate = ?, EndDate = ?, CategoryId = ?, Queued = ? where PostId = ?";
     private static final String SQL_UPDATE_POST_VIEWS
             = "update Post set NumOfViews = ? where PostId = ?";
+    private static final String SQL_UPDATE_POST_QUEUED
+            = "update Post set Queued = ? where PostId = ?";
     private static final String SQL_SELECT_POST_BYID
             = "select * from Post where PostId = ?";
     private static final String SQL_SELECT_POSTS_BY_CATEGORY_ID
@@ -52,6 +54,19 @@ public class PostDaoDbImpl implements PostDao {
             = "select * from Post where StartDate <= CURDATE() and EndDate >= CURDATE() and Queued = false order by StartDate desc";
     private static final String SQL_SELECT_QUEUED_POSTS
             = "select * from Post where Queued = true order by StartDate desc";
+    private static final String SQL_SELECT_POSTS_BY_CATEGORY_AND_USER_ID
+            = "select * from Post where CategoryId = ? and Queued = false and UserId = ? order by StartDate desc";
+    private static final String SQL_SELECT_POSTS_BY_HASHTAG_USER
+            = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ? and Queued = false and UserId = ? order by StartDate desc";
+    private static final String SQL_SELECT_ALL_POSTS_BY_USER
+            = "select * from Post where UserId = ? order by StartDate desc";
+    private static final String SQL_SELECT_MOST_VIEWED_POSTS_BY_USER
+            = "select * from Post where UserId = ? order by NumOfViews desc limit ?";
+    private static final String SQL_SELECT_CURRENT_POSTS_BY_USER
+            = "select * from Post where StartDate <= CURDATE() and EndDate >= CURDATE() and Queued = false and UserId = ? order by StartDate desc";
+    private static final String SQL_SELECT_QUEUED_POSTS_BY_USER
+            = "select * from Post where Queued = true and UserId = ? order by StartDate desc";
+
 
     private static final String SQL_INSERT_CATEGORY
             = "insert into Category (CategoryName) values (?)";
@@ -270,6 +285,89 @@ public class PostDaoDbImpl implements PostDao {
     @Override
     public void addPostView(Post post) {
         jdbcTemplate.update(SQL_UPDATE_POST_VIEWS, post.getNumViews() + 1, post.getId());
+    }
+
+    @Override
+    public void updateQueuedByPostId(Post post, boolean isQueued) {
+        jdbcTemplate.update(SQL_UPDATE_POST_QUEUED, isQueued, post.getId());
+    }
+
+    @Override
+    public boolean deletePostByUser(int postId, int userId) {
+        if (this.getPostByIdByUser(postId, userId) == null) // relies on null if belongs to different user
+            return false;
+        this.deletePost(postId);
+        return true;
+    }
+
+    @Override
+    public boolean updatePostByUser(Post post, int userId) {
+        if (post.getAuthor().getId() != userId)
+            return false;
+        this.updatePost(post);
+        return true;
+    }
+
+    @Override
+    public Post getPostByIdByUser(int postId, int userId) {
+        Post post = getPostById(postId);
+        if (post == null || post.getAuthor().getId() != userId)
+            return null;
+        return post;
+    }
+
+    @Override
+    public List<Post> getPostsByCategoryIdByUser(int id, int userId) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_CATEGORY_AND_USER_ID, new PostMapper(), id, userId);
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getPostsByHashtagByUser(String hashtag, int userId) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_POSTS_BY_HASHTAG_USER, new PostMapper(), hashtag, userId);
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getAllPostsByUser(int userId) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_ALL_POSTS_BY_USER, new PostMapper(), userId);
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getCurrentPostsByUser(int userId) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_CURRENT_POSTS_BY_USER, new PostMapper(), userId);
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getMostViewedPostsByUser(int max, int userId) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_MOST_VIEWED_POSTS_BY_USER, new PostMapper(), userId, max);
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Post> getQueuedPostsByUser(int userId) {
+        List<Post> result = jdbcTemplate.query(SQL_SELECT_QUEUED_POSTS_BY_USER, new PostMapper(), userId);
+        for (Post post : result) {
+            post.setHashtags(getHashtagsByPostId(post.getId()));
+        }
+        return result;
     }
 
     private final class PostMapper implements RowMapper<Post> {

@@ -191,10 +191,17 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.GET)
     @ResponseBody
     public User getUser(@PathVariable("id") int id) {
-        // Retrieve the Dvd associated with the given id and return it
+        // Retrieve the user associated with the given id and return it
         return userDao.getUserById(id);
     }
-
+    
+    @RequestMapping(value = "/admin/user/{email}", method = RequestMethod.GET)
+    @ResponseBody
+    public User getUser(@PathVariable("email") String email) {
+        // Retrieve the user associated with the given id and return it
+        return userDao.getUserByEmail(email);
+    }
+    
     @RequestMapping(value = "/admin/user", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -209,9 +216,9 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        // set the value of the PathVariable id on the incoming Dvd object
-        // to ensure that a) the dvd id is set on the object and b) that
-        // the value of the PathVariable id and the Dvd object id are the
+        // set the value of the PathVariable id on the incoming user object
+        // to ensure that a) the user id is set on the object and b) that
+        // the value of the PathVariable id and the user object id are the
         // same.
         String origPw = userDao.getUserById(id).getPassword();
         if (!origPw.equals(user.getPassword())) { // password changed
@@ -220,7 +227,7 @@ public class AdminController {
         }
 
         user.setId(id);
-        // update the dvd
+        // update the user
         userDao.updateUser(user);
     }
 
@@ -230,4 +237,7 @@ public class AdminController {
         // remove the Dvd associated with the given id from the data layer
         userDao.deleteUser(id);
     }
+    
+    // Start of writer specific code
+    
 }

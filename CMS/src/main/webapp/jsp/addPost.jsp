@@ -15,13 +15,37 @@
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
         <!--TinyMCE-->
         <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
-        <title>Edit Post </title>
+        <title>Edit Page </title>
     </head>
     <body>
         <%@include file="fragment/topbar.jsp" %>
         <div class="container-fluid">
             <div class="row">
-                <%@include file="fragment/sidebar.jsp" %>
+                <div class="col-sm-3 col-md-2 sidebar">
+
+                    <ul class="nav nav-sidebar">
+                        <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Posts</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="">All Posts</a></li>
+                                <li><a href="">Add Post</a></li>
+                        </li>
+                    </ul>
+
+                    <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Pages</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="">All Pages</a></li>
+                            <li><a href="">Add Page</a></li>
+                    </li>
+                    </ul>
+                    <li role="presentation" class=""dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Users</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="">All Users</a></li>
+                            <li><a href="">Add User</a></li>
+                    </li>
+                    </ul>
+                    </ul>
+
+                </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Edit Post</h1>
                     <h2 class="small"><a href="${pageContext.request.contextPath}/post/${post.id}" >Visit Post</a></h2>
@@ -51,13 +75,10 @@
                                                     <sf:input path="stringStartDate" type="text" id="starting-date"></sf:input> <label>Start Publishing</label>
                                                     </div>
                                                     <sf:input path="stringEndDate" type="text" id="ending-date"></sf:input> <label>End Publishing</label>
-                                                        <div class="form-group">   
-                                                        <select class="form-control">
-                                                            <option>Choose Category</option>
-                                                            <c:forEach var="cat" items="${allCategories}" >
-                                                            <option>${cat.name}</option>
-                                                            </c:forEach>
-                                                        </select>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Publish post forever
+                                                        </label>
                                                     </div>
                                                     <button class="btn btn-primary" type="submit">Publish</button>
                                                 </sf:form>
@@ -73,8 +94,20 @@
                                                     </div>
 
                                                 </form>
-                                              
-                                           
+                                                <hr>
+                                                <form action="" method="POST">
+                                                    <div class="form-group">   
+                                                        <select class="form-control">
+                                                            <option>Choose Category</option>
+                                                            <c:forEach var="cat" items="${allCategories}" >
+                                                            <option>${cat.name}</option>
+                                                            </c:forEach>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button class="btn btn-default" type="submit">Add Category to Post</button>
+                                                    </div>
+                                                </form>
 
                                             </div>
                                         </div> 

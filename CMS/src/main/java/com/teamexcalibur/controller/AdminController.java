@@ -8,11 +8,14 @@ import com.teamexcalibur.dto.Nav;
 import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
 import com.teamexcalibur.dto.User;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +30,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class AdminController {
-    
+
     private PageDao dao;
     private PostDao postDao;
     private UserDao userDao;
     private PasswordEncoder encoder;
+    private LocalDate now = LocalDate.now();
 
     @Inject
     public AdminController(PageDao dao, PostDao postDao, UserDao userDao, PasswordEncoder pwe) {
@@ -47,15 +51,15 @@ public class AdminController {
         int numPosts = postDao.getQueuedPosts().size();
         List<Post> viewsListRecent = postDao.getCurrentPosts();
         List<Post> viewsListAllTime = postDao.getMostViewedPosts(5);
-        
+
         model.addAttribute("queuedPosts", queuedPosts);
         model.addAttribute("numPosts", numPosts);
         model.addAttribute("viewsListRecent", viewsListRecent);
         model.addAttribute("viewsListAllTime", viewsListAllTime);
-        
+
         return "admin";
     }
-    
+
     @RequestMapping(value = {"/admin/pages"}, method = RequestMethod.GET)
     public String displayAdminPages(Model model) {
         return "adminPages";
@@ -73,17 +77,17 @@ public class AdminController {
     public List<Page> getAllPages() {
         return dao.getAllPages();
     }
-    
+
     @RequestMapping(value = {"/pagenav"}, method = RequestMethod.GET)
     @ResponseBody
     public List<Page> getAllPagesWithNav() {
-        
+
         List<Page> allPages = dao.getAllPages();
-        
+
         for (Page page : allPages) {
             page.setNav(dao.getNavById(page.getId()));
         }
-        
+
         return allPages;
     }
 
@@ -93,33 +97,39 @@ public class AdminController {
         model.addAttribute("page", page);
         return "editPage";
     }
-    
+
     @RequestMapping(value = "/admin/page/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePageAndNav(@PathVariable("id") int id) {
         dao.deletePage(id);
     }
-    
+
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.GET)
     public String displayAddPage(Model model) {
         model.addAttribute("page", new Page("Page Title", "Page Content", ""));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+
+        model.addAttribute("username", name);
         return "addPage";
     }
 
     @RequestMapping(value = {"/admin/page/edit/{id}"}, method = RequestMethod.POST)
-    public String submitEditPage(@ModelAttribute("page") Page page) {
+    public String submitEditPage(@ModelAttribute("page") Page page, Model model) {
         page.setUser(dao.getPageById(page.getId()).getUser());
         dao.updatePage(page);
+        model.addAttribute("successMessage", "true");
         return "adminPages";
     }
-    
+
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.POST)
-    public String addPage(@ModelAttribute("page") Page page) {
+    public String addPage(@ModelAttribute("page") Page page, Model model) {
         page.setUser(userDao.getUserByEmail(page.getEmail()));
         dao.addPage(page);
+        model.addAttribute("successMessage", "true");
         return "adminPages";
     }
-    
+
     @RequestMapping(value = {"/admin/navs/update"}, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateNavs(@RequestBody List<Nav> navs) {
@@ -141,6 +151,18 @@ public class AdminController {
     public String submitEditPost(@ModelAttribute("post") Post post, BindingResult result) {
         postDao.updatePost(post);
         return "redirect:admin";
+    }
+
+    @RequestMapping(value = {"/edit/post/{id}/category"}, method = RequestMethod.POST)
+    public String submitEditPostCategory(@ModelAttribute("post") Post post, BindingResult result) {
+        postDao.updatePost(post);
+        return "redirect:admin";
+    }
+
+    @RequestMapping(value = {"/admin/post/add"}, method = RequestMethod.GET)
+    public String displayAddPost(Model model) {
+        model.addAttribute("post", new Post());
+        return "addPost";
     }
 
     @RequestMapping(value = "/pages/recent", method = RequestMethod.GET)

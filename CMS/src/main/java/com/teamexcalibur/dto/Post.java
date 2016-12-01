@@ -38,6 +38,8 @@ public class Post {
         this(author, title, content, numViews, stringStartDate, stringEndDate, category, hashtags, queued);
         this.id = id;
     }
+    
+    
 
     public static Comparator<Post> PostViewsComparator
                           = new Comparator<Post>() {

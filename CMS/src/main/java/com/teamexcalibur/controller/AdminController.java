@@ -86,6 +86,12 @@ public class AdminController {
         return "editPage";
     }
     
+    @RequestMapping(value = "/admin/page/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePageAndNav(@PathVariable("id") int id) {
+        dao.deletePage(id);
+    }
+    
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.GET)
     public String displayAddPage(Model model) {
         model.addAttribute("page", new Page("Page Title", "Page Content", ""));

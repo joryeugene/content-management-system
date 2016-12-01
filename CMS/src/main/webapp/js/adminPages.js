@@ -33,10 +33,29 @@ function loadPages() {
                                     ) // end <td> tag
                             .append($('<td>')
                                     .text(page.user.displayName)
+                                    .append($('<p style="float: right;">')
+                                            .append($('<a>').attr({
+                                                'onClick': 'deletePage(' + page.id + ')'
+                                            })
+                                                    .append('<span class="glyphicon glyphicon-remove pointer" id="delete-btn" aria-hidden="true"></span><br>')
+                                                    ) // end <a>
+                                            ) // end <p> tag
                                     ) // end <td> tag
                             ); // end <tr> tag
         });
     });
+}
+
+function deletePage(id) {
+    var answer = confirm("Do you really want to delete this page?");
+    if (answer === true) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/CMS/admin/page/delete/' + id
+        }).success(function () {
+            loadPages();
+        });
+    }
 }
 
 function editNavTitle() {
@@ -112,7 +131,7 @@ function submitNavTitle() {
             'Content-Type': 'application/json'
         },
         'dataType': 'json'
-    }).success(function() {
+    }).success(function () {
         cancelNavTitle();
     });
 }

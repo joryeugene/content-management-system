@@ -90,4 +90,9 @@ public class PageDaoInMemImpl implements PageDao {
         return navMap.get(id);
     }
 
+    @Override
+    public Nav getNavByPageId(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -33,11 +33,11 @@
                     <table class = "pages-table table table-striped">
                         <thead>
                             <tr>
-                                <th width="10%">ID</th>
-                                <th width="25%">Title</th>
-                                <th width="30%">Nav Title</th>
-                                <th width="20%">Order</th>
-                                <th width="15%">Author</th></tr>
+                                <th width="7%">ID</th>
+                                <th width="24%">Title</th>
+                                <th width="26%">Nav Title</th>
+                                <th width="15%">Order</th>
+                                <th width="28%">Author</th></tr>
                         </thead>  
                         <tbody id ="page-list"></tbody>
                     </table>

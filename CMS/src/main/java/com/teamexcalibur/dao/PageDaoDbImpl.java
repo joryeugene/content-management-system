@@ -79,8 +79,8 @@ public class PageDaoDbImpl implements PageDao {
 
     @Override
     public void deletePage(int id) {
-        jdbcTemplate.update(SQL_DELETE_PAGE, id);
         deleteNavByPageId(id);
+        jdbcTemplate.update(SQL_DELETE_PAGE, id);
     }
 
     @Override
@@ -142,6 +142,7 @@ public class PageDaoDbImpl implements PageDao {
         }
     }
     
+    @Override    
     public Nav getNavByPageId(int id) {
         try {
             Nav nav = jdbcTemplate.queryForObject(SQL_SELECT_NAV_BY_PAGEID,

@@ -36,8 +36,7 @@ public class PageDaoDbImpl implements PageDao {
     private static final String SQL_SELECT_PAGE_BYID
             = "select * from Page where PageId = ?";
     private static final String SQL_SELECT_ALL_PAGES
-            = "select * from Page join Nav on Page.PageId = Nav.NavId order by Nav.Position";
-
+            = "select * from Page inner join Nav on Page.PageId = Nav.PageId order by Nav.Position";
     private static final String SQL_INSERT_NAV
             = "insert into Nav (PageId, Position, MenuName)"
             + " values (?, ?, ?)";

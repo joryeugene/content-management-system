@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
-        <title>Admin Dashboard</title>
+        <title>Admin Dashboard - All Pages</title>
     </head>
 
     <body>
@@ -26,11 +26,18 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 
                 <h2 class="sub-header">Pages</h2>
+                
+                <p class="text-center"><b><a id="edit-nav-title" onclick="editNavTitle();" class="pointer">Edit Nav Title / Order</a></b></p>
+                
                 <div class="table table-responsive">
                     <table class = "pages-table table table-striped">
                         <thead>
                             <tr>
-                                <th>Page ID</th><th>Title</th><th>Author</th></tr>
+                                <th width="10%">ID</th>
+                                <th width="25%">Title</th>
+                                <th width="30%">Nav Title</th>
+                                <th width="20%">Order</th>
+                                <th width="15%">Author</th></tr>
                         </thead>  
                         <tbody id ="page-list"></tbody>
                     </table>

@@ -163,6 +163,11 @@ public class AdminController {
         }
         dao.deletePage(id);
     }
+    @RequestMapping(value = "/admin/post/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePost(@PathVariable("id") int id) {
+        postDao.deletePost(id);
+    }
 
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.GET)
     public String displayAddPage(Model model) {
@@ -205,7 +210,7 @@ public class AdminController {
 
         page.setUser(userDao.getUserByEmail(auth.getName()));
         dao.addPage(page);
-        model.addAttribute("successMessage", "true");
+        model.addAttribute("addMessage", "true");
         return "adminPages";
     }
 
@@ -293,7 +298,16 @@ public class AdminController {
 //    }
     @RequestMapping(value = {"/admin/post/add"}, method = RequestMethod.GET)
     public String displayAddPost(Model model) {
-        model.addAttribute("post", new Post());
+        boolean queued = false;
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User user = userDao.getUserByEmail(name);
+        
+        if (!user.getAuthority().equals("admin")) queued = true;
+                
+        Post newPost = new Post(user, "Post Title", "Post Content", 0, now.toString(), "2116-11-28", new Category(), new ArrayList<String>(), queued);
+        model.addAttribute("post", newPost);
         return "addPost";
     }
 
@@ -427,13 +441,7 @@ public class AdminController {
         // Retrieve the user associated with the given id and return it
         return userDao.getUserById(id);
     }
-
-//    @RequestMapping(value = "/admin/user/{email}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public User getUser(@PathVariable("email") String email) {
-//        // Retrieve the user associated with the given id and return it
-//        return userDao.getUserByEmail(email);
-//    }
+    
     @RequestMapping(value = "/admin/user", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody

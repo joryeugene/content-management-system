@@ -15,7 +15,7 @@
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
         <!--TinyMCE-->
         <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
-        <title>Edit Page </title>
+        <title>Admin - Add Post</title>
     </head>
     <body>
         <%@include file="fragment/topbar.jsp" %>
@@ -47,8 +47,8 @@
 
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Edit Post</h1>
-                    <h2 class="small"><a href="${pageContext.request.contextPath}/post/${post.id}" >Visit Post</a></h2>
+                    <h1 class="page-header">Add Post</h1>
+                    <a href="javascript:history.back()"><- Back</a>
 
                     <div class="row page-edit">
                         <div class="col-xs-12 col-sm-8">

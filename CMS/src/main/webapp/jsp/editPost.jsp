@@ -24,7 +24,7 @@
                 <%@include file="fragment/sidebar.jsp" %>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">Edit Post</h1>
-                    <h2 class="small"><a href="${pageContext.request.contextPath}/post/${post.id}" >Visit Post</a></h2>
+                    <a href="javascript:history.back()"><- Back</a> | <a href="${pageContext.request.contextPath}/post/${post.id}" >Visit Post</a>
 
                     <div class="row page-edit">
                         <div class="col-xs-12 col-sm-8">
@@ -33,67 +33,73 @@
                                 <sf:form modelAttribute="post" action="${pageContext.request.contextPath}/edit/post/${post.id}" method="POST">
                                     <div class="form-group">
                                         <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
+                                        </div>
+
+
                                     </div>
-                                
 
-                                        </div>
-                                        
-                                            <div class="form-group">
-                                            <sf:textarea path="content" id="contentEditArea"></sf:textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4">
-                                            <div class="publish-box">
-                                                <h3>Publish</h3>
-                                                
-                                                    <!--TODO Date Picker-->
-                                                    <div class="form-group">
-                                                    <sf:input path="stringStartDate" type="text" id="starting-date"></sf:input> <label>Start Publishing</label>
-                                                    </div>
-                                                    <sf:input path="stringEndDate" type="text" id="ending-date"></sf:input> <label>End Publishing</label>
-                                                        <div class="form-group">   
-                                                        <select class="form-control">
-                                                            <option>Choose Category</option>
-                                                            <c:forEach var="cat" items="${allCategories}" >
-                                                            <option>${cat.name}</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                    <button class="btn btn-primary" type="submit">Publish</button>
-                                                </sf:form>
-                                            </div> 
-                                            <div class="categories-box">
+                                    <div class="form-group">
+                                    <sf:textarea path="content" id="contentEditArea"></sf:textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="publish-box">
+                                        <h3>Publish</h3>
 
-                                                <form>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" name="createCategory" id="createCategory"/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <button class="btn btn-default" type="submit">Create Category</button>
-                                                    </div>
+                                        <!--TODO Date Picker-->
+                                        <div class="form-group">
+                                        <sf:input path="stringStartDate" type="text" id="starting-date"></sf:input> <label>Start Publishing</label>
+                                        </div>
+                                        <div class="form-group">
+                                        <sf:input path="stringEndDate" type="text" id="ending-date"></sf:input> <label>End Publishing</label>
+                                        </div>
+                                        <div class="form-group">   
+                                        <sf:select path="category" cssClass="form-control">
+                                                <option>Set Post Category</option>
+                                            <c:forEach var="cat" items="${allCategories}" >
+                                                <option value="${cat.name}">${cat.name}</option>
+                                            </c:forEach>
+                                        </sf:select>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit">Publish</button>
+                                </sf:form>
+                            </div> 
+                            <div class="categories-box">
 
-                                                </form>
-                                              
-                                           
+                                <form>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="createCategory" id="createCategory"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-default" type="submit">Create A New Category</button>
+                                    </div>
 
-                                            </div>
-                                        </div> 
+                                </form>
 
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
 
-                                        <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-                                        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
-                                        <!--Initialize TinyMCE-->
-                                        <script>
-                                            tinymce.init({
-                                                selector: '#contentEditArea'
-                                            });
-                                        </script>
-                                        </body>
-                                        </html>
+                            </div>
+                        </div> 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+
+<!--Initialize TinyMCE-->
+<script>
+    tinymce.init({
+        selector: '#contentEditArea',
+        plugins: "image",
+        menubar: "file edit insert view format table tools",
+        toolbar: "image",
+        image_caption: true
+    });
+</script>
+</body>
+</html>

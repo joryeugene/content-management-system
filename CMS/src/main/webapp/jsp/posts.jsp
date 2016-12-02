@@ -32,7 +32,7 @@
                         
                         <c:forEach var="post" items="${posts}">
                             <div class="row">
-                                <h4><a href="${pageContext.request.contextPath}/post/${post.id}">${post.title}</a></h4>
+                                <h4><a href="${pageContext.request.contextPath}/edit/post/${post.id}">${post.title}</a></h4>
                             <p>${post.startDate.month} ${post.startDate.dayOfMonth}, ${post.startDate.year} | ${post.author.displayName} | <a href="${pageContext.request.contextPath}/category/${post.category.id}">${post.category.name}</a></p>
                              </div>
                         </c:forEach>

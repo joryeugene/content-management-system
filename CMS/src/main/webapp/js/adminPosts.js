@@ -10,7 +10,7 @@ function loadPosts() {
     
     $.ajax({
         type: 'GET',
-        url: '/CMS/posts'
+        url: '/CMS/admin/user/allposts/100'
     }).success(function (data, status)
     {
         $.each(data, function (index, post) {
@@ -29,7 +29,7 @@ function loadPosts() {
             postTable.append($('<tr>')
                     .append($('<td>')
                             .append($('<a>')
-                                    .attr({'href': '/edit/post/' + post.id})
+                                    .attr({'href': '/CMS/edit/post/' + post.id})
                                     .text(post.id)
                                     )
 

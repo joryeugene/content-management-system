@@ -8,7 +8,7 @@ function loadPages() {
     clearPages();
     $.ajax({
         type: 'GET',
-        url: '/CMS/pagenav'
+        url: '/CMS/admin/pagenav'
     }).success(function (data, status) {
         $.each(data, function (index, page) {
             pagesTable
@@ -63,7 +63,7 @@ function editNavTitle() {
     $("#edit-nav-title").replaceWith('<span id="edit-nav-title"><a onclick="submitNavTitle();" class="pointer">SUBMIT</a> | <a onclick="cancelNavTitle();" class="pointer">Cancel</a></span>');
     $.ajax({
         type: 'GET',
-        url: '/CMS/pagenav'
+        url: '/CMS/admin/pagenav'
     }).success(function (data, status) {
         $.each(data, function (index, page) {
             pagesTable

@@ -41,6 +41,7 @@ and open the template in the editor.
         <intercept-url pattern="/admin" access="hasAnyRole('admin', 'writer')" />
         <intercept-url pattern="/admin/*" access="hasAnyRole('admin', 'writer')" />
         <intercept-url pattern="/admin/userTable" access="hasRole('admin')" />
+        <intercept-url pattern="/admin/navs/*" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/admin.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/editPost.jsp" access="hasRole('admin')" />
         <intercept-url pattern="/jsp/editPage.jsp" access="hasRole('admin')" />

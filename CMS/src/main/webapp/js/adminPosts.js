@@ -69,6 +69,17 @@ function loadPosts() {
         });
     });
 }
+function deletePost(id) {
+    var answer = confirm("Do you really want to delete this post?");
+    if (answer === true) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/CMS/admin/post/delete/' + id
+        }).success(function () {
+            loadPosts();
+        });
+    }
+}
 
 function clearPosts() {
     postTable.empty();

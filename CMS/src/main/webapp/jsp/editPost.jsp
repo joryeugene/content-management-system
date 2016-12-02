@@ -53,14 +53,23 @@
                                         <div class="form-group">
                                         <sf:input path="stringEndDate" type="text" id="ending-date"></sf:input> <label>End Publishing</label>
                                         </div>
-                                        <div class="form-group">   
-                                        <sf:select path="category" cssClass="form-control">
-                                                <option>Set Post Category</option>
-                                            <c:forEach var="cat" items="${allCategories}" >
-                                                <option value="${cat.name}">${cat.name}</option>
-                                            </c:forEach>
+                                        <div class="form-group"> 
+                                            <div  class="form-group">
+                                            <label>Category</label>   
+                                        <sf:select path="category.id" cssClass="form-control">
+                                            <sf:options items="${allCategories}" itemValue="id" itemLabel="name"/>
+                                            
+                                                <!--<option>Set Post Category</option>-->
+                                            <%--<c:forEach var="cat" items="${allCategories}" >--%>
+                                                <!--<option value="${cat.id}">${cat.name}</option>-->
+                                            <%--</c:forEach>--%>
                                         </sf:select>
                                     </div>
+                                        
+                                        <div class="form-group">
+                                            <label>Hashtags</label>
+                                        <sf:input path="hashtags" id="hashtags"></sf:input>
+                                        </div>
                                     <button class="btn btn-primary" type="submit">Publish</button>
                                 </sf:form>
                             </div> 
@@ -90,6 +99,8 @@
 
 <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
 
 <!--Initialize TinyMCE-->
 <script>
@@ -99,6 +110,12 @@
         menubar: "file edit insert view format table tools",
         toolbar: "image",
         image_caption: true
+    });
+    
+    $(document).ready(function() {
+        $("#hashtags").tagit({
+                availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
+            });
     });
 </script>
 </body>

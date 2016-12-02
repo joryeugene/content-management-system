@@ -131,6 +131,15 @@ public class AdminController {
         model.addAttribute("page", page);
         return "editPage";
     }
+        @RequestMapping(value = {"/admin/post/add"}, method = RequestMethod.GET)
+    public String displayAddPost(Model model) {
+        model.addAttribute("post", new Post());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+
+        model.addAttribute("authorName", name);
+        return "addPost";
+    }
 
     @RequestMapping(value = "/admin/page/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -203,7 +212,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/edit/post/{id}"}, method = RequestMethod.POST)
-    public String submitEditPost(@ModelAttribute("post") Post post, BindingResult result) {
+    public String submitEditPost(@ModelAttribute("post") Post post, BindingResult result, Model model) {
+        List<Post> queuedPosts, viewsListRecent, viewsListAllTime;
+        int numPosts;
         boolean isAdmin = false;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
@@ -214,10 +225,32 @@ public class AdminController {
         }
         if (!isAdmin) {
             if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId())
-                return "redirect:admin";
+                
+                return "admin";
         }
+        
+        if (isAdmin) {
+            queuedPosts = postDao.getQueuedPosts();
+            numPosts = postDao.getQueuedPosts().size();
+            viewsListRecent = postDao.getCurrentPosts();
+            viewsListAllTime = postDao.getMostViewedPosts(5);
+        } else {
+            int userId = userDao.getUserByEmail(name).getId();
+            queuedPosts = postDao.getQueuedPostsByUser(userId);
+            numPosts = queuedPosts.size();
+            viewsListRecent = postDao.getCurrentPostsByUser(userId);
+            viewsListAllTime = postDao.getMostViewedPostsByUser(5, userId);
+        }
+
+        model.addAttribute("queuedPosts", queuedPosts);
+        model.addAttribute("numPosts", numPosts);
+        model.addAttribute("viewsListRecent", viewsListRecent);
+        model.addAttribute("viewsListAllTime", viewsListAllTime);
+        
+        post.setAuthor(userDao.getUserByEmail(name));
+        post.setCategory(postDao.getCategoryById(post.getCategory().getId()));
         postDao.updatePost(post);
-        return "redirect:admin";
+        return "admin";
     }
 
     @RequestMapping(value = {"/edit/post/{id}/category"}, method = RequestMethod.POST)
@@ -238,11 +271,7 @@ public class AdminController {
         return "redirect:admin";
     }
 
-    @RequestMapping(value = {"/admin/post/add"}, method = RequestMethod.GET)
-    public String displayAddPost(Model model) {
-        model.addAttribute("post", new Post());
-        return "addPost";
-    }
+
 
     @RequestMapping(value = "/pages/recent", method = RequestMethod.GET)
     @ResponseBody

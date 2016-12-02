@@ -16,7 +16,9 @@
             <li><a href="${pageContext.request.contextPath}/admin/page/add">Add Page</a></li>
     </li>
 </ul>
+<sec:authorize access="hasRole('admin')">
 <li><a href="${pageContext.request.contextPath}/admin/userTable">Users</a></li>
+</sec:authorize>
 </ul>
 </ul>
 

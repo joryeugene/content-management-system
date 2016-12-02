@@ -37,6 +37,8 @@ public class PageDaoDbImpl implements PageDao {
             = "select * from Page where PageId = ?";
     private static final String SQL_SELECT_ALL_PAGES
             = "select * from Page inner join Nav on Page.PageId = Nav.PageId order by Nav.Position";
+    private static final String SQL_SELECT_USER_PAGES
+            = "select * from Page where Page.UserId = ?";
     private static final String SQL_INSERT_NAV
             = "insert into Nav (PageId, Position, MenuName)"
             + " values (?, ?, ?)";
@@ -155,6 +157,29 @@ public class PageDaoDbImpl implements PageDao {
     @Override
     public List<Nav> getAllNavs() {
         List<Nav> result = jdbcTemplate.query(SQL_SELECT_ALL_NAVS, new NavMapper());
+        return result;
+    }
+
+    @Override
+    public void deletePageByUser(int id, int userId) {
+        Page page = this.getPageById(id);
+        if (page.getId() != userId)
+            return;
+        deleteNavByPageId(id);
+        jdbcTemplate.update(SQL_DELETE_PAGE, id);
+    }
+
+    @Override
+    public void updatePageByUser(Page page, int userId) {
+        if (page.getUser().getId() != userId)
+            return;
+        jdbcTemplate.update(SQL_UPDATE_PAGE, page.getUser().getId(),
+                page.getTitle(), page.getContent(), page.getId());
+    }
+
+    @Override
+    public List<Page> getAllPagesByUser(int userId) {
+        List<Page> result = jdbcTemplate.query(SQL_SELECT_USER_PAGES, new PageMapper(), userId);
         return result;
     }
 

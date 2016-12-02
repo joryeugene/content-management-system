@@ -64,6 +64,20 @@ public class BlogController {
         return mostRecent;
     }
     
+    @RequestMapping(value = "/posts/recent/{max}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Post> getMostRecentPosts(@PathVariable("max") int max) {
+        List<Post> allPosts = postDao.getCurrentPosts();
+        List<Post> mostRecent = new ArrayList<>();
+        int count = (max > allPosts.size()) ? allPosts.size() : max;
+
+        for (int i = 0; i < count; i++) {
+            mostRecent.add(allPosts.get(i));
+        }
+
+        return mostRecent;
+    }
+    
     @RequestMapping(value = {"/", "/blog"}, method = RequestMethod.GET)
     public String displayMainBlogPage(Model model) {
         model.addAttribute("navs", pageDao.getAllNavs());

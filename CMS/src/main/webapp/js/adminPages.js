@@ -37,7 +37,7 @@ function loadPages() {
                                             .append($('<a>').attr({
                                                 'onClick': 'deletePage(' + page.id + ')'
                                             })
-                                                    .append('<span class="glyphicon glyphicon-remove pointer" id="delete-btn" aria-hidden="true"></span><br>')
+                                                    .append('<span class="glyphicon glyphicon-remove pointer" style="color:red;" id="delete-btn" aria-hidden="true"></span><br>')
                                                     ) // end <a>
                                             ) // end <p> tag
                                     ) // end <td> tag

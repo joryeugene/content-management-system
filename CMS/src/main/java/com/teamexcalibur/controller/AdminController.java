@@ -333,13 +333,6 @@ public class AdminController {
         return userDao.getUserById(id);
     }
     
-    @RequestMapping(value = "/admin/user/{email}", method = RequestMethod.GET)
-    @ResponseBody
-    public User getUser(@PathVariable("email") String email) {
-        // Retrieve the user associated with the given id and return it
-        return userDao.getUserByEmail(email);
-    }
-    
     @RequestMapping(value = "/admin/user", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody

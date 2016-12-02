@@ -48,10 +48,13 @@
                             </div>
                         </c:forEach>
 
-                        <p class="text-center">
+                        <c:if test="${totalCount > 10}">
+                            <p class="text-center">
                             <a href="?start=${pageStart - perPage}"><<</a>${pageStart + 1} - ${pageStart + perPage} 
                             <a href="?start=${pageStart + perPage}">>></a>
                         </p>
+                        </c:if>
+                        
                     </div>
                 </div><!--/.col-xs-12.col-sm-9-->
 

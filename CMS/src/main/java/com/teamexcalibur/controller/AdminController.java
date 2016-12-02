@@ -167,7 +167,7 @@ public class AdminController {
 
         page.setUser(userDao.getUserByEmail(auth.getName()));
         dao.addPage(page);
-        model.addAttribute("successMessage", "true");
+        model.addAttribute("addMessage", "true");
         return "adminPages";
     }
 
@@ -336,13 +336,6 @@ public class AdminController {
     public User getUser(@PathVariable("id") int id) {
         // Retrieve the user associated with the given id and return it
         return userDao.getUserById(id);
-    }
-    
-    @RequestMapping(value = "/admin/user/{email}", method = RequestMethod.GET)
-    @ResponseBody
-    public User getUser(@PathVariable("email") String email) {
-        // Retrieve the user associated with the given id and return it
-        return userDao.getUserByEmail(email);
     }
     
     @RequestMapping(value = "/admin/user", method = RequestMethod.POST)

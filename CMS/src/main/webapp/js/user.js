@@ -13,7 +13,7 @@ function loadUsers() {
     clearUsers();
     $.ajax({
         type: 'GET',
-        url: 'users'
+        url: '/CMS/admin/users'
     }).success(function (data, status) {
         $.each(data, function (index, user) {
             userTable.append($('<tr>')
@@ -26,7 +26,12 @@ function loadUsers() {
                                     )
                             )
                     .append($('<td>')
-                            .text(user.email)
+                            .append($('<a>')
+                                    .attr({
+                                        'onClick': 'editUser(' + user.id + ')'
+                                    })
+                                    .text(user.email)
+                                    )
                             )
                     .append($('<td>')
                             .text(user.displayName)
@@ -35,12 +40,13 @@ function loadUsers() {
                             .text(user.authority)
                             )
                     .append($('<td>')
-                            .append($('<i>')
+                            .append($('<a>')
                                     .attr({
-                                        'class': "align-right btn btn-default btn-sm glyphicon glyphicon-remove",
+                                        'class': "align-right glyphicon glyphicon-remove pointer",
                                         'style': "color : red; float: right",
                                         'onclick': "deleteUser(" + user.id + ")"
-                                    })))
+                                    }))
+                            )
                     );
         });
     });
@@ -53,7 +59,6 @@ function clearUsers() {
 function clearFields() {
     $('#user-id').empty();
     $('#add-edit-title').empty();
-    $('#user-button').empty();
 
     $('#user-email').val('');
     $('#user-display-name').val('');
@@ -65,23 +70,17 @@ function clearFields() {
 function loadAddUser() {
     clearFields();
     $('#add-edit-title').append("Add User");
-    $('#user-button').append($('<a>')
-            .attr({
-                'onClick': 'doAddUser()'
-            })
-            .text("Add User"));
 }
 
 function doAddUser() {
     event.preventDefault();
     $('#validationErrors').empty();
     $('#user-password').attr({
-        
     });
 
     $.ajax({
         type: 'POST',
-        url: 'user',
+        url: '/CMS/admin/user',
         // Build a JSON object from the data in the form
         data: JSON.stringify({
             email: $('#user-email').val(),
@@ -109,18 +108,13 @@ function doAddUser() {
 }
 
 function editUser(id) {
-    clearFields();
-    $('#user-id').append(id);
-    $('#add-edit-title').append("Edit User");
     $.ajax({
         type: 'GET',
-        url: 'user/' + id
+        url: '/CMS/admin/user/' + id
     }).success(function (user) {
-        $('#user-button').append($('<a>')
-                .attr({
-                    'onClick': 'doEditUser(' + id + ')'
-                })
-                .text("Update User"));
+        clearFields();
+        $('#add-edit-title').append("Edit User");
+        $('#user-btn').replaceWith('<button onclick="doEditUser(' + id + ');" id="user-btn" class="btn btn-primary">Update</button>');
         $('#user-email').val(user.email);
         $('#user-display-name').val(user.displayName);
         $('#user-authority').val(user.authority);
@@ -131,24 +125,24 @@ function editUser(id) {
 
 function doEditUser(id) {
     $.ajax({
-            type: 'PUT',
-            url: 'user/' + id,
-            data: JSON.stringify({
-                userId: id,
-                email: $('#user-email').val(),
-                displayName: $('#user-display-name').val(),
-                authority: $('#user-authority').val(),
-                avatarUrl: $('#user-avatar-url').val(),
-                password: $('#user-password').val()
-            }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            'dataType': 'json'
-        }).success(function () {
-            loadPage();
-        });
+        type: 'PUT',
+        url: 'user/' + id,
+        data: JSON.stringify({
+            userId: id,
+            email: $('#user-email').val(),
+            displayName: $('#user-display-name').val(),
+            authority: $('#user-authority').val(),
+            avatarUrl: $('#user-avatar-url').val(),
+            password: $('#user-password').val()
+        }),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        'dataType': 'json'
+    }).success(function () {
+        loadPage();
+    });
 }
 
 function deleteUser(id) {
@@ -156,7 +150,7 @@ function deleteUser(id) {
     if (answer === true) {
         $.ajax({
             type: 'DELETE',
-            url: 'user/' + id
+            url: '/CMS/admin/user/' + id
         }).success(function () {
             loadUsers();
         });

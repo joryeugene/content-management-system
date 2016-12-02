@@ -24,13 +24,13 @@
                 <%@include file="fragment/sidebar.jsp" %>
                 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <c:if test="${successMessage == 'true'}"><div class="alert alert-success alert-dismissable" role="alert">Success! You edited the page!
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                    </c:if>  
+
+                    <c:if test="${successMessage == 'true'}"><div class="alert alert-success alert-dismissable" role="alert">Success! The page has been updated!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></c:if>  
+                    <c:if test="${addMessage == 'true'}"><div class="alert alert-success alert-dismissable" role="alert">Success! The page has been added!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></c:if> 
+
                 <h2 class="sub-header">Pages</h2>
                 
-                <p class="text-center"><b><a id="edit-nav-title" onclick="editNavTitle();" class="pointer">Edit Nav Title / Order</a></b></p>
+                <p class="text-center"><b><a id="edit-nav-title" onclick="editNavTitle();" class="pointer">** Edit Nav Title / Order **</a></b></p>
                 
                 <div class="table table-responsive">
                     <table class = "pages-table table table-striped">

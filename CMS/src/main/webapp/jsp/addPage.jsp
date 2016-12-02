@@ -38,7 +38,9 @@
 
                             <h3>Page Title </h3>
                             <sf:form modelAttribute="page" action="${pageContext.request.contextPath}/admin/page/add" method="POST">
+
                                 <sf:hidden id="edit-email" path="email" />
+
                                 <div class="form-group">
                                     <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
                                     </div>

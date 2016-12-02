@@ -41,7 +41,6 @@
                     <div class="col-sm-6">
                         <h2 class="sub-header" id="add-edit-title"></h2>
                         <form class="form-horizontal" role="form">
-                            <h3 id="user-id"></h3>
                             <div class="form-group">
                                 <label for="user-email" class="col-sm-4 control-label">
                                     Email:
@@ -82,7 +81,11 @@
                                     <input type="password" class="form-control" id="user-password" placeholder="Password" />
                                 </div>
                             </div>
-                            <div id="user-button"></div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <button onclick="doAddUser();" id="user-btn" class="btn btn-primary">Add</button>
+                                </div>
+                            </div>
                         </form>
                         <div id="validationErrors" style="color: red"/>
                     </div>

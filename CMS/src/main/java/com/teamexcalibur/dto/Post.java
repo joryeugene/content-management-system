@@ -39,7 +39,10 @@ public class Post {
         this.id = id;
     }
     
-    
+   public Post(LocalDate startDate, LocalDate endDate){
+       this.startDate = startDate;
+       this.endDate = endDate;
+   }
 
     public static Comparator<Post> PostViewsComparator
                           = new Comparator<Post>() {

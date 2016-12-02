@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ public class AdminController {
     private UserDao userDao;
     private PasswordEncoder encoder;
     private LocalDate now = LocalDate.now();
+    private final String ADMIN = "admin"; 
 
     @Inject
     public AdminController(PageDao dao, PostDao postDao, UserDao userDao, PasswordEncoder pwe) {
@@ -47,10 +49,29 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     public String displayAdminPage(Model model) {
-        List<Post> queuedPosts = postDao.getQueuedPosts();
-        int numPosts = postDao.getQueuedPosts().size();
-        List<Post> viewsListRecent = postDao.getCurrentPosts();
-        List<Post> viewsListAllTime = postDao.getMostViewedPosts(5);
+        List<Post> queuedPosts, viewsListRecent, viewsListAllTime;
+        int numPosts;
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities())
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+        }
+        
+        if (isAdmin) {
+            queuedPosts = postDao.getQueuedPosts();
+            numPosts = postDao.getQueuedPosts().size();
+            viewsListRecent = postDao.getCurrentPosts();
+            viewsListAllTime = postDao.getMostViewedPosts(5);
+        } else {
+            int userId = userDao.getUserByEmail(name).getId();
+            queuedPosts = postDao.getQueuedPostsByUser(userId);
+            numPosts = queuedPosts.size();
+            viewsListRecent = postDao.getCurrentPostsByUser(userId);
+            viewsListAllTime = postDao.getMostViewedPostsByUser(5, userId);
+        }
 
         model.addAttribute("queuedPosts", queuedPosts);
         model.addAttribute("numPosts", numPosts);
@@ -67,7 +88,20 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin/posts"}, method = RequestMethod.GET)
     public String displayAdminPostTable(Model model) {
-        List<Post> allPosts = postDao.getAllPosts();
+        List<Post> allPosts;
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities())
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+        }
+        
+        if (isAdmin)
+            allPosts = postDao.getAllPosts();
+        else allPosts = postDao.getAllPostsByUser(userDao.getUserByEmail(name).getId());
+        
         model.addAttribute("allPosts", allPosts);
         return "adminPosts";
     }
@@ -124,7 +158,9 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.POST)
     public String addPage(@ModelAttribute("page") Page page, Model model) {
-        page.setUser(userDao.getUserByEmail(page.getEmail()));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        page.setUser(userDao.getUserByEmail(auth.getName()));
         dao.addPage(page);
         model.addAttribute("successMessage", "true");
         return "adminPages";
@@ -140,21 +176,59 @@ public class AdminController {
 
     @RequestMapping(value = {"/edit/post/{id}"}, method = RequestMethod.GET)
     public String displayEditPost(@PathVariable("id") int id, Model model) {
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities())
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+        }
+        
         Post post = postDao.getPostById(id);
-        model.addAttribute("post", post);
         List<Category> allCategories = postDao.getAllCategories();
         model.addAttribute("allCategories", allCategories);
+
+        if (!isAdmin) {
+            if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId())
+                return "editPost";
+        }
+        model.addAttribute("post", post);
         return "editPost";
     }
 
     @RequestMapping(value = {"/edit/post/{id}"}, method = RequestMethod.POST)
     public String submitEditPost(@ModelAttribute("post") Post post, BindingResult result) {
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities())
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+        }
+        if (!isAdmin) {
+            if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId())
+                return "redirect:admin";
+        }
         postDao.updatePost(post);
         return "redirect:admin";
     }
 
     @RequestMapping(value = {"/edit/post/{id}/category"}, method = RequestMethod.POST)
     public String submitEditPostCategory(@ModelAttribute("post") Post post, BindingResult result) {
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities())
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+        }
+        if (!isAdmin) {
+            if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId())
+                return "redirect:admin";
+        }
         postDao.updatePost(post);
         return "redirect:admin";
     }
@@ -184,13 +258,55 @@ public class AdminController {
 
         return mostRecent;
     }
+    
+    @RequestMapping(value = "/admin/user/pages/{max}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Page> getMostRecentPages(@PathVariable("max") int max) {
+        int count;
+        List<Page> allPages;
+        List<Page> mostRecent = new ArrayList<>();
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities())
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+        }
+        
+        if (isAdmin)
+            allPages = dao.getAllPages();
+        else allPages = dao.getAllPagesByUser(userDao.getUserByEmail(name).getId());
+        
+        count = (max > allPages.size()) ? allPages.size() : max;
 
-    @RequestMapping(value = "/posts/recent/{max}", method = RequestMethod.GET)
+        for (int i = 0; i < count; i++) {
+            mostRecent.add(allPages.get(i));
+        }
+
+        return mostRecent;
+    }
+
+    @RequestMapping(value = "/admin/user/posts/{max}", method = RequestMethod.GET)
     @ResponseBody
     public List<Post> getMostRecentPosts(@PathVariable("max") int max) {
-        List<Post> allPosts = postDao.getCurrentPosts();
+        int count;
+        List<Post> allPosts;
         List<Post> mostRecent = new ArrayList<>();
-        int count = (max > allPosts.size()) ? allPosts.size() : max;
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities())
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+        }
+        
+        if (isAdmin)
+            allPosts = postDao.getCurrentPosts();
+        else allPosts = postDao.getCurrentPostsByUser(userDao.getUserByEmail(name).getId());
+        
+        count = (max > allPosts.size()) ? allPosts.size() : max;
 
         for (int i = 0; i < count; i++) {
             mostRecent.add(allPosts.get(i));
@@ -213,10 +329,17 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.GET)
     @ResponseBody
     public User getUser(@PathVariable("id") int id) {
-        // Retrieve the Dvd associated with the given id and return it
+        // Retrieve the user associated with the given id and return it
         return userDao.getUserById(id);
     }
-
+    
+    @RequestMapping(value = "/admin/user/{email}", method = RequestMethod.GET)
+    @ResponseBody
+    public User getUser(@PathVariable("email") String email) {
+        // Retrieve the user associated with the given id and return it
+        return userDao.getUserByEmail(email);
+    }
+    
     @RequestMapping(value = "/admin/user", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -231,9 +354,9 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@PathVariable("id") int id, @RequestBody User user) {
-        // set the value of the PathVariable id on the incoming Dvd object
-        // to ensure that a) the dvd id is set on the object and b) that
-        // the value of the PathVariable id and the Dvd object id are the
+        // set the value of the PathVariable id on the incoming user object
+        // to ensure that a) the user id is set on the object and b) that
+        // the value of the PathVariable id and the user object id are the
         // same.
         String origPw = userDao.getUserById(id).getPassword();
         if (!origPw.equals(user.getPassword())) { // password changed
@@ -242,7 +365,7 @@ public class AdminController {
         }
 
         user.setId(id);
-        // update the dvd
+        // update the user
         userDao.updateUser(user);
     }
 
@@ -252,4 +375,7 @@ public class AdminController {
         // remove the Dvd associated with the given id from the data layer
         userDao.deleteUser(id);
     }
+    
+    // Start of writer specific code
+    
 }

@@ -162,7 +162,7 @@ public class AdminController {
 
         page.setUser(userDao.getUserByEmail(auth.getName()));
         dao.addPage(page);
-        model.addAttribute("successMessage", "true");
+        model.addAttribute("addMessage", "true");
         return "adminPages";
     }
 

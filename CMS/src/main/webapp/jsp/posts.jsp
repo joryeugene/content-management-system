@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,18 +26,33 @@
                     <p class="pull-right visible-xs">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
                     </p>
-                    
+
                     <div class="main-margin">
-                        
+
                         <h2 class="text-center">${title}</h2>
-                        
-                        <c:forEach var="post" items="${posts}">
+
+                        <c:set var="totalCount" scope="session" value="${fn:length(posts)}"/>
+                        <c:set var="perPage" scope="session"  value="${10}"/>
+                        <c:set var="pageStart" value="${param.start}"/>
+                        <c:if test="${empty pageStart or pageStart < 0}">
+                            <c:set var="pageStart" value="0"/>
+                        </c:if>
+                        <c:if test="${totalCount < pageStart}">
+                            <c:set var="pageStart" value="${pageStart - perPage}"/>
+                        </c:if>
+
+                        <c:forEach var="post" items="${posts}" begin="${pageStart}" end="${pageStart + perPage - 1}">
                             <div class="row">
                                 <h4><a href="${pageContext.request.contextPath}/edit/post/${post.id}">${post.title}</a></h4>
-                            <p>${post.startDate.month} ${post.startDate.dayOfMonth}, ${post.startDate.year} | ${post.author.displayName} | <a href="${pageContext.request.contextPath}/category/${post.category.id}">${post.category.name}</a></p>
-                             </div>
+                                <p>${post.startDate.month} ${post.startDate.dayOfMonth}, ${post.startDate.year} | ${post.author.displayName} | <a href="${pageContext.request.contextPath}/category/${post.category.id}">${post.category.name}</a></p>
+                            </div>
                         </c:forEach>
-                   </div>
+
+                        <p class="text-center">
+                            <a href="?start=${pageStart - perPage}"><<</a>${pageStart + 1} - ${pageStart + perPage} 
+                            <a href="?start=${pageStart + perPage}">>></a>
+                        </p>
+                    </div>
                 </div><!--/.col-xs-12.col-sm-9-->
 
                 <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">

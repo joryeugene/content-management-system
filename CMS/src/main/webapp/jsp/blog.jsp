@@ -22,15 +22,16 @@
             <div class="row row-offcanvas row-offcanvas-right">
 
                 <div class="col-xs-12 col-sm-9">
-                    <p class="pull-right visible-xs">
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-                    </p>
+                    
                     <div class="jumbotron" id="header-img" style="position: relative;">
                         <div>
                             <h1 style="visibility: hidden;">Header</h1>
                             <p style="position: absolute; bottom: 0; left: 20px; color: white; text-shadow: 2px 2px #000;">Most Recent Posts</p>
                         </div>
                     </div>
+                    <p class="text-right visible-xs" style="margin: 0; padding:0;">
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+                    </p>
                     <div class="row" id="main-page-posts">
 
                     </div><!--/row-->

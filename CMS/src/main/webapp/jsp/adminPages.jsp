@@ -30,7 +30,9 @@
 
                 <h2 class="sub-header">Pages</h2>
                 
-                <p class="text-center"><b><a id="edit-nav-title" onclick="editNavTitle();" class="pointer">** Edit Nav Title / Order **</a></b></p>
+                <sec:authorize access="hasAnyRole('admin')">
+                    <p class="text-center"><b><a id="edit-nav-title" onclick="editNavTitle();" class="pointer">** Edit Nav Title / Order **</a></b></p>
+                </sec:authorize>
                 
                 <div class="table table-responsive">
                     <table class = "pages-table table table-striped">

@@ -240,7 +240,16 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin/post/add"}, method = RequestMethod.GET)
     public String displayAddPost(Model model) {
-        model.addAttribute("post", new Post());
+        boolean queued = false;
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User user = userDao.getUserByEmail(name);
+        
+        if (!user.getAuthority().equals("admin")) queued = true;
+                
+        Post newPost = new Post(user, "Post Title", "Post Content", 0, now.toString(), "2116-11-28", new Category(), new ArrayList<String>(), queued);
+        model.addAttribute("post", newPost);
         return "addPost";
     }
 

@@ -45,7 +45,7 @@ function loadPosts() {
     
     $.ajax({
         type: 'GET',
-        url: '/CMS/admin/user/curposts/6'
+        url: '/CMS/admin/user/allposts/6'
     }).success(function (data, status)
     {
         $.each(data, function (index, post) {
@@ -86,7 +86,10 @@ function loadPosts() {
                             )
                     .append($('<td>')
                             .append($('<button>')
-                                    .attr({'class': 'btn btn-primary ' + queued})
+                                    .attr({
+                                        'class': 'btn btn-primary ' + queued,
+                                'onClick':  'approve(' + post.id + ')'
+                            })
                                     .text('Approve'))
                             )
                     );
@@ -95,9 +98,18 @@ function loadPosts() {
     });
 }
 
+function approve(id) {
+    $.ajax({
+        type: 'POST',
+        url: '/CMS/admin/post/approve/' + id
+    }).success(function (user) {
+        loadPosts();
+    });
+}
+
 function clearPages() {
-    $('#pages-list').empty();
+    $('#page-list').empty();
 }
 function clearPosts() {
-    $('#posts-list').empty();
+    $('#post-list').empty();
 }

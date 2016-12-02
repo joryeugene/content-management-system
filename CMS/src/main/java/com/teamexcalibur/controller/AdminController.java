@@ -163,10 +163,27 @@ public class AdminController {
         }
         dao.deletePage(id);
     }
+    
     @RequestMapping(value = "/admin/post/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable("id") int id) {
         postDao.deletePost(id);
+    }
+    
+    @RequestMapping(value = "/admin/post/approve/{id}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void approvePost(@PathVariable("id") int id) {
+        boolean isAdmin = false;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities()) {
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+            }
+        }
+        if (isAdmin)
+            postDao.updateQueuedByPostId(postDao.getPostById(id), false);
     }
 
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.GET)

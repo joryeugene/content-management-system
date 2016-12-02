@@ -99,7 +99,7 @@ function editNavTitle() {
 }
 
 function cancelNavTitle() {
-    $("#edit-nav-title").replaceWith('<a id="edit-nav-title" onclick="editNavTitle();" class="pointer">Edit Nav Title / Order</a>');
+    $("#edit-nav-title").replaceWith('<a id="edit-nav-title" onclick="editNavTitle();" class="pointer">** Edit Nav Title / Order **</a>');
     loadPages();
 }
 

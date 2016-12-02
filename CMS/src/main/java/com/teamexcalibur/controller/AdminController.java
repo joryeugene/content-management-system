@@ -137,6 +137,11 @@ public class AdminController {
     public void deletePageAndNav(@PathVariable("id") int id) {
         dao.deletePage(id);
     }
+    @RequestMapping(value = "/admin/post/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePost(@PathVariable("id") int id) {
+        postDao.deletePost(id);
+    }
 
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.GET)
     public String displayAddPage(Model model) {

@@ -21,12 +21,23 @@
 
         <div class="container-fluid">
             <div class="row">
-                <!--sidebar here-->
+
                 <%@include file="fragment/sidebar.jsp" %>
 
-                <%@include file="fragment/dashboard.jsp" %>
-
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                    <h1 class="page-header">Dashboard</h1>
+                    <%@include file="fragment/dashboard.jsp" %>
+
+                    <h2 class="sub-header">Recent Posts</h2>
+                    <table class = "posts-table table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
+                            </tr>
+                        </thead>  
+                        <tbody id ="post-list"></tbody>
+                    </table>
 
                     <h2 class="sub-header">Recent Pages </h2>
                     <table class = "pages-table table table-striped table-responsive">
@@ -39,18 +50,6 @@
                             </tr>
                         </thead>  
                         <tbody id ="page-list"></tbody>
-                    </table>
-
-                    <h2 class="sub-header">Recent Posts</h2>
-                    <table class = "posts-table table table-striped table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
-                            </tr>
-                        </thead>  
-                        <tbody id ="post-list">
-
-                        </tbody>
                     </table>
                 </div>
             </div>

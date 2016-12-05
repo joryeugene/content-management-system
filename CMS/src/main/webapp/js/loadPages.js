@@ -8,7 +8,7 @@ function loadPages() {
     clearPages();
     $.ajax({
         type: 'GET',
-        url: '/CMS/admin/user/pages/6'
+        url: '/CMS/admin/user/pages/3'
     }).success(function (data, status)
     {
         $.each(data, function (index, page) {
@@ -48,7 +48,7 @@ function loadPosts() {
 
     $.ajax({
         type: 'GET',
-        url: '/CMS/admin/user/allposts/6'
+        url: '/CMS/admin/user/allposts/5'
     }).success(function (data, status)
     {
         $.each(data, function (index, post) {

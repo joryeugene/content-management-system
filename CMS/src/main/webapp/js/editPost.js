@@ -1,19 +1,19 @@
-    tinymce.init({
-        selector: '#contentEditArea',
-        plugins: "image",
-        menubar: "file edit insert view format table tools",
-        toolbar: "image",
-        image_caption: true
-    });
-    
-    $(document).ready(function() {
-        $("#hashtags").tagit({
-                availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
-                singleField: true
-            });
-    });
-    
-    
+var tags = [];
+
+$(document).ready(function () {
+    startTagit();
+
+
+});
+
+tinymce.init({
+    selector: '#contentEditArea',
+    plugins: "image",
+    menubar: "file edit insert view format table tools",
+    toolbar: "image",
+    image_caption: true
+});
+
 function doAddCategory() {
     event.preventDefault();
     $('#validationErrors').empty();
@@ -44,4 +44,22 @@ function doAddCategory() {
             errorDiv.append(validationError.message).append($('<br>'));
         });
     });
+}
+
+
+function startTagit() {
+    $.ajax({
+        type: 'GET',
+        url: '/CMS/admin/hashtags'
+
+    }).success(function (data, success) {
+        tags = data;
+        $("#hashtags").tagit({
+            availableTags: tags,
+            singleField: true
+        });
+
+    });
+
+
 }

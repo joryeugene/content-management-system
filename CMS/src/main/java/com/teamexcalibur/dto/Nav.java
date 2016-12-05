@@ -1,11 +1,18 @@
 package com.teamexcalibur.dto;
 
 import java.util.Objects;
+import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class Nav {
     private int id;
+    @Pattern(regexp = "^(\\d{1,4})", message = "Page ID expects a number between 1 and 9999")
     private int pageId;
+    @Pattern(regexp = "^([1-9][0-9]|[1-9])", message = "Position expects a number between 1 and 9999")
     private int position;
+    @NotEmpty(message = "You must supply a value for Menu name.")
+    @Length(max = 20, message = "Menu name must be no more than 20 characters in length.")
     private String menuName;
 
     public Nav() {

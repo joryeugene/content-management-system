@@ -3,17 +3,27 @@ package com.teamexcalibur.dto;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Post {
 
     private int id;
     private User author;
+    @NotEmpty(message = "You must supply a title.")
+    @Length(max = 80, message = "Title must be no more than 80 characters in length.")
     private String title;
     private String content;
     private int numViews;
     private LocalDate startDate;
     private LocalDate endDate;
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private String stringStartDate;
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private String stringEndDate;
     private Category category;
     private List<String> hashtags;

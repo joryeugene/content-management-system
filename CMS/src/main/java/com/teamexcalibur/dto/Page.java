@@ -1,11 +1,15 @@
 package com.teamexcalibur.dto;
 
 import java.util.Objects;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class Page {
     private int id;
     private User user;
     private String email;
+    @NotEmpty(message = "You must supply a title.")
+    @Length(max = 80, message = "Title must be no more than 80 characters in length.")
     private String title;
     private String content;
     private Nav nav = null;

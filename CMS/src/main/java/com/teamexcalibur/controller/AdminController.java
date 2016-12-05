@@ -512,18 +512,17 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateUser(@PathVariable("id") int id, @RequestBody User user) {
+    public void updateUser(@Valid @RequestBody User user) {
         // set the value of the PathVariable id on the incoming user object
         // to ensure that a) the user id is set on the object and b) that
         // the value of the PathVariable id and the user object id are the
         // same.
-        String origPw = userDao.getUserById(id).getPassword();
+        String origPw = userDao.getUserById(user.getId()).getPassword();
         if (!origPw.equals(user.getPassword())) { // password changed
             String hashPw = encoder.encode(user.getPassword());
             user.setPassword(hashPw);
         }
 
-        user.setId(id);
         // update the user
         userDao.updateUser(user);
     }

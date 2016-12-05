@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    $("#th-to-remove").remove();
     loadPages();
     loadPosts();
 });

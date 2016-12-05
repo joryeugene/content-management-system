@@ -10,6 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
+        <link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
         <title>All Posts</title>
@@ -26,20 +27,27 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
                     <h2 class="sub-header">Posts</h2>
-                    <div class="table table-responsive">
-                        <table class = "posts-table table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
-                            </thead>  
-                            <tbody id ="post-list"></tbody>
-                        </table>
-                    </div>
+                    <table id="posts-table" class="table table-responsive posts-table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Post ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>StartDate</th>
+                                <th>EndDate</th>
+                                <th>Approved</th>
+                            </tr>
+                        </thead>  
+                        <tbody id ="post-list"></tbody>
+                    </table>
                 </div>
             </div>
 
             <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
+            <script src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
             <sec:authorize access="hasAnyRole('writer')">
                 <script src="${pageContext.request.contextPath}/js/adminPostsWriter.js"></script>
             </sec:authorize>

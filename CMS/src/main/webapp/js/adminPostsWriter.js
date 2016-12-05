@@ -14,16 +14,13 @@ function loadPosts() {
     }).success(function (data, status)
     {
         $.each(data, function (index, post) {
-            var queued;
-            var approve;
+            var approved;
             var category;
-            if (post.queued === false) {
-                queued = "disabled";
-                approve = "Approved";
-            } else {
-                queued = "";
-                approve = "Approve";
-            }
+             if(post.queued === false){
+                 approved = "Yes";
+             } else {
+                 approved = "Awaiting Approval";
+             }
             if (post.category === null)
                 category = "";
             else
@@ -54,12 +51,7 @@ function loadPosts() {
                             .text(post.stringEndDate)
                             )
                     .append($('<td>')
-                            .append($('<button>')
-                                    .attr({
-                                        'class': 'btn btn-primary ' + queued,
-                                'onClick':  'approve(' + post.id + ')'
-                            })
-                                    .text(approve))
+                            .text(approved)
                             )
                     .append($('<td>')
                             .append($('<p style="float: right;">')
@@ -78,7 +70,7 @@ function loadPosts() {
 
 function approve(id) {
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: '/CMS/admin/post/approve/' + id
     }).success(function (user) {
         loadPosts();

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("#th-to-remove").remove();
     loadPages();
     loadPosts();
 });
@@ -42,28 +43,24 @@ function loadPages() {
 //load posts
 function loadPosts() {
     clearPosts();
-
+    
     $.ajax({
         type: 'GET',
         url: '/CMS/admin/user/allposts/6'
     }).success(function (data, status)
     {
         $.each(data, function (index, post) {
-            var queued;
-            var approve;
+            var approved;
             var category;
-            if (post.queued === false) {
-                queued = "disabled";
-                approve = "Approved";
-            } else {
-                queued = "";
-                approve = "Approve";
-            }
-            if (post.category === null)
-                category = "";
-            else
-                category = post.category.name;
-
+             if(post.queued === false){
+                 approved = "Yes";
+             } else {
+                 approved = "Awaiting Approval";
+             }
+             if (post.category === null)
+                 category = "";
+             else category = post.category.name;
+            
 
             postTable.append($('<tr>')
                     .append($('<td>')
@@ -89,34 +86,11 @@ function loadPosts() {
                             .text(post.stringEndDate)
                             )
                     .append($('<td>')
-                            .append($('<button>')
-                                    .attr({
-                                        'class': 'btn btn-primary ' + queued,
-                                        'onClick': 'approve(' + post.id + ')'
-                                    })
-                                    .text(approve))
+                            .text(approved)
                             )
                     );
 
         });
-    });
-}
-
-function approve(id) {
-    $.ajax({
-        type: 'GET',
-        url: '/CMS/admin/post/approve/' + id
-    }).success(function (user) {
-        loadPosts();
-    });
-}
-
-function approveStatic(id) {
-    $.ajax({
-        type: 'GET',
-        url: '/CMS/admin/post/approve/' + id
-    }).success(function (user) {
-        location.reload();
     });
 }
 

@@ -6,10 +6,10 @@
         <div class="col-xs-12 col-sm-12 col-md-4 badges panel">
             <h3 class="panel-title">Posts Needing Approval </h3>
             <div class="panel-body">
-                <c:forEach var="post" items="${queuedPosts}">
+                <c:forEach begin="0" end="4" var="post" items="${queuedPosts}"> <!-- limit display of 5 at a time -->
                     <a onclick="approveStatic(${post.id})"class="btn btn-default btn-stacked pointer"><span class="glyphicon glyphicon-th"></span> ${post.title}  <span class="badge"> ${post.numViews} </span></a>   
                 </c:forEach>
-                
+
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 badges panel">

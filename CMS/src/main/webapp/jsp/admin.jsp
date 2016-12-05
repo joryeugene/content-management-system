@@ -29,33 +29,29 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
                     <h2 class="sub-header">Recent Pages </h2>
-                    <div class="table table-responsive">
-                        <table class = "pages-table table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Page ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <!--<th>Approve</th>-->
-                                </tr>
-                            </thead>  
-                            <tbody id ="page-list"></tbody>
-                        </table>
-                    </div>
+                    <table class = "pages-table table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Page ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <!--<th>Approve</th>-->
+                            </tr>
+                        </thead>  
+                        <tbody id ="page-list"></tbody>
+                    </table>
 
                     <h2 class="sub-header">Recent Posts</h2>
-                    <div class="table table-responsive">
-                        <table class = "posts-table table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
-                                </tr>
-                            </thead>  
-                            <tbody id ="post-list">
+                    <table class = "posts-table table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
+                            </tr>
+                        </thead>  
+                        <tbody id ="post-list">
 
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

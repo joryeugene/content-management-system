@@ -1,3 +1,7 @@
+$(document).ready(function () {
+   startTagit();
+});
+
 //Initialize Tiny MCE
 tinymce.init({
     selector: '#contentEditArea',
@@ -6,11 +10,7 @@ tinymce.init({
     toolbar: "image",
     image_caption: true
 });
-$(document).ready(function () {
-    $("#hashtags").tagit({
-        availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
-    });
-});
+
 
 function doAddCategory() {
     event.preventDefault();
@@ -44,3 +44,19 @@ function doAddCategory() {
     });
 }
 
+function startTagit() {
+    $.ajax({
+        type: 'GET',
+        url: '/CMS/admin/hashtags'
+
+    }).success(function (data, success) {
+        tags = data;
+        $("#hashtags").tagit({
+            availableTags: tags,
+            singleField: true
+        });
+
+    });
+
+
+}

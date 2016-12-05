@@ -480,6 +480,13 @@ public class AdminController {
         postDao.addCategory(category);
         return category;
     }
+    //Hashtags
+    @RequestMapping(value = {"/admin/hashtags"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> allHashtags(){
+        List<String> allHashtags = postDao.getAllHashtags();
+        return allHashtags;
+    }
 
     @RequestMapping(value = {"/admin/users"}, method = RequestMethod.GET)
     @ResponseBody

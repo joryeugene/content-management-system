@@ -7,7 +7,7 @@
             <h3 class="panel-title">Posts Needing Approval </h3>
             <div class="panel-body">
                 <c:forEach var="post" items="${queuedPosts}">
-                    <a href="${pageContext.request.contextPath}/admin/post/approve/${post.id}"class="btn btn-default btn-stacked"><span class="glyphicon glyphicon-th"></span> ${post.title}  <span class="badge"> ${post.numViews} </span></a>   
+                    <a onclick="approveStatic(${post.id})"class="btn btn-default btn-stacked pointer"><span class="glyphicon glyphicon-th"></span> ${post.title}  <span class="badge"> ${post.numViews} </span></a>   
                 </c:forEach>
                 
             </div>

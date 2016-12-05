@@ -48,7 +48,7 @@
                         <table class = "posts-table table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approve</th>
+                                    <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
                                 </tr>
                             </thead>  
                             <tbody id ="post-list">
@@ -60,7 +60,12 @@
             </div>
 
             <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/loadPages.js"></script>
+            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>            
+            <sec:authorize access="hasAnyRole('writer')">
+                <script src="${pageContext.request.contextPath}/js/loadPagesWriter.js"></script>
+            </sec:authorize>
+            <sec:authorize access="hasAnyRole('admin')">
+                <script src="${pageContext.request.contextPath}/js/loadPages.js"></script>
+            </sec:authorize>
     </body>
 </html>

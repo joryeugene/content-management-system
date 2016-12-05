@@ -155,18 +155,27 @@ public class AdminController {
 
         return "addPost";
     }
-    
+
     @RequestMapping(value = {"/admin/post/add"}, method = RequestMethod.POST)
     public String addPage(@ModelAttribute("post") Post post, Model model) {
+        boolean isAdmin = false;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        for (GrantedAuthority grant : auth.getAuthorities()) {
+            if (grant.getAuthority().equals(ADMIN)) {
+                isAdmin = true;
+                break;
+            }
+        }
 
         post.setAuthor(userDao.getUserByEmail(auth.getName()));
+        if (!isAdmin) {
+            post.setQueued(true);
+        }
         postDao.addPost(post);
         model.addAttribute("addMessage", "true");
         return "adminPosts";
     }
-    
-    
 
     @RequestMapping(value = "/admin/page/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -343,41 +352,13 @@ public class AdminController {
 
         post.setAuthor(userDao.getUserByEmail(name));
         post.setCategory(postDao.getCategoryById(post.getCategory().getId()));
+        if (!isAdmin) {
+            post.setQueued(true);
+        }
         postDao.updatePost(post);
         return "admin";
     }
 
-//    @RequestMapping(value = {"/edit/post/{id}/category"}, method = RequestMethod.POST)
-//    public String submitEditPostCategory(@ModelAttribute("post") Post post, BindingResult result) {
-//        boolean isAdmin = false;
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String name = auth.getName(); //get logged in username
-//        for (GrantedAuthority grant : auth.getAuthorities())
-//            if (grant.getAuthority().equals(ADMIN)) {
-//                isAdmin = true;
-//                break;
-//        }
-//        if (!isAdmin) {
-//            if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId())
-//                return "redirect:admin";
-//        }
-//        postDao.updatePost(post);
-//        return "redirect:admin";
-//    }
-//    @RequestMapping(value = {"/admin/post/add"}, method = RequestMethod.GET)
-//    public String displayAddPost(Model model) {
-//        boolean queued = false;
-//        
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String name = auth.getName();
-//        User user = userDao.getUserByEmail(name);
-//        
-//        if (!user.getAuthority().equals("admin")) queued = true;
-//                
-//        Post newPost = new Post(user, "Post Title", "Post Content", 0, now.toString(), "2116-11-28", new Category(), new ArrayList<String>(), queued);
-//        model.addAttribute("post", newPost);
-//        return "addPost";
-//    }
     @RequestMapping(value = "/pages/recent", method = RequestMethod.GET)
     @ResponseBody
     public List<Page> getSixMostRecentPages() {
@@ -489,6 +470,15 @@ public class AdminController {
         }
 
         return mostRecent;
+    }
+
+    //Categories
+    @RequestMapping(value = {"/admin/add/category"}, method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public Category addCategory(@Valid @RequestBody Category category) {
+        postDao.addCategory(category);
+        return category;
     }
 
     @RequestMapping(value = {"/admin/users"}, method = RequestMethod.GET)

@@ -22,7 +22,10 @@ function loadPages() {
 
                             )
                     .append($('<td>')
-                            .text(page.title)
+                            .append($('<a>')
+                                    .attr({'href': '/CMS/admin/page/edit/' + page.id})
+                                    .text(page.title)
+                                    )
                             )
                     .append($('<td>')
                             .text(page.user.displayName)
@@ -42,7 +45,7 @@ function loadPages() {
 //load posts
 function loadPosts() {
     clearPosts();
-    
+
     $.ajax({
         type: 'GET',
         url: '/CMS/admin/user/allposts/6'
@@ -51,26 +54,31 @@ function loadPosts() {
         $.each(data, function (index, post) {
             var queued;
             var category;
-             if(post.queued === false){
-                 queued = "disabled";
-             } else {
-                 queued = "";
-             }
-             if (post.category === null)
-                 category = "";
-             else category = post.category.name;
-            
+            if (post.queued === false) {
+                queued = "disabled";
+            } else {
+                queued = "";
+            }
+            if (post.category === null)
+                category = "";
+            else
+                category = post.category.name;
+
 
             postTable.append($('<tr>')
                     .append($('<td>')
                             .append($('<a>')
-                                    .attr({'href': 'edit/post/' + post.id})
+                                    .attr({'href': '/CMS/edit/post/' + post.id})
                                     .text(post.id)
                                     )
 
                             )
                     .append($('<td>')
-                            .text(post.title)
+                            .append($('<a>')
+                                    .attr({'href': '/CMS/edit/post/' + post.id})
+                                    .text(post.title)
+                                    )
+
                             )
                     .append($('<td>')
                             .text(post.author.displayName)
@@ -88,8 +96,8 @@ function loadPosts() {
                             .append($('<button>')
                                     .attr({
                                         'class': 'btn btn-primary ' + queued,
-                                'onClick':  'approve(' + post.id + ')'
-                            })
+                                        'onClick': 'approve(' + post.id + ')'
+                                    })
                                     .text('Approve'))
                             )
                     );

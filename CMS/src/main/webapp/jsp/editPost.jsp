@@ -13,6 +13,8 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+        <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
         <!--TinyMCE-->
         <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
         <title>Edit Post </title>
@@ -68,7 +70,7 @@
                                         
                                         <div class="form-group">
                                             <label>Hashtags</label>
-                                        <sf:input path="hashtags" id="hashtags"></sf:input>
+                                        <sf:input type="text" path="hashtags" id="hashtags"></sf:input>
                                         </div>
                                     <button class="btn btn-primary" type="submit">Publish</button>
                                 </sf:form>
@@ -99,24 +101,9 @@
 
 <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/js/editPost.js" type="text/javascript" charset="utf-8"></script>
 
-<!--Initialize TinyMCE-->
-<script>
-    tinymce.init({
-        selector: '#contentEditArea',
-        plugins: "image",
-        menubar: "file edit insert view format table tools",
-        toolbar: "image",
-        image_caption: true
-    });
-    
-    $(document).ready(function() {
-        $("#hashtags").tagit({
-                availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
-            });
-    });
-</script>
 </body>
 </html>

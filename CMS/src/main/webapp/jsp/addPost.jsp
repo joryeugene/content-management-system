@@ -13,6 +13,8 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+        <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
         <!--TinyMCE-->
         <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
         <title>Admin - Add Post</title>
@@ -48,11 +50,11 @@
                                         <!--TODO Date Picker-->
                                         <div class="form-group">
                                         <sf:input path="stringStartDate" type="text" id="starting-date"></sf:input> 
-                                        <label>Start Publishing</label>
+                                            <label>Start Publishing</label>
                                         </div>
                                         <div class="form-group">
                                         <sf:input path="stringEndDate" type="text" id="ending-date"></sf:input> 
-                                        <label>End Publishing</label>
+                                            <label>End Publishing</label>
                                         </div>
                                         <div class="form-group"> 
                                             <div  class="form-group">
@@ -67,18 +69,18 @@
                                             <sf:input path="hashtags" id="hashtags"></sf:input>
                                             </div>
                                             <button class="btn btn-primary" type="submit">Publish</button>
-                                          
+
                                     </sf:form>
                                 </div> 
                                 <div class="categories-box">
 
-                                    <form>
+                                    <form id="add-category-form" action="" method="POST">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="createCategory" id="createCategory"/>
+                                            <input type="text"  Class="form-control" name="createCategory" id="createCategory"></input>
                                         </div>
                                         <div class="form-group">
 
-                                            <button class="btn btn-default" type="submit">Create A New Category</button>
+                                            <button onclick="doAddCategory()" class="btn btn-default" type="submit">Create A New Category</button>
                                         </div>
 
                                     </form>
@@ -97,17 +99,9 @@
 
         <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="${pageContext.request.contextPath}/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+        <script src="${pageContext.request.contextPath}/js/addPost.js" type="text/javascript" charset="utf-8"></script>
 
-        <!--Initialize TinyMCE-->
-        <script>
-            tinymce.init({
-                selector: '#contentEditArea'
-            });
-             $(document).ready(function() {
-        $("#hashtags").tagit({
-                availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"]
-            });
-    });
-        </script>
     </body>
 </html>

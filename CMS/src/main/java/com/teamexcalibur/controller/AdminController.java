@@ -195,9 +195,9 @@ public class AdminController {
         postDao.deletePost(id);
     }
 
-    @RequestMapping(value = "/admin/post/approve/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/post/approve/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void approvePost(@PathVariable("id") int id) {
+    public String approvePost(@PathVariable("id") int id) {
         boolean isAdmin = false;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
@@ -210,6 +210,7 @@ public class AdminController {
         if (isAdmin) {
             postDao.updateQueuedByPostId(postDao.getPostById(id), false);
         }
+        return "admin";
     }
 
     @RequestMapping(value = {"/admin/page/add"}, method = RequestMethod.GET)

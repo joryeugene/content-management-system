@@ -73,7 +73,11 @@ function loadPosts() {
 
                             )
                     .append($('<td>')
-                            .text(post.title)
+                            .append($('<a>')
+                                    .attr({'href': '/CMS/edit/post/' + post.id})
+                                    .text(post.title)
+                                    )
+
                             )
                     .append($('<td>')
                             .text(post.author.displayName)

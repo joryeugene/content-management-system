@@ -51,6 +51,8 @@ and open the template in the editor.
         <intercept-url pattern="/edit/page/*" access="hasRole('admin')" />
         <intercept-url pattern="/edit/user/*" access="hasRole('admin')" />
         <intercept-url pattern="/edit/post/*" access="hasAnyRole('admin', 'writer')" />
+        <intercept-url pattern="/error" access="permitAll" />
+
     </http>
     <!-- #4 - Authentication Manager config -->
     <authentication-manager>

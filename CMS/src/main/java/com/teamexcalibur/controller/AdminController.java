@@ -356,7 +356,7 @@ public class AdminController {
             post.setQueued(true);
         }
         postDao.updatePost(post);
-        return "admin";
+        return "redirectadmin";
     }
 
     @RequestMapping(value = "/pages/recent", method = RequestMethod.GET)

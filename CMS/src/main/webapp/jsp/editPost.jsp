@@ -82,7 +82,7 @@
                                         <input type="text" class="form-control" name="createCategory" id="createCategory"/>
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn btn-default" type="submit">Create A New Category</button>
+                                        <button onclick="doAddCategory() "class="btn btn-default" type="submit">Create A New Category</button>
                                     </div>
 
                                 </form>

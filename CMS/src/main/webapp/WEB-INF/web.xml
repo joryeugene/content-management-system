@@ -72,7 +72,7 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <!-- #1a - Intercept ALL requests to this application -->
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/*</url-pattern>        
     </filter-mapping> 
        
     <context-param>
@@ -89,5 +89,8 @@
         </listener-class>
     </listener>
   
+    <error-page>
+        <location>/error</location>
+    </error-page>
 </web-app>
 

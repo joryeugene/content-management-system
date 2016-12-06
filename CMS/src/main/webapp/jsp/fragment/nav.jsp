@@ -23,6 +23,8 @@
                     <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
                 </sec:authorize>
             </ul>
+            <!-- Secret login link -->
+            <a href="${pageContext.request.contextPath}/login"><div style="width:100px; height:40px; float:right; cursor:default;"></div></a>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
 </nav><!-- /.navbar -->

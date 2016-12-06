@@ -25,7 +25,12 @@
                 <%@include file="fragment/sidebar.jsp" %>
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
+                    <c:if test="${successMessage == 'false'}">
+                        <div class="alert alert-fail alert-dismissable" role="alert">You cannot delete the only account with admin authority!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                    </c:if>
                     <div class="col-sm-6">
                         <h2 class="sub-header">Users</h2>
                         <div class="table table-responsive">

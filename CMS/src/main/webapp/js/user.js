@@ -122,7 +122,6 @@ function editUser(id) {
         $('#user-display-name').val(user.displayName);
         $('#user-authority').val(user.authority);
         $('#user-avatar-url').val(user.avatarUrl);
-        $('#user-password').val(user.password);
     }).error(function (data, status) {
         // #2 - Go through each of the fieldErrors and display the associated error
         // message in the validationErrors div
@@ -173,7 +172,7 @@ function deleteUser(id) {
             type: 'DELETE',
             url: '/CMS/admin/user/' + id
         }).success(function () {
-            loadUsers();
+            loadPage();
         });
     }
 }

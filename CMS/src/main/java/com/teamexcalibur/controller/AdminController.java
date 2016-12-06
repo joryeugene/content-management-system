@@ -530,7 +530,8 @@ public class AdminController {
         // the value of the PathVariable id and the user object id are the
         // same.
         String origPw = userDao.getUserById(user.getId()).getPassword();
-        if (!origPw.equals(user.getPassword())) { // password changed
+        if (user.getPassword() != null && user.getPassword().replaceAll("[ \t\n]", "").isEmpty()
+                && !origPw.equals(user.getPassword())) { // password changed
             String hashPw = encoder.encode(user.getPassword());
             user.setPassword(hashPw);
         }
@@ -541,9 +542,24 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable("id") int id) {
+    public void deleteUser(@PathVariable("id") int id, Model model) {
         // remove the user associated with the given id from the data layer
+        User user = userDao.getUserById(id);
+        if (user != null && user.getAuthority().equals(ADMIN)) {
+            int nAdmin = 0;
+            List<User> allUsers = userDao.getAllUsers();
+            for (User u : allUsers) {
+                if (u.getAuthority().equals(ADMIN))
+                    nAdmin++;
+            }
+            if (nAdmin == 1) {
+                // don't delete only admin
+                model.addAttribute("successMessage", "false");
+                return;
+            }
+        }
         userDao.deleteUser(id);
+        return;
     }
 
     // Start of writer specific code

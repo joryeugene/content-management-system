@@ -56,9 +56,20 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <!--Initialize TinyMCE-->
-<script>
+<script>    
     tinymce.init({
-        selector: "#edit-content"
+        selector: "#edit-content",
+        image_caption: true,
+        height: 263,
+        theme: 'modern',
+        plugins: [
+            'advlist autolink lists link image hr',
+            'wordcount visualblocks visualchars code',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'paste textpattern imagetools toc'
+        ],
+        toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        image_advtab: true
     });
 </script>
 </body>

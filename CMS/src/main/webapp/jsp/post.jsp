@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/offcanvas.css" rel="stylesheet">
-        <title>CrossFit Guild Blog</title>
+        <title id="main-blog-title"></title>
     </head>
 
     <body>
@@ -57,8 +57,7 @@
 
         </div>
 
-        <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <%@include file="fragment/commonScripts.jsp"%>
         <script src="${pageContext.request.contextPath}/js/offcanvas.js"></script>
     </body>
 </html>

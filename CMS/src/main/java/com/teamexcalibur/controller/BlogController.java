@@ -46,7 +46,7 @@ public class BlogController {
 
     @RequestMapping(value = "/posts/recent", method = RequestMethod.GET)
     @ResponseBody
-    public List<Post> getNineMostRecentPosts() {
+    public List<Post> getSixMostRecentPosts() {
         List<Post> allPosts = postDao.getCurrentPosts();
         int numOfPosts = allPosts.size();
 
@@ -55,7 +55,7 @@ public class BlogController {
         int count = 0;
 
         for (int i = 0; i < numOfPosts; i++) {
-            if (count < 9) {
+            if (count < 6) {
                 mostRecent.add(allPosts.get(i));
                 count++;
             }
@@ -81,7 +81,7 @@ public class BlogController {
     @RequestMapping(value = {"/", "/blog"}, method = RequestMethod.GET)
     public String displayMainBlogPage(Model model) {
         model.addAttribute("navs", pageDao.getAllNavs());
-        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "blog";
     }
@@ -90,7 +90,7 @@ public class BlogController {
     public String displayAllPosts(Model model) {
         
         model.addAttribute("title", "All Posts");
-        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getCurrentPosts());
         model.addAttribute("hashtags", postDao.getUsedHashtags());
@@ -100,7 +100,7 @@ public class BlogController {
     @RequestMapping(value = "/category/{id}", method = RequestMethod.GET)
     public String displayCategoryPosts(@PathVariable("id") int id, Model model) {
         model.addAttribute("title", postDao.getCategoryById(id).getName());
-        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getPostsByCategoryId(id));
         model.addAttribute("hashtags", postDao.getUsedHashtags());
@@ -110,7 +110,7 @@ public class BlogController {
     @RequestMapping(value = "/hashtag/{hashtagLink}", method = RequestMethod.GET)
     public String displayHashtagPosts(@PathVariable("hashtagLink") String hashtag, Model model) {
         model.addAttribute("title", "#" + hashtag);
-        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
         model.addAttribute("posts", postDao.getPostsByHashtag("#" + hashtag));
         model.addAttribute("hashtags", postDao.getUsedHashtags());
@@ -123,7 +123,7 @@ public class BlogController {
         postDao.addPostView(post);
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
-        model.addAttribute("categories", postDao.getAllCategories());
+        model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "post";
     }

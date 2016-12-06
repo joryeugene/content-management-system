@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/offcanvas.css" rel="stylesheet">
-        <title>CrossFit Guild Blog</title>
+        <title id="main-blog-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</title>
     </head>
 
     <body>
@@ -23,10 +23,10 @@
 
                 <div class="col-xs-12 col-sm-9">
                     
-                    <div class="jumbotron" id="header-img" style="position: relative;">
+                    <div class="jumbotron" id="header-img" style="position: relative; background-size: cover; background-repeat: no-repeat;">
                         <div>
                             <h1 style="visibility: hidden;">Header</h1>
-                            <p style="position: absolute; bottom: 0; left: 20px; color: white; text-shadow: 2px 2px #000;">Most Recent Posts</p>
+                            <p id="config-subtitle" style="position: absolute; bottom: 0; left: 20px; color: white; text-shadow: 2px 2px #000;"></p>
                         </div>
                     </div>
                     <p class="text-right visible-xs" style="margin: 0; padding:0;">
@@ -45,8 +45,8 @@
             <hr>
 
         </div>
-        <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+                
+        <%@include file="fragment/commonScripts.jsp"%>
         <script src="${pageContext.request.contextPath}/js/offcanvas.js"></script>
         <script src="${pageContext.request.contextPath}/js/blogMainPage.js"></script>
     </body>

@@ -4,6 +4,7 @@ import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
 import com.teamexcalibur.dao.UserDao;
 import com.teamexcalibur.dto.Category;
+import com.teamexcalibur.dto.Config;
 import com.teamexcalibur.dto.Nav;
 import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
@@ -38,6 +39,7 @@ public class AdminController {
     private PasswordEncoder encoder;
     private LocalDate now = LocalDate.now();
     private final String ADMIN = "admin";
+    private Config config = new Config("CrossFit Guild", "Most Recent Posts","#101010", "#9d9d9d", "squat.jpg");
 
     @Inject
     public AdminController(PageDao dao, PostDao postDao, UserDao userDao, PasswordEncoder pwe) {
@@ -247,8 +249,8 @@ public class AdminController {
         if (!isAdmin) {
             if (orig.getUser().getId() != userDao.getUserByEmail(name).getId()) {
                 model.addAttribute("successMessage", "false");
+                return "adminPages";
             }
-            return "adminPages";
         }
 
         page.setUser(dao.getPageById(page.getId()).getUser());
@@ -327,7 +329,7 @@ public class AdminController {
             }
         }
         if (!isAdmin) {
-            if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId()) {
+            if (postDao.getPostById(post.getId()).getAuthor().getId() != userDao.getUserByEmail(name).getId()) {
                 return "admin";
             }
         }
@@ -519,18 +521,17 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateUser(@PathVariable("id") int id, @RequestBody User user) {
+    public void updateUser(@Valid @RequestBody User user) {
         // set the value of the PathVariable id on the incoming user object
         // to ensure that a) the user id is set on the object and b) that
         // the value of the PathVariable id and the user object id are the
         // same.
-        String origPw = userDao.getUserById(id).getPassword();
+        String origPw = userDao.getUserById(user.getId()).getPassword();
         if (!origPw.equals(user.getPassword())) { // password changed
             String hashPw = encoder.encode(user.getPassword());
             user.setPassword(hashPw);
         }
 
-        user.setId(id);
         // update the user
         userDao.updateUser(user);
     }
@@ -543,4 +544,23 @@ public class AdminController {
     }
 
     // Start of writer specific code
+    
+    @RequestMapping(value = "/config", method = RequestMethod.GET)
+    @ResponseBody
+    public Config getConfigFile() {
+        return config;
+    }    
+    
+    @RequestMapping(value = {"/config"}, method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public Config updateConfigFile(@RequestBody Config newConfig) {
+        this.config = newConfig;
+        return config;
+    }
+    
+    @RequestMapping(value = {"/admin/settings"}, method = RequestMethod.GET)
+    public String displaySettings() {
+        return "settings";
+    }
 }

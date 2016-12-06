@@ -1,9 +1,13 @@
 package com.teamexcalibur.dto;
 
 import java.util.Objects;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class Category {
     private int id;
+    @NotEmpty(message = "You must supply a category name.")
+    @Length(max = 32, message = "Category name must be no more than 32 characters in length.")
     private String name;
 
     public Category() {

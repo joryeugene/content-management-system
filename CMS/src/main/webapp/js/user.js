@@ -70,13 +70,14 @@ function clearFields() {
 function loadAddUser() {
     clearFields();
     $('#add-edit-title').append("Add User");
+    $('#validationErrors').empty();
+    $('#user-btn').replaceWith('<button onclick="doAddUser();" id="user-btn" class="btn btn-primary">Add</button>');
 }
 
 function doAddUser() {
     event.preventDefault();
-    $('#validationErrors').empty();
-    $('#user-password').attr({
-    });
+    var errorDiv = $('#validationErrors');
+    errorDiv.empty();
 
     $.ajax({
         type: 'POST',
@@ -101,13 +102,15 @@ function doAddUser() {
         // #2 - Go through each of the fieldErrors and display the associated error
         // message in the validationErrors div
         $.each(data.responseJSON.fieldErrors, function (index, validationError) {
-            var errorDiv = $('#validationErrors');
             errorDiv.append(validationError.message).append($('<br>'));
         });
     });
 }
 
 function editUser(id) {
+    var errorDiv = $('#validationErrors');
+    errorDiv.empty();
+
     $.ajax({
         type: 'GET',
         url: '/CMS/admin/user/' + id
@@ -120,15 +123,25 @@ function editUser(id) {
         $('#user-authority').val(user.authority);
         $('#user-avatar-url').val(user.avatarUrl);
         $('#user-password').val(user.password);
-    })
+    }).error(function (data, status) {
+        // #2 - Go through each of the fieldErrors and display the associated error
+        // message in the validationErrors div
+        $.each(data.responseJSON.fieldErrors, function (index, validationError) {
+            errorDiv.append(validationError.message).append($('<br>'));
+        });
+    });
 }
 
 function doEditUser(id) {
+    event.preventDefault();
+    var errorDiv = $('#validationErrors');
+    errorDiv.empty();
+
     $.ajax({
         type: 'PUT',
         url: 'user/' + id,
         data: JSON.stringify({
-            userId: id,
+            id: id,
             email: $('#user-email').val(),
             displayName: $('#user-display-name').val(),
             authority: $('#user-authority').val(),
@@ -142,6 +155,14 @@ function doEditUser(id) {
         'dataType': 'json'
     }).success(function () {
         loadPage();
+    }).error(function (data, status) {
+         var errorDiv = $('#validationErrors');
+
+        // #2 - Go through each of the fieldErrors and display the associated error
+        // message in the validationErrors div
+        $.each(data.responseJSON.fieldErrors, function (index, validationError) {
+            errorDiv.append(validationError.message).append($('<br>'));
+        });
     });
 }
 

@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
-        <title>Admin Dashboard</title>
+        <title>Admin - Dashboard</title>
     </head>
 
     <body>
@@ -21,46 +21,40 @@
 
         <div class="container-fluid">
             <div class="row">
-                <!--sidebar here-->
-                <%@include file="fragment/sidebar.jsp" %>
 
-                <%@include file="fragment/dashboard.jsp" %>
+                <%@include file="fragment/sidebar.jsp" %>
 
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-                    <h2 class="sub-header">Recent Pages </h2>
-                    <div class="table table-responsive">
-                        <table class = "pages-table table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Page ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <!--<th>Approve</th>-->
-                                </tr>
-                            </thead>  
-                            <tbody id ="page-list"></tbody>
-                        </table>
-                    </div>
+                    <h1 class="page-header">Dashboard</h1>
+                    <%@include file="fragment/dashboard.jsp" %>
 
                     <h2 class="sub-header">Recent Posts</h2>
-                    <div class="table table-responsive">
-                        <table class = "posts-table table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
-                                </tr>
-                            </thead>  
-                            <tbody id ="post-list">
+                    <table class = "posts-table table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
+                            </tr>
+                        </thead>  
+                        <tbody id ="post-list"></tbody>
+                    </table>
 
-                            </tbody>
-                        </table>
-                    </div>
+                    <h2 class="sub-header">Recent Pages </h2>
+                    <table class = "pages-table table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Page ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <!--<th>Approve</th>-->
+                            </tr>
+                        </thead>  
+                        <tbody id ="page-list"></tbody>
+                    </table>
                 </div>
             </div>
 
-            <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>            
+            <%@include file="fragment/commonScripts.jsp"%>          
             <sec:authorize access="hasAnyRole('writer')">
                 <script src="${pageContext.request.contextPath}/js/loadPagesWriter.js"></script>
             </sec:authorize>

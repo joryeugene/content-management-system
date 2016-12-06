@@ -38,7 +38,8 @@
                             ${post.content}
                         </div><!--/row-->
 
-                        <p></p>
+                        <hr>
+                        
                         <p><a href="${pageContext.request.contextPath}/category/${post.category.id}">${post.category.name}</a> |
                             <c:forEach var="hashtag" items="${post.hashtags}">
                                 <c:set var="hashtagLink" value="${fn:replace(hashtag, '#', '')}" />
@@ -47,7 +48,7 @@
                         </p>
                     </div>
                 </div><!--/.col-xs-12.col-sm-9-->
-
+                
                 <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
                     <%@include file="fragment/categories.jsp"%>
                 </div><!--/.sidebar-offcanvas-->

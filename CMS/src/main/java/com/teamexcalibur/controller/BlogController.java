@@ -46,7 +46,7 @@ public class BlogController {
 
     @RequestMapping(value = "/posts/recent", method = RequestMethod.GET)
     @ResponseBody
-    public List<Post> getNineMostRecentPosts() {
+    public List<Post> getSixMostRecentPosts() {
         List<Post> allPosts = postDao.getCurrentPosts();
         int numOfPosts = allPosts.size();
 
@@ -55,7 +55,7 @@ public class BlogController {
         int count = 0;
 
         for (int i = 0; i < numOfPosts; i++) {
-            if (count < 9) {
+            if (count < 6) {
                 mostRecent.add(allPosts.get(i));
                 count++;
             }

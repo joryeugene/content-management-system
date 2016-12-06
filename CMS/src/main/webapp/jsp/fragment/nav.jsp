@@ -20,7 +20,7 @@
                     <li><a href="${pageContext.request.contextPath}/page/${nav.pageId}">${nav.menuName}</a></li>
                 </c:forEach>
                 <sec:authorize access="hasAnyRole('admin', 'writer')">
-                    <li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin">**Admin**</a></li>
                 </sec:authorize>
             </ul>
             <!-- Secret login link -->

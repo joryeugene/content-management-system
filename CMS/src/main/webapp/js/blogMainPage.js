@@ -26,7 +26,7 @@ function populateMainPagePost(data, moreLink) {
         mainPagePostsDiv.append($('<div>')
                 .attr({
                     'class': 'col-xs-6 col-lg-4'
-                }).append($('<h2>').text(post.title)
+                }).append($('<h3>').text(post.title)
                 ).append($('<p>').text(content)
 
                 ).append($('<p>')

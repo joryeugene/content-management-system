@@ -8,7 +8,8 @@ tinymce.init({
     plugins: "image",
     menubar: "file edit insert view format table tools",
     toolbar: "image",
-    image_caption: true
+    image_caption: true,
+    height: 263
 });
 
 

@@ -65,7 +65,12 @@
 <!--Initialize TinyMCE-->
 <script>
     tinymce.init({
-        selector: "#edit-content"
+        selector: "#edit-content",
+        plugins: "image",
+        menubar: "file edit insert view format table tools",
+        toolbar: "image",
+        image_caption: true,
+        height: 263
     });
 
     function loadUsername() {

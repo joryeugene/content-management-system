@@ -56,9 +56,14 @@
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <!--Initialize TinyMCE-->
-<script>
+<script>    
     tinymce.init({
-        selector: "#edit-content"
+        selector: "#edit-content",
+        plugins: "image",
+        menubar: "file edit insert view format table tools",
+        toolbar: "image",
+        image_caption: true,
+        height: 263
     });
 </script>
 </body>

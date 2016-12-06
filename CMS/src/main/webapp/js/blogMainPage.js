@@ -62,6 +62,6 @@ function populateMainPagePost(data, moreLink) {
 }
 
 var stripHtmlTags = function (string) {
-    return string.replace(/(<([^>]+)>)/ig, "")
+    return string.replace(/(&nbsp;|(<([^>]+)>))/ig,'');
 }
 

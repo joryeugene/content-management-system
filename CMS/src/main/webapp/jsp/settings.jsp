@@ -31,29 +31,31 @@
 
                     <div id="settings" class="row badges">
                         <div class="col-xs-12 col-sm-12 col-md-4">
-                            <h3 class="panel-title">Colors</h3>
+                            <h3 class="panel-title">Nav Background Color</h3>
                             <div class="panel-body">
-                                <p>
-                                    <input id="nav-color" type="color" onchange="set()"><b> Nav Background</b>
-                                </p>
-                                <p>
-                                    <input id="text-color" type="color" onchange="set()"><b> Nav Text Color</b>
-                                </p>
+                                <input id="nav-color" class="form-control" type="color" onchange="set()">
+                            </div>
+                            <h3 class="panel-title">Nav Text Color</h3>
+                            <div class="panel-body">
+                                <input id="text-color" class="form-control" type="color" onchange="set()">
+                            </div>
+                            <div class="panel-body">
+                                <input class="btn btn-primary" type="submit" value="Reset to Default" onclick="setDefault()">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <h3 class="panel-title">Blog Title</h3>
                             <div class="panel-body">
-                                <input id="blog-title" type="text" onchange="set()">
+                                <input id="blog-title" class="form-control" type="text" onchange="set()">
                             </div>
-                            
+
                             <h3 class="panel-title">Subtitle</h3>
                             <div class="panel-body">
-                                <input id="blog-subtitle" type="text" onchange="set()">
+                                <input id="blog-subtitle" class="form-control" type="text" onchange="set()">
                             </div>
                             <h3 class="panel-title">Jumbotron Image</h3>
                             <div class="panel-body">
-                                <input id="blog-image" type="text" onchange="set()"> <!--<input class="btn btn-default" type="submit" onclick="set()">-->
+                                <input id="blog-image" class="form-control" type="text" onchange="set()"> <!--<input class="btn btn-default" type="submit" onclick="set()">-->
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
@@ -70,10 +72,6 @@
                         </div>
 
                     </div>
-
-                    <input class="btn btn-default" type="submit" value="Return to Default" onclick="setDefault()">
-
-
                 </div>
 
             </div>

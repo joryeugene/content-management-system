@@ -3,6 +3,7 @@ package com.teamexcalibur.dto;
 public class Config {
     
     private String title; // CrossFit Guild
+    private String subtitle; // Most Recent Posts
     private String navColor; // #101010
     private String textColor; // #9d9d9d
     private String image; // squat.jpg
@@ -10,8 +11,9 @@ public class Config {
     public Config() {
     }
 
-    public Config(String title, String navColor, String textColor, String image) {
+    public Config(String title, String subtitle, String navColor, String textColor, String image) {
         this.title = title;
+        this.subtitle = subtitle;
         this.navColor = navColor;
         this.textColor = textColor;
         this.image = image;
@@ -47,6 +49,14 @@ public class Config {
 
     public void setTextColor(String textColor) {
         this.textColor = textColor;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
 }

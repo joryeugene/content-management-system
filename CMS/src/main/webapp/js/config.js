@@ -15,6 +15,10 @@ function configTemplate(data, status) {
     if ($('#main-blog-title').length) {
         $('#main-blog-title').text(data.title);
     }
+    
+    if ($('#config-subtitle').length) {
+        $('#config-subtitle').text(data.subtitle);
+    }    
 
     if ($('.navbar-brand').length) {
         $('.navbar-brand').text(data.title);
@@ -30,6 +34,7 @@ function configTemplate(data, status) {
         $('#nav-color').val(data.navColor);
         $('#text-color').val(data.textColor);
         $('#blog-title').val(data.title);
+        $('#blog-subtitle').val(data.subtitle);
         $('#blog-image').val(data.image);
     }
 }

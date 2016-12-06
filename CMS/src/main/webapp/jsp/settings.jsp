@@ -46,16 +46,31 @@
                             <div class="panel-body">
                                 <input id="blog-title" type="text" onchange="set()">
                             </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-4">
+                            
+                            <h3 class="panel-title">Subtitle</h3>
+                            <div class="panel-body">
+                                <input id="blog-subtitle" type="text" onchange="set()">
+                            </div>
                             <h3 class="panel-title">Jumbotron Image</h3>
                             <div class="panel-body">
-                                <input id="blog-image" type="text"> <input class="btn btn-default" type="submit" onclick="set()">
+                                <input id="blog-image" type="text" onchange="set()"> <!--<input class="btn btn-default" type="submit" onclick="set()">-->
                             </div>
                         </div>
-                        
+                        <div class="col-xs-12 col-sm-12 col-md-4">
+                            <h3 class="panel-title">Preview</h3>
+
+                            <div class="panel-body">
+                                <div class="jumbotron" id="header-img" style="position: relative; background-size: cover; background-repeat: no-repeat;">
+                                    <div>
+                                        <h1 style="visibility: hidden;">Header</h1>
+                                        <p id="config-subtitle" style="position: absolute; bottom: 0; left: 20px; color: white; text-shadow: 2px 2px #000;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    
+
                     <input class="btn btn-default" type="submit" value="Return to Default" onclick="setDefault()">
 
 

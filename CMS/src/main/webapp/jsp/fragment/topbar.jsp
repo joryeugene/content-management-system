@@ -16,7 +16,6 @@
 
             <ul class="nav navbar-nav navbar-right navbar-hide-on-large">
                 <li><a href="${pageContext.request.contextPath}/blog">View Blog</a></li>
-                <li>hello <sec:authentication property="principal.username" /></li>
                 <sec:authorize access="hasAnyRole('admin','writer')">
                     <li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopur="true" href="">Posts</a>
                         <ul class="dropdown-menu">

@@ -3,14 +3,18 @@ package com.teamexcalibur.dto;
 import java.util.Objects;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 public class Page {
+
     private int id;
     private User user;
     private String email;
     @NotEmpty(message = "You must supply a title.")
     @Length(max = 80, message = "Title must be no more than 80 characters in length.")
     private String title;
+    @NotEmpty(message = "You must supply some content. Please add to the page.")
     private String content;
     private Nav nav = null;
 
@@ -29,13 +33,13 @@ public class Page {
         this.title = title;
         this.content = content;
     }
-    
+
     public Page(int id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
     }
-    
+
     public Page(String title, String content, String email) {
         this.title = title;
         this.content = content;
@@ -69,8 +73,9 @@ public class Page {
         if (!Objects.equals(this.content, other.content)) {
             return false;
         }
-        if ((this.user == null) != (other.user == null))
+        if ((this.user == null) != (other.user == null)) {
             return false;
+        }
         if (!Objects.equals(this.user, other.user)) {
             return false;
         }

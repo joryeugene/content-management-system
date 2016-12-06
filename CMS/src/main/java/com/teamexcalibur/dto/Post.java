@@ -12,6 +12,7 @@ public class Post {
 
     private int id;
     private User author;
+    @NotNull(message = "Title cannot be empty")
     @NotEmpty(message = "You must supply a title.")
     @Length(max = 80, message = "Title must be no more than 80 characters in length.")
     private String title;
@@ -50,8 +51,8 @@ public class Post {
     }
     
    public Post(LocalDate startDate, LocalDate endDate){
-       this.startDate = startDate;
-       this.endDate = endDate;
+       this.setStartDate(startDate);
+       this.setEndDate(endDate);
    }
 
     public static Comparator<Post> PostViewsComparator
@@ -75,7 +76,10 @@ public class Post {
         if (this.id != other.id) {
             return false;
         }
-        if (this.author.getId() != other.author.getId()) {
+        if ((this.author == null) != (other.author == null))
+            return false;
+        if (this.author != null && other.author != null
+                && this.author.getId() != other.author.getId()) {
             return false;
         }
         if (!this.title.equals(other.title)) {
@@ -87,10 +91,16 @@ public class Post {
         if (this.numViews != other.numViews) {
             return false;
         }
-        if (!this.getStringStartDate().equals(other.getStringStartDate())) {
+        if ((this.stringStartDate == null) != (other.stringStartDate == null))
+            return false;
+        if (this.startDate != null && other.startDate != null
+                && !this.getStringStartDate().equals(other.getStringStartDate())) {
             return false;
         }
-        if (!this.getStringEndDate().equals(other.getStringEndDate())) {
+        if ((this.stringEndDate == null) != (other.stringEndDate == null))
+            return false;
+        if (this.endDate != null && other.endDate != null
+                && !this.getStringEndDate().equals(other.getStringEndDate())) {
             return false;
         }
         if (this.category.getId() != other.category.getId()) {
@@ -155,6 +165,7 @@ public class Post {
         } else {
             this.startDate = startDate;
         }
+        stringStartDate = startDate.toString();
     }
 
     public LocalDate getEndDate() {
@@ -166,30 +177,35 @@ public class Post {
             this.endDate = (LocalDate.now().plusYears(100));
         else
             this.endDate = endDate;
+        stringEndDate = endDate.toString();
     }
 
     public String getStringStartDate() {
+        if (startDate == null)
+            return LocalDate.now().toString();
         return startDate.toString();
     }
 
     public void setStringStartDate(String stringStartDate) {
         if (stringStartDate == null || stringStartDate.isEmpty()) {
-            this.startDate = LocalDate.now();
+            this.setStartDate(LocalDate.now());
             return;
         }
-        this.startDate = LocalDate.parse(stringStartDate.replaceAll("/", "-"));
+        this.setStartDate(LocalDate.parse(stringStartDate.replaceAll("/", "-")));
     }
 
     public String getStringEndDate() {
+        if (endDate == null)
+            return LocalDate.now().plusYears(100).toString();
         return endDate.toString();
     }
 
     public void setStringEndDate(String stringEndDate) {
         if (stringEndDate == null || stringEndDate.isEmpty()) {
-            this.endDate = LocalDate.now().plusYears(100);
+            this.setEndDate(LocalDate.now().plusYears(100));
             return;
         }
-        this.endDate = LocalDate.parse(stringEndDate.replaceAll("/", "-"));
+        this.setEndDate(LocalDate.parse(stringEndDate.replaceAll("/", "-")));
     }
 
     public List<String> getHashtags() {

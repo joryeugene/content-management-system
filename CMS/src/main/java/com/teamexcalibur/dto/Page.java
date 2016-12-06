@@ -69,6 +69,8 @@ public class Page {
         if (!Objects.equals(this.content, other.content)) {
             return false;
         }
+        if ((this.user == null) != (other.user == null))
+            return false;
         if (!Objects.equals(this.user, other.user)) {
             return false;
         }

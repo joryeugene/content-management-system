@@ -35,6 +35,7 @@
                                 <sf:form modelAttribute="post" action="${pageContext.request.contextPath}/edit/post/${post.id}" method="POST">
                                     <div class="form-group">
                                         <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
+                                        <sf:errors path="title" cssClass="error"></sf:errors>
                                         </div>
 
 
@@ -50,10 +51,14 @@
 
                                         <!--TODO Date Picker-->
                                         <div class="form-group">
-                                        <sf:input path="stringStartDate" type="text" id="starting-date"></sf:input> <label>Start Publishing</label>
+                                        <sf:input path="stringStartDate" type="date" id="starting-date"></sf:input>
+                                        <sf:errors path="stringStartDate" cssClass="error"></sf:errors>
+                                        <label>Start Publishing</label>
                                         </div>
                                         <div class="form-group">
-                                        <sf:input path="stringEndDate" type="text" id="ending-date"></sf:input> <label>End Publishing</label>
+                                        <sf:input path="stringEndDate" type="date" id="ending-date"></sf:input>
+                                        <sf:errors path="stringEndDate" cssClass="error"></sf:errors>
+                                        <label>End Publishing</label>
                                         </div>
                                         <div class="form-group"> 
                                             <div  class="form-group">

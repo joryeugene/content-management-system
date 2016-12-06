@@ -97,8 +97,7 @@
         </div>
 
 
-        <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <%@include file="fragment/commonScripts.jsp"%> 
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="${pageContext.request.contextPath}/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
         <script src="${pageContext.request.contextPath}/js/addPost.js" type="text/javascript" charset="utf-8"></script>

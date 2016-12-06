@@ -63,12 +63,6 @@ footer {
  * --------------------------------------------------
  */
 
-#header-img {
-    background-image: url("../img/squat.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 .main-margin {
     margin: 0 20px;
 }

@@ -92,8 +92,7 @@
                 </div>
             </div>
 
-            <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <%@include file="fragment/commonScripts.jsp"%> 
             <script src="${pageContext.request.contextPath}/js/user.js"></script>
     </body>
 </html>

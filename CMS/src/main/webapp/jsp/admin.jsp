@@ -33,7 +33,7 @@
                     <table class = "posts-table table table-striped table-responsive">
                         <thead>
                             <tr>
-                                <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approved</th>
+                                <th>Post ID</th><th>Title</th><th>Author</th><th>Category</th><th>StartDate</th><th>EndDate</th><th>Approval</th>
                             </tr>
                         </thead>  
                         <tbody id ="post-list"></tbody>

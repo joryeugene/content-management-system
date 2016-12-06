@@ -36,7 +36,7 @@
                                 <th>Category</th>
                                 <th>StartDate</th>
                                 <th>EndDate</th>
-                                <th style="min-width:100px;">Approved</th>
+                                <th style="min-width:110px;">Approval</th>
                             </tr>
                         </thead>  
                         <tbody id ="post-list"></tbody>

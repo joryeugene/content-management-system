@@ -65,11 +65,6 @@
                                             <label>Category</label>   
                                         <sf:select path="category.id" cssClass="form-control">
                                             <sf:options items="${allCategories}" itemValue="id" itemLabel="name"/>
-                                            
-                                                <!--<option>Set Post Category</option>-->
-                                            <%--<c:forEach var="cat" items="${allCategories}" >--%>
-                                                <!--<option value="${cat.id}">${cat.name}</option>-->
-                                            <%--</c:forEach>--%>
                                         </sf:select>
                                     </div>
                                         
@@ -83,6 +78,7 @@
                             <div class="categories-box">
 
                                 <form>
+                                    <div class="bg-danger" id="validation-errors-category"></div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="createCategory" id="createCategory"/>
                                     </div>

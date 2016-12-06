@@ -39,7 +39,7 @@ public class AdminController {
     private PasswordEncoder encoder;
     private LocalDate now = LocalDate.now();
     private final String ADMIN = "admin";
-    private Config config = new Config("CrossFit Guild", "Most Recent Posts","#101010", "#9d9d9d", "squat.jpg");
+    private Config config = new Config("CrossFit Guild", "Most Recent Posts", "#101010", "#9d9d9d", "squat.jpg");
 
     @Inject
     public AdminController(PageDao dao, PostDao postDao, UserDao userDao, PasswordEncoder pwe) {
@@ -171,9 +171,12 @@ public class AdminController {
         }
 
         post.setAuthor(userDao.getUserByEmail(auth.getName()));
-        if (result.hasErrors())
+        if (result.hasErrors()) {
+            List<Category> allCategories = postDao.getAllCategories();
+            model.addAttribute("allCategories", allCategories);
             return "addPost";
-        
+        }
+
         if (!isAdmin) {
             post.setQueued(true);
         }
@@ -256,9 +259,10 @@ public class AdminController {
             }
         }
 
-        if (result.hasErrors())
+        if (result.hasErrors()) {
             return "editPage";
-        
+        }
+
         page.setUser(dao.getPageById(page.getId()).getUser());
         dao.updatePage(page);
         model.addAttribute("successMessage", "true");
@@ -270,9 +274,10 @@ public class AdminController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         page.setUser(userDao.getUserByEmail(auth.getName()));
-        if (result.hasErrors())
+        if (result.hasErrors()) {
             return "addPage";
-        
+        }
+
         dao.addPage(page);
         model.addAttribute("addMessage", "true");
         return "adminPages";
@@ -342,8 +347,11 @@ public class AdminController {
                 return "redirect:/admin";
             }
         }
-        if (result.hasErrors())
+        if (result.hasErrors()) {
+            List<Category> allCategories = postDao.getAllCategories();
+            model.addAttribute("allCategories", allCategories);
             return "editPost";
+        }
 
         post.setAuthor(userDao.getUserByEmail(name));
         post.setCategory(postDao.getCategoryById(post.getCategory().getId()));
@@ -476,10 +484,11 @@ public class AdminController {
         postDao.addCategory(category);
         return category;
     }
+
     //Hashtags
     @RequestMapping(value = {"/admin/hashtags"}, method = RequestMethod.GET)
     @ResponseBody
-    public List<String> allHashtags(){
+    public List<String> allHashtags() {
         List<String> allHashtags = postDao.getAllHashtags();
         return allHashtags;
     }
@@ -538,13 +547,12 @@ public class AdminController {
     }
 
     // Start of writer specific code
-    
     @RequestMapping(value = "/config", method = RequestMethod.GET)
     @ResponseBody
     public Config getConfigFile() {
         return config;
-    }    
-    
+    }
+
     @RequestMapping(value = {"/config"}, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -552,7 +560,7 @@ public class AdminController {
         this.config = newConfig;
         return config;
     }
-    
+
     @RequestMapping(value = {"/admin/settings"}, method = RequestMethod.GET)
     public String displaySettings() {
         return "settings";

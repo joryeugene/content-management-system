@@ -43,9 +43,9 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_SELECT_POST_BYID
             = "select * from Post where PostId = ?";
     private static final String SQL_SELECT_POSTS_BY_CATEGORY_ID
-            = "select * from Post where CategoryId = ? and Queued = false order by StartDate desc";
+            = "select * from Post where StartDate <= CURDATE() and EndDate >= CURDATE() and CategoryId = ? and Queued = false order by StartDate desc";
     private static final String SQL_SELECT_POSTS_BY_HASHTAG
-            = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ? and Queued = false order by StartDate desc";
+            = "select * from Post join PostHashtag on Post.PostId=PostHashtag.PostId where Hashtag = ? and Queued = false and StartDate <= CURDATE() and EndDate >= CURDATE() order by StartDate desc";
     private static final String SQL_SELECT_ALL_POSTS
             = "select * from Post order by StartDate desc";
     private static final String SQL_SELECT_MOST_VIEWED_POSTS
@@ -88,7 +88,7 @@ public class PostDaoDbImpl implements PostDao {
     private static final String SQL_SELECT_HASHTAG_BY_POSTID
             = "select Hashtag from PostHashtag where PostId = ?";
     private static final String SQL_SELECT_USED_HASHTAGS
-            = "select distinct Hashtag from PostHashtag INNER JOIN Post ON PostHashtag.PostId = Post.PostId WHERE Queued = 0"; // from posts that are not queued
+            = "select distinct Hashtag from PostHashtag INNER JOIN Post ON PostHashtag.PostId = Post.PostId WHERE Queued = 0 and StartDate <= CURDATE() and EndDate >= CURDATE()"; // from posts that are not queued
     private static final String SQL_SELECT_ALL_HASHTAGS
             = "select distinct Hashtag from PostHashtag";
 

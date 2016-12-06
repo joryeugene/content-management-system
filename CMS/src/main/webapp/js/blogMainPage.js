@@ -62,6 +62,7 @@ function populateMainPagePost(data, moreLink) {
 }
 
 var stripHtmlTags = function (string) {
-    return string.replace(/(&nbsp;|(<([^>]+)>))/ig,'');
+    string = string.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+    return string.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '').replace(/(&rsquo;)/g, '\'' );
 }
 

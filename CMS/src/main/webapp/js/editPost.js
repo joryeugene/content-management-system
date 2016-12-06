@@ -8,10 +8,17 @@ $(document).ready(function () {
 
 tinymce.init({
     selector: '#contentEditArea',
-    plugins: "image",
-    menubar: "file edit insert view format table tools",
-    toolbar: "image",
-    image_caption: true
+    image_caption: true,
+    height: 263,
+    theme: 'modern',
+    plugins: [
+        'advlist autolink lists link image hr',
+        'wordcount visualblocks visualchars code',
+        'insertdatetime media nonbreaking save table contextmenu directionality',
+        'paste textpattern imagetools toc'
+    ],
+    toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    image_advtab: true
 });
 
 function doAddCategory() {

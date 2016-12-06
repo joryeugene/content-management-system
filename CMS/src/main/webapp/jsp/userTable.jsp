@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
-        <title>Admin Dashboard</title>
+        <title>Admin - Users</title>
     </head>
 
     <body>
@@ -92,8 +92,7 @@
                 </div>
             </div>
 
-            <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <%@include file="fragment/commonScripts.jsp"%> 
             <script src="${pageContext.request.contextPath}/js/user.js"></script>
     </body>
 </html>

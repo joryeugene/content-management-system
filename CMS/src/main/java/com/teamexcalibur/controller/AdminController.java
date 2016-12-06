@@ -4,6 +4,7 @@ import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
 import com.teamexcalibur.dao.UserDao;
 import com.teamexcalibur.dto.Category;
+import com.teamexcalibur.dto.Config;
 import com.teamexcalibur.dto.Nav;
 import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
@@ -38,6 +39,7 @@ public class AdminController {
     private PasswordEncoder encoder;
     private LocalDate now = LocalDate.now();
     private final String ADMIN = "admin";
+    private Config config = new Config("CrossFit Guild", "Most Recent Posts","#101010", "#9d9d9d", "squat.jpg");
 
     @Inject
     public AdminController(PageDao dao, PostDao postDao, UserDao userDao, PasswordEncoder pwe) {
@@ -250,8 +252,8 @@ public class AdminController {
         if (!isAdmin) {
             if (orig.getUser().getId() != userDao.getUserByEmail(name).getId()) {
                 model.addAttribute("successMessage", "false");
+                return "adminPages";
             }
-            return "adminPages";
         }
 
         if (result.hasErrors())
@@ -336,7 +338,7 @@ public class AdminController {
             }
         }
         if (!isAdmin) {
-            if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId()) {
+            if (postDao.getPostById(post.getId()).getAuthor().getId() != userDao.getUserByEmail(name).getId()) {
                 return "redirect:/admin";
             }
         }
@@ -535,4 +537,23 @@ public class AdminController {
     }
 
     // Start of writer specific code
+    
+    @RequestMapping(value = "/config", method = RequestMethod.GET)
+    @ResponseBody
+    public Config getConfigFile() {
+        return config;
+    }    
+    
+    @RequestMapping(value = {"/config"}, method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public Config updateConfigFile(@RequestBody Config newConfig) {
+        this.config = newConfig;
+        return config;
+    }
+    
+    @RequestMapping(value = {"/admin/settings"}, method = RequestMethod.GET)
+    public String displaySettings() {
+        return "settings";
+    }
 }

@@ -13,7 +13,7 @@
         <link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
-        <title>All Posts</title>
+        <title>Admin - All Posts</title>
     </head>
 
     <body>
@@ -36,7 +36,7 @@
                                 <th>Category</th>
                                 <th>StartDate</th>
                                 <th>EndDate</th>
-                                <th>Approved</th>
+                                <th style="min-width:50px;">Approved</th>
                             </tr>
                         </thead>  
                         <tbody id ="post-list"></tbody>
@@ -44,8 +44,7 @@
                 </div>
             </div>
 
-            <script src="${pageContext.request.contextPath}/js/jquery-2.2.4.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+            <%@include file="fragment/commonScripts.jsp"%> 
             <script src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
             <script src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
             <sec:authorize access="hasAnyRole('writer')">

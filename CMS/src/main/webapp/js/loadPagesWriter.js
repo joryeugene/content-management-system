@@ -22,7 +22,10 @@ function loadPages() {
 
                             )
                     .append($('<td>')
-                            .text(page.title)
+                            .append($('<a>')
+                                    .attr({'href': '/CMS/admin/page/edit/' + page.id})
+                                    .text(page.title)
+                                    )
                             )
                     .append($('<td>')
                             .text(page.user.displayName)
@@ -70,7 +73,11 @@ function loadPosts() {
 
                             )
                     .append($('<td>')
-                            .text(post.title)
+                            .append($('<a>')
+                                    .attr({'href': '/CMS/edit/post/' + post.id})
+                                    .text(post.title)
+                                    )
+
                             )
                     .append($('<td>')
                             .text(post.author.displayName)

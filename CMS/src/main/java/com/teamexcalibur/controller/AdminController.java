@@ -542,7 +542,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/user/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable("id") int id) {
-        // remove the Dvd associated with the given id from the data layer
+        // remove the user associated with the given id from the data layer
         userDao.deleteUser(id);
     }
 

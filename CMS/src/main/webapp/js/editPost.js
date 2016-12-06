@@ -41,13 +41,13 @@ function doAddCategory() {
         },
         'dataType': 'json'
     }).success(function (data, status) {
-        // If the call succeeds, clear the form and reload the summary table
+        // If the call succeeds, clear the form and reload the page
         location.reload();
     }).error(function (data, status) {
         // #2 - Go through each of the fieldErrors and display the associated error
         // message in the validationErrors div
         $.each(data.responseJSON.fieldErrors, function (index, validationError) {
-            var errorDiv = $('#validationErrors');
+            var errorDiv = $('#validation-errors-category');
             errorDiv.append(validationError.message).append($('<br>'));
         });
     });

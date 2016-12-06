@@ -35,12 +35,14 @@
                                 <sf:form modelAttribute="post" action="${pageContext.request.contextPath}/admin/post/add" method="POST">
                                     <div class="form-group">
                                         <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
+                                        <sf:errors path="title" cssClass="text-danger error"></sf:errors>
                                         </div>
 
                                     </div>
 
                                     <div class="form-group">
                                     <sf:textarea path="content" id="contentEditArea"></sf:textarea>
+                                    <sf:errors path="content" cssClass="text-danger error"></sf:errors>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-4">
@@ -49,11 +51,13 @@
 
                                         <!--TODO Date Picker-->
                                         <div class="form-group">
-                                        <sf:input path="stringStartDate" type="text" id="starting-date"></sf:input> 
+                                        <sf:input path="stringStartDate" type="date" id="starting-date"></sf:input> 
+                                        <sf:errors path="stringStartDate" cssClass="text-danger error"></sf:errors>
                                             <label>Start Publishing</label>
                                         </div>
                                         <div class="form-group">
-                                        <sf:input path="stringEndDate" type="text" id="ending-date"></sf:input> 
+                                        <sf:input path="stringEndDate" type="date" id="ending-date"></sf:input> 
+                                        <sf:errors path="stringEndDate" cssClass="text-danger error"></sf:errors>
                                             <label>End Publishing</label>
                                         </div>
                                         <div class="form-group"> 

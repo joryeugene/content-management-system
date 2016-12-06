@@ -22,7 +22,10 @@ function loadPages() {
 
                             )
                     .append($('<td>')
-                            .text(page.title)
+                            .append($('<a>')
+                                    .attr({'href': '/CMS/admin/page/edit/' + page.id})
+                                    .text(page.title)
+                                    )
                             )
                     .append($('<td>')
                             .text(page.user.displayName)

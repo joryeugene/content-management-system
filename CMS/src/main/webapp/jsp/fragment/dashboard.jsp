@@ -1,12 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div class="row badges">
     <div class="col-xs-12 col-sm-12 col-md-4 badges panel">
         <h3 class="panel-title">Posts Needing Approval </h3>
         <div class="panel-body">
+            <sec:authorize access="hasAnyRole('writer')">
+            <c:forEach begin="0" end="3" var="post" items="${queuedPosts}"> <!-- limit display of 5 at a time -->
+                <a href="${pageContext.request.contextPath}/edit/post/${post.id}" class="btn btn-default btn-stacked pointer"><span class="glyphicon glyphicon-th"></span> ${post.title}  <span class="badge"> ${post.numViews} </span></a> 
+                <br>
+            </c:forEach>
+        </sec:authorize>
+        <sec:authorize access="hasAnyRole('admin')">
             <c:forEach begin="0" end="3" var="post" items="${queuedPosts}"> <!-- limit display of 5 at a time -->
                 <a onclick="approveStatic(${post.id})"class="btn btn-default btn-stacked pointer"><span class="glyphicon glyphicon-th"></span> ${post.title}  <span class="badge"> ${post.numViews} </span></a> 
                 <br>
             </c:forEach>
+        </sec:authorize>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 badges panel">

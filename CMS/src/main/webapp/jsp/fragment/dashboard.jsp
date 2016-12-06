@@ -16,6 +16,9 @@
                 <a onclick="approveStatic(${post.id})"class="btn btn-default btn-stacked pointer"><span class="glyphicon glyphicon-th"></span> ${fn:substring(post.title, 0, 25)}  <span class="badge"> ${post.numViews} </span></a> 
                 <br>            
             </c:forEach>
+            <c:if test="${empty queuedPosts}">
+                <h3>Well Done. There are no posts to approve</h3>
+            </c:if>
         </sec:authorize>
         </div>
     </div>

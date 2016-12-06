@@ -249,8 +249,8 @@ public class AdminController {
         if (!isAdmin) {
             if (orig.getUser().getId() != userDao.getUserByEmail(name).getId()) {
                 model.addAttribute("successMessage", "false");
+                return "adminPages";
             }
-            return "adminPages";
         }
 
         page.setUser(dao.getPageById(page.getId()).getUser());

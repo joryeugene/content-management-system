@@ -329,7 +329,7 @@ public class AdminController {
             }
         }
         if (!isAdmin) {
-            if (post.getAuthor().getId() != userDao.getUserByEmail(name).getId()) {
+            if (postDao.getPostById(post.getId()).getAuthor().getId() != userDao.getUserByEmail(name).getId()) {
                 return "admin";
             }
         }

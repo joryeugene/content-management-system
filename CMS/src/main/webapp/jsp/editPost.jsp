@@ -35,7 +35,9 @@
                                 <sf:form modelAttribute="post" action="${pageContext.request.contextPath}/edit/post/${post.id}" method="POST">
                                     <div class="form-group">
                                         <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
+
                                         <sf:errors path="title" cssClass="text-danger error"></sf:errors>
+
                                         </div>
 
 

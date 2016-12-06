@@ -39,7 +39,7 @@ public class AdminController {
     private PasswordEncoder encoder;
     private LocalDate now = LocalDate.now();
     private final String ADMIN = "admin";
-    private Config config = new Config("CrossFit Guild", "Most Recent Posts", "#101010", "#9d9d9d", "squat.jpg");
+    private Config config = new Config("CrossFit Guild", "Most Recent Posts", "#101010", "#9d9d9d", "#337ab7", "squat.jpg");
 
     @Inject
     public AdminController(PageDao dao, PostDao postDao, UserDao userDao, PasswordEncoder pwe) {

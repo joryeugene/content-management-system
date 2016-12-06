@@ -43,9 +43,11 @@
 
                                 <div class="form-group">
                                     <sf:input id="edit-title" path="title" class="form-control" type="text"></sf:input>
+                                    <sf:errors path="title" cssClass="text-danger"></sf:errors>
                                     </div>
                                     <div class="form-group">
                                     <sf:textarea id="edit-content" class="form-control" path="content"></sf:textarea>
+                                    <sf:errors path="content" cssClass="text-danger"></sf:errors>
                                     </div>
                                     <button type="submit" id="publish-page" class="btn btn-primary">Publish</button>
                             </sf:form>

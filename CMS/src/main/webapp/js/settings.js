@@ -7,6 +7,7 @@ function set() {
             subtitle: $('#blog-subtitle').val(),
             navColor: $('#nav-color').val(),
             textColor: $('#text-color').val(),
+            highlightColor: $('#highlight-color').val(),
             image: $('#blog-image').val()
         }),
         headers: {
@@ -28,6 +29,7 @@ function setDefault() {
             subtitle: "Most Recent Posts",
             navColor: "#101010",
             textColor: "#9d9d9d",
+            highlightColor: "#337ab7",
             image: "squat.jpg"
         }),
         headers: {

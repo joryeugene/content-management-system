@@ -13,7 +13,7 @@ tinymce.init({
     theme: 'modern',
     plugins: [
         'advlist autolink lists link image hr',
-        'wordcount visualblocks visualchars code',
+        'wordcount searchreplace visualblocks visualchars code',
         'insertdatetime media nonbreaking save table contextmenu directionality',
         'paste textpattern imagetools toc'
     ],
@@ -48,7 +48,7 @@ function doAddCategory() {
         // message in the validationErrors div
         $.each(data.responseJSON.fieldErrors, function (index, validationError) {
             var errorDiv = $('#validation-errors-category');
-            errorDiv.append(validationError.message).append($('<br>'));
+            errorDiv.append(validationError.message).attr({class:'text-danger'}).append($('<br>'));
         });
     });
 }

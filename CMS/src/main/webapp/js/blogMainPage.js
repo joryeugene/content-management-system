@@ -51,7 +51,7 @@ function populateMainPagePost(data, moreLink) {
     if (moreLink) {
         mainPagePostsDiv.append($('<div style="clear:both;">'))
                 .append($('<p style="float:right;">')
-                        .append($('<a>')
+                        .append($('<a id="see-all-posts">')
                                 .attr({
                                     'href': '/CMS/summary'
                                 })
@@ -62,6 +62,7 @@ function populateMainPagePost(data, moreLink) {
 }
 
 var stripHtmlTags = function (string) {
-    return string.replace(/(&nbsp;|(<([^>]+)>))/ig,'');
+    string = string.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+    return string.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '').replace(/(&rsquo;)/g, '\'' );
 }
 

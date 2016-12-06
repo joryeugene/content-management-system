@@ -6,16 +6,18 @@ public class Config {
     private String subtitle; // Most Recent Posts
     private String navColor; // #101010
     private String textColor; // #9d9d9d
+    private String highlightColor; // #337ab7
     private String image; // squat.jpg
 
     public Config() {
     }
 
-    public Config(String title, String subtitle, String navColor, String textColor, String image) {
+    public Config(String title, String subtitle, String navColor, String textColor, String highlightColor, String image) {
         this.title = title;
         this.subtitle = subtitle;
         this.navColor = navColor;
         this.textColor = textColor;
+        this.highlightColor = highlightColor;
         this.image = image;
     }
 
@@ -57,6 +59,14 @@ public class Config {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+    }
+
+    public String getHighlightColor() {
+        return highlightColor;
+    }
+
+    public void setHighlightColor(String highlightColor) {
+        this.highlightColor = highlightColor;
     }
 
 }

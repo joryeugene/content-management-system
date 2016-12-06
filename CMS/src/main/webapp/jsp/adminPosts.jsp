@@ -13,7 +13,7 @@
         <link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
-        <title>All Posts</title>
+        <title>Admin - All Posts</title>
     </head>
 
     <body>

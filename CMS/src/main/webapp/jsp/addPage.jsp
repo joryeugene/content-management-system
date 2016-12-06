@@ -15,7 +15,7 @@
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
         <!--TinyMCE-->
         <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
-        <title>Admin Dashboard - Add Page</title>
+        <title>Admin - Add Page</title>
     </head>
     <body>
         <%@include file="fragment/topbar.jsp" %>

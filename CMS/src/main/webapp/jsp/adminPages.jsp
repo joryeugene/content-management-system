@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png">
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
-        <title>Admin Dashboard - All Pages</title>
+        <title>Admin - All Pages</title>
     </head>
 
     <body>

@@ -60,6 +60,7 @@ function loadPosts() {
                             .append($('<button>')
                                     .attr({
                                         'class': 'btn btn-primary ' + queued,
+                                        'style': 'width:6.1em',
                                         'onClick': 'approve(' + post.id + ')'
                                     })
                                     .text(approve)

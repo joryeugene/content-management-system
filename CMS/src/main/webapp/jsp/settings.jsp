@@ -31,16 +31,15 @@
 
                     <div id="settings" class="row badges">
                         <div class="col-xs-12 col-sm-12 col-md-4">
-                            <h3 class="panel-title">Nav Background Color</h3>
+                            <h3 class="panel-title">Preview</h3>
+
                             <div class="panel-body">
-                                <input id="nav-color" class="form-control" type="color" onchange="set()">
-                            </div>
-                            <h3 class="panel-title">Nav Text Color</h3>
-                            <div class="panel-body">
-                                <input id="text-color" class="form-control" type="color" onchange="set()">
-                            </div>
-                            <div class="panel-body">
-                                <input class="btn btn-primary" type="submit" value="Reset to Default" onclick="setDefault()">
+                                <div class="jumbotron" id="header-img" style="position: relative; background-size: cover; background-repeat: no-repeat;">
+                                    <div>
+                                        <h1 style="visibility: hidden;">Header</h1>
+                                        <p id="config-subtitle" style="position: absolute; bottom: 0; left: 20px; color: white; text-shadow: 2px 2px #000;"></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
@@ -59,18 +58,18 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
-                            <h3 class="panel-title">Preview</h3>
-
+                            <h3 class="panel-title">Nav Background Color</h3>
                             <div class="panel-body">
-                                <div class="jumbotron" id="header-img" style="position: relative; background-size: cover; background-repeat: no-repeat;">
-                                    <div>
-                                        <h1 style="visibility: hidden;">Header</h1>
-                                        <p id="config-subtitle" style="position: absolute; bottom: 0; left: 20px; color: white; text-shadow: 2px 2px #000;"></p>
-                                    </div>
-                                </div>
+                                <input id="nav-color" class="form-control" type="color" onchange="set()">
+                            </div>
+                            <h3 class="panel-title">Nav Text Color</h3>
+                            <div class="panel-body">
+                                <input id="text-color" class="form-control" type="color" onchange="set()">
+                            </div>
+                            <div class="panel-body">
+                                <input class="btn btn-primary" type="submit" value="Reset to Default" onclick="setDefault()">
                             </div>
                         </div>
-
                     </div>
                 </div>
 

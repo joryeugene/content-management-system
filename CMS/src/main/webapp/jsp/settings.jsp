@@ -66,6 +66,10 @@
                             <div class="panel-body">
                                 <input id="text-color" class="form-control" type="color" onchange="set()">
                             </div>
+                            <h3 class="panel-title">Highlight Color</h3>
+                            <div class="panel-body">
+                                <input id="highlight-color" class="form-control" type="color" onchange="set()">
+                            </div>
                             <div class="panel-body">
                                 <input class="btn btn-primary" type="submit" value="Reset to Default" onclick="setDefault()">
                             </div>

@@ -100,7 +100,7 @@ function deletePost(id) {
             url: '/CMS/admin/post/delete/' + id
         }).success(function () {
             var trToRemove = "#row-" + id;
-            $(trToRemove).remove();
+            $(trToRemove).hide();
         });
     }
 }

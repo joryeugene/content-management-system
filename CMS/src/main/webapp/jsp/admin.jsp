@@ -29,7 +29,7 @@
                     <h1 class="page-header">Dashboard</h1>
                     <%@include file="fragment/dashboard.jsp" %>
 
-                    <h2 class="sub-header">Recent Posts</h2>
+                    <h2 class="sub-header">Upcoming & Recent Posts</h2>
                     <table class = "posts-table table table-striped table-responsive">
                         <thead>
                             <tr>

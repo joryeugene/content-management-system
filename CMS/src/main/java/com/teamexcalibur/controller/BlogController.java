@@ -2,23 +2,28 @@ package com.teamexcalibur.controller;
 
 import com.teamexcalibur.dao.PageDao;
 import com.teamexcalibur.dao.PostDao;
+import com.teamexcalibur.dto.Config;
 import com.teamexcalibur.dto.Page;
 import com.teamexcalibur.dto.Post;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class BlogController {
 
     private final PostDao postDao;
     private final PageDao pageDao;
+    private Config config = new Config("CrossFit Guild", "Most Recent Posts", "#101010", "#9d9d9d", "#337ab7", "squat.jpg");
 
     @Inject
     public BlogController(PostDao postDao, PageDao pageDao) {
@@ -81,6 +86,7 @@ public class BlogController {
     @RequestMapping(value = {"/", "/blog"}, method = RequestMethod.GET)
     public String displayMainBlogPage(Model model) {
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("config", config);
         model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "blog";
@@ -88,10 +94,10 @@ public class BlogController {
     
     @RequestMapping(value = {"/summary"}, method = RequestMethod.GET)
     public String displayAllPosts(Model model) {
-        
         model.addAttribute("title", "All Posts");
         model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("config", config);
         model.addAttribute("posts", postDao.getCurrentPosts());
         model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "posts";
@@ -102,6 +108,7 @@ public class BlogController {
         model.addAttribute("title", postDao.getCategoryById(id).getName());
         model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("config", config);
         model.addAttribute("posts", postDao.getPostsByCategoryId(id));
         model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "posts";
@@ -112,6 +119,7 @@ public class BlogController {
         model.addAttribute("title", "#" + hashtag);
         model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("config", config);
         model.addAttribute("posts", postDao.getPostsByHashtag("#" + hashtag));
         model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "posts";
@@ -123,6 +131,7 @@ public class BlogController {
         postDao.addPostView(post);
         model.addAttribute("post", post);
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("config", config);
         model.addAttribute("categories", postDao.getUsedCategories());
         model.addAttribute("hashtags", postDao.getUsedHashtags());
         return "post";
@@ -133,7 +142,22 @@ public class BlogController {
         Page page = pageDao.getPageById(id);
         model.addAttribute("page", page);
         model.addAttribute("navs", pageDao.getAllNavs());
+        model.addAttribute("config", config);
         return "page";
+    }
+    
+    @RequestMapping(value = "/config", method = RequestMethod.GET)
+    @ResponseBody
+    public Config getConfigFile() {
+        return config;
+    }
+
+    @RequestMapping(value = {"/config"}, method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public Config updateConfigFile(@RequestBody Config newConfig) {
+        this.config = newConfig;
+        return config;
     }
 
 }

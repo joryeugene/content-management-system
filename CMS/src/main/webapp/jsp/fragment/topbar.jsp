@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/admin">CrossFit Guild</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/admin"></a>
             
         </div>
         <div id="navbar" class="navbar-collapse collapse">

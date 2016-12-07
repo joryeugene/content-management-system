@@ -51,7 +51,7 @@ function populateMainPagePost(data, moreLink) {
     if (moreLink) {
         mainPagePostsDiv.append($('<div style="clear:both;">'))
                 .append($('<p style="float:right;">')
-                        .append($('<a id="see-all-posts">')
+                        .append($('<a id="see-all-posts" style="color:black;text-decoration:underline;">')
                                 .attr({
                                     'href': '/CMS/summary'
                                 })
